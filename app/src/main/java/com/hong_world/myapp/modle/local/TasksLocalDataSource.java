@@ -1,4 +1,4 @@
-package com.hong_world.myapp.data;
+package com.hong_world.myapp.modle.local;
 
 import android.support.annotation.NonNull;
 
@@ -6,22 +6,22 @@ import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
 
 /**
- * Date: 2017/11/3.11:03
+ * Date: 2017/11/3.13:52
  * Author: hong_world
- * Description: 模拟网络数据
+ * Description: 请求本地数据
  * Version:
  */
 
-public class FakeTasksRemoteDataSource implements TasksDataSource {
-    private static FakeTasksRemoteDataSource INSTANCE;
+public class TasksLocalDataSource implements TasksDataSource {
 
-    // Prevent direct instantiation.
-    private FakeTasksRemoteDataSource() {
+    private static TasksLocalDataSource INSTANCE;
+
+    private TasksLocalDataSource() {
     }
 
-    public static FakeTasksRemoteDataSource getInstance() {
+    public static TasksLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new FakeTasksRemoteDataSource();
+            INSTANCE = new TasksLocalDataSource();
         }
         return INSTANCE;
     }
@@ -33,8 +33,8 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
-        //假数据操作一顿
-        task.setPwd("假数据");
+        //db操作一顿
+        task.setPwd("本地");
         callback.onTaskLoaded(task);
     }
 

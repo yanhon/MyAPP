@@ -1,4 +1,4 @@
-package com.hong_world.myapp;
+package com.hong_world.myapp.contract;
 
 import com.hong_world.myapp.base.BaseNormalPresenter;
 import com.hong_world.myapp.base.BasePresenter;
@@ -15,9 +15,13 @@ public interface MainContract {
         void onSuccess(Task task);
 
         void onError();
+
+        boolean isActive();
     }
 
     abstract class Presenter extends BaseNormalPresenter<View> {
-        abstract void loginTask(String phone, String pwd);
+        public abstract void loginTask(String phone, String pwd);
+
+        public abstract void loginTask(Task task);
     }
 }

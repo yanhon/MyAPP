@@ -1,26 +1,27 @@
-package com.hong_world.myapp.modle;
+package com.hong_world.myapp.modle.remote;
 
 import android.support.annotation.NonNull;
 
 import com.hong_world.myapp.bean.Task;
+import com.hong_world.myapp.modle.TasksDataSource;
 
 /**
  * Date: 2017/11/3.13:52
  * Author: hong_world
- * Description: 请求本地数据
+ * Description: 请求网络数据
  * Version:
  */
 
-public class TasksLocalDataSource implements TasksDataSource {
+public class TasksRemoteDataSource implements TasksDataSource {
 
-    private static TasksLocalDataSource INSTANCE;
+    private static TasksRemoteDataSource INSTANCE;
 
-    private TasksLocalDataSource() {
+    private TasksRemoteDataSource() {
     }
 
-    public static TasksLocalDataSource getInstance() {
+    public static TasksRemoteDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new TasksLocalDataSource();
+            INSTANCE = new TasksRemoteDataSource();
         }
         return INSTANCE;
     }
@@ -33,7 +34,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
         //db操作一顿
-        task.setPwd("本地");
+        task.setPwd("网络数据");
         callback.onTaskLoaded(task);
     }
 

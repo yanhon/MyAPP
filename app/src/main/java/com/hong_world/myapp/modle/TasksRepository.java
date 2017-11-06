@@ -40,6 +40,10 @@ public class TasksRepository implements TasksDataSource {
 
     }
 
+    public static void destroyInstance() {
+        INSTANCE = null;
+    }
+
     @Override
     public void getTask(@NonNull Task task, @NonNull final GetTaskCallback callback) {
         mTasksRemoteDataSource.getTask(task, new GetTaskCallback() {
