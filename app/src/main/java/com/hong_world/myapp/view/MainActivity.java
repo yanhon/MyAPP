@@ -2,13 +2,15 @@ package com.hong_world.myapp.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hong_world.myapp.R;
-import com.hong_world.myapp.view.MainFragment;
+import com.hong_world.myapp.utils.EspressoIdlingResource;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,5 +27,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

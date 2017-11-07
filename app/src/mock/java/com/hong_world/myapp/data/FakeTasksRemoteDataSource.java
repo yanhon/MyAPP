@@ -1,9 +1,12 @@
 package com.hong_world.myapp.data;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
+import com.hong_world.myapp.utils.EspressoIdlingResource;
 
 /**
  * Date: 2017/11/3.11:03
@@ -32,10 +35,21 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
     }
 
     @Override
-    public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
+    public void getTask(@NonNull final Task task, @NonNull final GetTaskCallback callback) {
         //假数据操作一顿
-        task.setPwd("假数据");
-        callback.onTaskLoaded(task);
+        EspressoIdlingResource.increment();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {//模拟网络请求延时操作
+            @Override
+            public void run() {
+                if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+                    EspressoIdlingResource.decrement(); // Set app as idle.
+                }
+                task.setPwd("假数据");
+                callback.onTaskLoaded(task);
+            }
+        }, 2000);
+
     }
 
     @Override

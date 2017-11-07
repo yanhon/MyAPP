@@ -1,10 +1,10 @@
 package com.hong_world.myapp.presenter;
 
 import com.hong_world.myapp.Injection;
-import com.hong_world.myapp.LoginTask;
-import com.hong_world.myapp.contract.MainContract;
+import com.hong_world.myapp.task.LoginTask;
 import com.hong_world.myapp.base.BaseUseCase;
 import com.hong_world.myapp.bean.Task;
+import com.hong_world.myapp.contract.MainContract;
 
 /**
  * Created by hong_world on 2017/10/31.
@@ -32,6 +32,7 @@ public class MainPresenter extends MainContract.Presenter {
             mView.onError();
             return;
         }
+
         loginTask.setRequestValues(new LoginTask.RequestValues(newTask));
         loginTask.setUseCaseCallback(new BaseUseCase.UseCaseCallback<LoginTask.ResponseValue>() {
             @Override

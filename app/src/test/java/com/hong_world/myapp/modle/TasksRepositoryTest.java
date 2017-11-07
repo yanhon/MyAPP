@@ -10,6 +10,9 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+
 /**
  * Date: 2017/11/6.15:02
  * Author: hong_world
@@ -28,9 +31,6 @@ public class TasksRepositoryTest {
     @Mock
     private TasksDataSource.GetTaskCallback mGetTaskCallback;
 
-    @Mock
-    private TasksDataSource.LoadTasksCallback mLoadTasksCallback;
-
     @Captor
     private ArgumentCaptor<TasksDataSource.GetTaskCallback> mTaskCallbackCaptor;
 
@@ -45,15 +45,17 @@ public class TasksRepositoryTest {
                 mTasksRemoteDataSource, mTasksLocalDataSource);
     }
 
+    @Test
+    public void loginBean() {
+        Task newTask = new Task("123", "Some Task Description");
+        mTasksRepository.getTask(newTask, mGetTaskCallback);
+        verify(mTasksRemoteDataSource).getTask(any(Task.class), mTaskCallbackCaptor.capture());
+        mTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
+    }
+
     @After
     public void destroyRepositoryInstance() {
         TasksRepository.destroyInstance();
     }
 
-    @Test
-    public void loginBean() {
-        Task newTask = new Task("123", "Some Task Description");
-        mTasksRepository.getTask(newTask,mGetTaskCallback);
-        
-    }
 }

@@ -1,9 +1,13 @@
 package com.hong_world.myapp.modle.remote;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
+import com.hong_world.myapp.utils.EspressoIdlingResource;
 
 /**
  * Date: 2017/11/3.13:52
@@ -32,10 +36,22 @@ public class TasksRemoteDataSource implements TasksDataSource {
     }
 
     @Override
-    public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
-        //db操作一顿
-        task.setPwd("网络数据");
-        callback.onTaskLoaded(task);
+    public void getTask(@NonNull final Task task, @NonNull final GetTaskCallback callback) {
+        //net操作一顿
+        EspressoIdlingResource.increment();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {//模拟网络请求延时操作
+            @Override
+            public void run() {
+                if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+                    EspressoIdlingResource.decrement(); // Set app as idle.
+                }
+                task.setPwd("网络数据");
+                Log.i("test", "网络数据");
+                callback.onTaskLoaded(task);
+            }
+        }, 2000);
+
     }
 
     @Override

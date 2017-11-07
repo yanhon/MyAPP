@@ -5,6 +5,7 @@ import com.hong_world.myapp.contract.MainContract;
 import com.hong_world.myapp.modle.TasksDataSource;
 import com.hong_world.myapp.modle.TasksRepository;
 import com.hong_world.myapp.presenter.MainPresenter;
+import com.hong_world.myapp.task.LoginTask;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class MainPresenterTest {
     public void loginStringSuccess() {
         mainPresenter = getMainPresenter();
         mainPresenter.loginTask("123", "321");
-        verify(mTasksRepository).getTask(any(Task.class), mGetTaskCallbackCaptor.capture());
+        verify(mTasksRepository).getTask(any(Task.class), mGetTaskCallbackCaptor.capture());//断言
         mGetTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
         verify(mMainView).onSuccess(any(Task.class));
     }

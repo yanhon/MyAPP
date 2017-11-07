@@ -32,7 +32,7 @@ android {
     }
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
-        if(variant.buildType.name.equals('release')
+        if (variant.buildType.name.equals('release')
                 && variant.getFlavors().get(0).name.equals('mock')) {
             variant.setIgnore(true);
         }
@@ -58,9 +58,10 @@ dependencies {
 //    androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
 //    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
 //    // Espresso UI Testing
-//    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.1"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.1"
 //    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.1"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.1"
+    compile "com.android.support.test.espresso:espresso-idling-resource:3.0.1"
 
 //    // Resolve conflicts between main and test APK:
 //    androidTestImplementation "com.android.support:recyclerview-v7:26.1.0"
