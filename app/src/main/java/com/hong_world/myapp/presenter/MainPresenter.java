@@ -1,17 +1,26 @@
 package com.hong_world.myapp.presenter;
 
+import android.databinding.ObservableField;
+
 import com.hong_world.myapp.Injection;
-import com.hong_world.myapp.task.LoginTask;
 import com.hong_world.myapp.base.BaseUseCase;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.contract.MainContract;
+import com.hong_world.myapp.modle.TasksDataSource;
+import com.hong_world.myapp.modle.TasksRepository;
+import com.hong_world.myapp.task.LoginTask;
 
 /**
  * Created by hong_world on 2017/10/31.
  */
 public class MainPresenter extends MainContract.Presenter {
-    LoginTask loginTask;
 
+    public Task task = new Task();
+
+    public final ObservableField<String> phone = new ObservableField<>();
+    public final ObservableField<String> pwd = new ObservableField<>();
+
+    LoginTask loginTask;
 
     public MainPresenter(MainContract.View view) {
         setmView(view);
@@ -23,8 +32,16 @@ public class MainPresenter extends MainContract.Presenter {
         this.loginTask = loginTask;
     }
 
+    public MainPresenter(MainContract.View view, LoginTask loginTask, TasksRepository mTasksRepository) {
+        setmView(view);
+        this.loginTask = loginTask;
+        this.mTasksRepository = mTasksRepository;
+    }
+
     @Override
     public void loginTask(String phone, String pwd) {
+//       phone = this.phone.get();
+//       pwd = this.pwd.get();
         Task newTask;
         if (phone != null && pwd != null && phone.length() != 0 && pwd.length() != 0) {
             newTask = new Task(phone, pwd);
@@ -67,5 +84,23 @@ public class MainPresenter extends MainContract.Presenter {
             }
         });
         loginTask.run();
+    }
+
+    TasksRepository mTasksRepository;
+
+    public void logins() {
+        Task task = new Task("135", "123456");
+        mTasksRepository.getTask(task, new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(Task task) {
+                mView.onSuccess(task);
+
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mView.onError();
+            }
+        });
     }
 }

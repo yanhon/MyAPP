@@ -34,7 +34,7 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
         //db操作一顿
-        task.setPwd("本地");
+        task.setPwd(task.getPwd() +"(本地)");
         callback.onTaskLoaded(task);
     }
 

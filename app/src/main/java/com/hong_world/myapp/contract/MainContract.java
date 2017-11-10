@@ -17,11 +17,13 @@ public interface MainContract {
         void onError();
 
         boolean isActive();
+
     }
 
     abstract class Presenter extends BaseNormalPresenter<View> {
         public abstract void loginTask(String phone, String pwd);
 
         public abstract void loginTask(Task task);
+
     }
 }

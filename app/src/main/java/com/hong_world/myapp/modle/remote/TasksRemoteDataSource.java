@@ -46,7 +46,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
                 if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
                     EspressoIdlingResource.decrement(); // Set app as idle.
                 }
-                task.setPwd("网络数据");
+                task.setPwd(task.getPwd() + "(网络数据)");
                 Log.i("test", "网络数据");
                 callback.onTaskLoaded(task);
             }

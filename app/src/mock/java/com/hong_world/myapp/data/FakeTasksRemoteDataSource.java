@@ -45,7 +45,7 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
                 if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
                     EspressoIdlingResource.decrement(); // Set app as idle.
                 }
-                task.setPwd("假数据");
+                task.setPwd(task.getPwd() + "(假数据)");
                 callback.onTaskLoaded(task);
             }
         }, 2000);

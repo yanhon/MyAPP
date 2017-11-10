@@ -46,7 +46,7 @@ public class MainPresenterTest {
 
     public MainPresenter getMainPresenter() {
         LoginTask loginTask = new LoginTask(mTasksRepository);
-        return new MainPresenter(mMainView, loginTask);
+        return new MainPresenter(mMainView, loginTask,mTasksRepository);
     }
 
     @Test
@@ -75,4 +75,12 @@ public class MainPresenterTest {
         verify(mMainView).onError();
     }
 
+    @Test
+    public void unuse_LoginTask_to_request() {
+        mainPresenter = getMainPresenter();
+        mainPresenter.logins();
+        verify(mTasksRepository).getTask(any(Task.class), mGetTaskCallbackCaptor.capture());
+        mGetTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
+        verify(mMainView).onSuccess(any(Task.class));
+    }
 }
