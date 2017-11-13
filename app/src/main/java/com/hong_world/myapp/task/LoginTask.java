@@ -24,7 +24,7 @@ public class LoginTask extends BaseUseCase<LoginTask.RequestValues, LoginTask.Re
 
     @Override
     protected void executeUseCase(final RequestValues requestValues) {
-        mTasksRepository.getTask(requestValues.getTask(), new TasksDataSource.GetTaskCallback() {
+        mTasksRepository.getTask(requestValues.getTask(), new TasksDataSource.GetTaskCallback<Task>() {
             @Override
             public void onTaskLoaded(Task task) {
                 getUseCaseCallback().onSuccess(new ResponseValue(requestValues.getTask()));

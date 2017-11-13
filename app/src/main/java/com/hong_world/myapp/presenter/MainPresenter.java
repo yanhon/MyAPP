@@ -11,7 +11,10 @@ import com.hong_world.myapp.modle.TasksRepository;
 import com.hong_world.myapp.task.LoginTask;
 
 /**
- * Created by hong_world on 2017/10/31.
+ * Date: 2017/10/31.17:38
+ * Author: hong_world
+ * Description: 可直接通过TasksReposenter获取数据，或间接通过(UseCase)LoginTask
+ * Version:
  */
 public class MainPresenter extends MainContract.Presenter {
 
@@ -88,9 +91,12 @@ public class MainPresenter extends MainContract.Presenter {
 
     TasksRepository mTasksRepository;
 
+    /**
+     * 通过TasksRepository获取数据
+     */
     public void logins() {
         Task task = new Task("135", "123456");
-        mTasksRepository.getTask(task, new TasksDataSource.GetTaskCallback() {
+        mTasksRepository.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
             @Override
             public void onTaskLoaded(Task task) {
                 mView.onSuccess(task);

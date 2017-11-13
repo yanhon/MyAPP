@@ -30,7 +30,7 @@ public class MainPresenterTest {
     @Mock
     private MainContract.View mMainView;
     @Captor
-    private ArgumentCaptor<TasksDataSource.GetTaskCallback> mGetTaskCallbackCaptor;
+    private ArgumentCaptor<TasksDataSource.GetTaskCallback<Task>> mGetTaskCallbackCaptor;
 
     private MainPresenter mainPresenter;
 

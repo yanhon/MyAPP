@@ -35,10 +35,6 @@ public class TasksRepository implements TasksDataSource {
         return INSTANCE;
     }
 
-    @Override
-    public void getTasks(@NonNull LoadTasksCallback callback) {
-
-    }
 
     public static void destroyInstance() {
         INSTANCE = null;
@@ -46,7 +42,11 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void getTask(@NonNull Task task, @NonNull final GetTaskCallback callback) {
-        mTasksRemoteDataSource.getTask(task, new GetTaskCallback() {
+        if (task.getPhone().equals("135")) {
+            callback.onDataNotAvailable();
+            return;
+        }
+        mTasksRemoteDataSource.getTask(task, new GetTaskCallback<Task>() {
             @Override
             public void onTaskLoaded(Task task) {
                 callback.onTaskLoaded(task);

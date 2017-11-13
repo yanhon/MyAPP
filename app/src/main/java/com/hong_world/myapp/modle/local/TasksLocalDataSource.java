@@ -26,10 +26,6 @@ public class TasksLocalDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
-    @Override
-    public void getTasks(@NonNull LoadTasksCallback callback) {
-
-    }
 
     @Override
     public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {

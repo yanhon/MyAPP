@@ -30,10 +30,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
-    @Override
-    public void getTasks(@NonNull LoadTasksCallback callback) {
 
-    }
 
     @Override
     public void getTask(@NonNull final Task task, @NonNull final GetTaskCallback callback) {

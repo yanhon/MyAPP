@@ -20,8 +20,6 @@ import android.support.annotation.NonNull;
 
 import com.hong_world.myapp.bean.Task;
 
-import java.util.List;
-
 /**
  * Main entry point for accessing tasks data.
  * <p>
@@ -32,21 +30,14 @@ import java.util.List;
  */
 public interface TasksDataSource {
 
-    interface LoadTasksCallback {
 
-        void onTasksLoaded(List<Task> tasks);
+    interface GetTaskCallback<C> {
 
-        void onDataNotAvailable();
-    }
-
-    interface GetTaskCallback {
-
-        void onTaskLoaded(Task task);
+        void onTaskLoaded(C bean);
 
         void onDataNotAvailable();
     }
 
-    void getTasks(@NonNull LoadTasksCallback callback);
 
     void getTask(@NonNull Task task, @NonNull GetTaskCallback callback);
 

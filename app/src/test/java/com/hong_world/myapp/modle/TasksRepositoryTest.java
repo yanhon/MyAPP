@@ -29,10 +29,10 @@ public class TasksRepositoryTest {
     private TasksDataSource mTasksLocalDataSource;
 
     @Mock
-    private TasksDataSource.GetTaskCallback mGetTaskCallback;
+    private TasksDataSource.GetTaskCallback<Task> mGetTaskCallback;
 
     @Captor
-    private ArgumentCaptor<TasksDataSource.GetTaskCallback> mTaskCallbackCaptor;
+    private ArgumentCaptor<TasksDataSource.GetTaskCallback<Task>> mTaskCallbackCaptor;
 
     @Before
     public void setupTasksRepository() {
@@ -47,10 +47,18 @@ public class TasksRepositoryTest {
 
     @Test
     public void loginBean() {
-        Task newTask = new Task("123", "Some Task Description");
+        Task newTask = new Task("135", "Some Task Description");
         mTasksRepository.getTask(newTask, mGetTaskCallback);
         verify(mTasksRemoteDataSource).getTask(any(Task.class), mTaskCallbackCaptor.capture());
         mTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
+    }
+
+    @Test
+    public void loginBean135() {
+        Task newTask = new Task("135", "Some Task Description");
+        mTasksRepository.getTask(newTask, mGetTaskCallback);
+//        verify(mTasksRemoteDataSource).getTask(any(Task.class), mTaskCallbackCaptor.capture());
+        mGetTaskCallback.onDataNotAvailable();
     }
 
     @After
