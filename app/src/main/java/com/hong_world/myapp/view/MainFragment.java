@@ -1,11 +1,7 @@
 package com.hong_world.myapp.view;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -51,18 +47,24 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     }
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
+//        View root = binding.getRoot();
+//        //        View root = inflater.inflate(R.layout.fragment_login, container, false);
+//        return root;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        View root = binding.getRoot();
-        //        View root = inflater.inflate(R.layout.fragment_login, container, false);
-        return root;
+    protected int getLayoutId() {
+        return R.layout.fragment_login;
     }
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
+        binding= (FragmentLoginBinding) getBindView();
         binding.setView(this);
         binding.setPresenter(mPresenter);
 //        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);

@@ -2,6 +2,12 @@ package com.hong_world.myapp.modle.local;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.hong_world.myapp.bean.Task;
+import com.hong_world.myapp.modle.TasksDataSource;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -12,5 +18,37 @@ import org.junit.runner.RunWith;
  */
 @RunWith(AndroidJUnit4.class)
 public class TasksLocalDataSourceTest {
+    private TasksLocalDataSource mLocalDataSource;
 
+    @Before
+    public void setup() {
+        mLocalDataSource = TasksLocalDataSource.getInstance();
+    }
+
+    @Test
+    public void saveTask() throws Exception {
+        Task task = new Task("13", "123");
+        mLocalDataSource.saveTask(task);
+    }
+
+    @Test
+    public void getTask() throws Exception {
+        Task task = new Task("1325", "123");
+        mLocalDataSource.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
+            @Override
+            public void onTaskLoaded(Task bean) {
+
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
+    @After
+    public void cleanUp() {
+        mLocalDataSource.deleteAllTasks();
+    }
 }

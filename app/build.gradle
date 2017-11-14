@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// In your app projects build.gradle file:
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -64,12 +67,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
-    compile 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
     //    // Resolve conflicts between main and test APK:
     //    androidTestImplementation "com.android.support:recyclerview-v7:26.1.0"
     //    androidTestImplementation "com.android.support:appcompat-v7:26.1.0"
     //    androidTestImplementation "com.android.support:design:26.1.0"
     implementation project(':library')
 //    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.6'
 
 }

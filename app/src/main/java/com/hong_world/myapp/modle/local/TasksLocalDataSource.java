@@ -1,9 +1,13 @@
 package com.hong_world.myapp.modle.local;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.hong_world.myapp.MyApplication;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
+
+import java.util.List;
 
 /**
  * Date: 2017/11/3.13:52
@@ -30,13 +34,22 @@ public class TasksLocalDataSource implements TasksDataSource {
     @Override
     public void getTask(@NonNull Task task, @NonNull GetTaskCallback callback) {
         //db操作一顿
-        task.setPwd(task.getPwd() +"(本地)");
+        task.setPwd(task.getPwd() + "(本地)");
         callback.onTaskLoaded(task);
+        List<Task> list = MyApplication.getDaoSession().getTaskDao().queryBuilder()
+                .build()
+                .list();
+        StringBuilder sb = new StringBuilder();
+        for (Task bean : list) {
+            Log.i("test", bean.getPhone() + "的 ：" + bean.getPwd());
+            sb.append(bean.getPhone() + "、");
+        }
+        Log.i("test", sb.toString());
     }
 
     @Override
     public void saveTask(@NonNull Task task) {
-
+        MyApplication.getDaoSession().getTaskDao().insert(task);
     }
 
     @Override
@@ -71,7 +84,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void deleteAllTasks() {
-
+        MyApplication.getDaoSession().getTaskDao().deleteAll();
     }
 
     @Override
