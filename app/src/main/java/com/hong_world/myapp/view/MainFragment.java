@@ -65,6 +65,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         super.initViews(view, savedInstanceState);
         binding.setView(this);
         binding.setPresenter(mPresenter);
+//        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);
     }
 
     public void login(View view) {
