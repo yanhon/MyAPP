@@ -21,6 +21,7 @@ import com.hong_world.library.view.status.StatusLayoutManager;
 public abstract class BaseAppCompatFragment extends Fragment {
     protected Activity mActivity;
     protected StatusLayoutManager mStatusLayoutManager;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -56,5 +57,6 @@ public abstract class BaseAppCompatFragment extends Fragment {
      * init all views and add events
      */
     protected abstract void initViews(View view, Bundle savedInstanceState);
+
 
 }

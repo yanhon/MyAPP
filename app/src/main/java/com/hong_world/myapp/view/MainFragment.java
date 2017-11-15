@@ -33,9 +33,10 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     @Override
-    public void initDate() {
-
+    public String title() {
+        return "登录";
     }
+
 
     @Override
     public MainPresenter getPresenter() {
@@ -47,15 +48,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-//        View root = binding.getRoot();
-//        //        View root = inflater.inflate(R.layout.fragment_login, container, false);
-//        return root;
-//    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_login;
@@ -64,7 +56,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        binding= (FragmentLoginBinding) getBindView();
+        binding = (FragmentLoginBinding) getBindView();
         binding.setView(this);
         binding.setPresenter(mPresenter);
 //        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);
@@ -81,6 +73,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     @Override
     public void onError() {
+        super.onError();
         Toast.makeText(getActivity(), "错误", Toast.LENGTH_SHORT).show();
     }
 
@@ -89,4 +82,8 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         return isAdded();
     }
 
+    @Override
+    protected boolean needTopBar() {
+        return true;
+    }
 }

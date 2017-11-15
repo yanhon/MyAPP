@@ -2,8 +2,14 @@ package com.hong_world.myapp;
 
 import android.app.Application;
 
+import com.hong_world.library.view.status.callback.CustomCallback;
+import com.hong_world.library.view.status.callback.EmptyCallback;
+import com.hong_world.library.view.status.callback.ErrorCallback;
+import com.hong_world.library.view.status.callback.LoadingCallback;
+import com.hong_world.library.view.status.callback.TimeoutCallback;
 import com.hong_world.myapp.bean.DaoMaster;
 import com.hong_world.myapp.bean.DaoSession;
+import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -27,6 +33,18 @@ public class MyApplication extends Application {
         initILoaderManager();
 
         initGreenDao();
+        initViewStatus();
+    }
+
+    private void initViewStatus() {
+        LoadSir.beginBuilder()
+                .addCallback(new ErrorCallback())
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .addCallback(new TimeoutCallback())
+                .addCallback(new CustomCallback())
+                .setDefaultCallback(LoadingCallback.class)
+                .commit();
     }
 
     private void initGreenDao() {

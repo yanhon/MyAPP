@@ -13,4 +13,20 @@ public interface BaseView<P extends BasePresenter> {
     P getPresenter();
 
     void onBack();
+
+    void onLeftAction();
+
+    void onRightAction();
+
+    void onRightImage();
+
+    String title();
+
+    void onEmpty();
+
+    void onError();
+
+    void onSuccess();
+
+    void onLoading();
 }

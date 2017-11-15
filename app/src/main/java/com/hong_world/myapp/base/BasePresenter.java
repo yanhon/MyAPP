@@ -9,4 +9,16 @@ package com.hong_world.myapp.base;
 
 public interface BasePresenter<V> {
     void detachView(V view);
+
+    void initData();
+
+    void onBack();
+
+    void onLeftAction();
+
+    void onRightAction();
+
+    void onRightImage();
+
+    String title();
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.hong_world.myapp.base.BasePresenter" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/top_back"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="3dp"
+                        android:gravity="center"
+                        android:onClick="@{() -> presenter.onBack()}"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/top_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="3dp"
+                        android:gravity="center"
+                        android:onClick="@{() -> presenter.onLeftAction()}"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/top_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:maxLength="12"
+                        tools:text="@{presenter.title()}" />
+
+                    <TextView
+                        android:id="@+id/top_sub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/top_title"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:maxLength="12"
+                        android:paddingBottom="0dp"
+                        android:visibility="gone" />
+
+
+                    <TextView
+                        android:id="@+id/top_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:onClick="@{() -> presenter.onRightAction()}"
+                        tools:text="保存" />
+
+                    <ImageView
+                        android:id="@+id/top_right_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp"
+                        android:onClick="@{() -> presenter.onRightImage()}"
+                        android:visibility="gone" />
+
+                    <!--<View-->
+                    <!--android:id="@+id/top_bottom_line"-->
+                    <!--style="@style/LineStyle"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:visibility="visible" />-->
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/id_main_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</layout>

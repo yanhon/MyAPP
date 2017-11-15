@@ -10,11 +10,8 @@ import com.hong_world.myapp.bean.Task;
  */
 public interface MainContract {
     interface View<P extends BasePresenter> extends BaseView<P> {
-        void initDate();
 
         void onSuccess(Task task);
-
-        void onError();
 
         boolean isActive();
 

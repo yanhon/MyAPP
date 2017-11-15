@@ -21,4 +21,34 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
             view = null;
         }
     }
+
+    @Override
+    public void initData() {
+        mView.onLoading();
+    }
+
+    @Override
+    public void onBack() {
+        mView.onBack();
+    }
+
+    @Override
+    public void onLeftAction() {
+        mView.onLeftAction();
+    }
+
+    @Override
+    public void onRightAction() {
+        mView.onRightAction();
+    }
+
+    @Override
+    public void onRightImage() {
+        mView.onRightImage();
+    }
+
+    @Override
+    public String title() {
+        return mView.title();
+    }
 }

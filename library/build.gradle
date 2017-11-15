@@ -35,4 +35,6 @@ dependencies {
     compileOnly 'com.facebook.fresco:fresco:1.3.0'//只在编译时有效，不会参与打包
     //    implementation 'com.github.bumptech.glide:glide:4.3.1'
     //    implementation 'com.github.bumptech.glide:compiler:4.3.1'
+    implementation 'com.kingja.loadsir:loadsir:1.3.2'
+
 }

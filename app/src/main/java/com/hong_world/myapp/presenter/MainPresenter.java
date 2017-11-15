@@ -25,6 +25,12 @@ public class MainPresenter extends MainContract.Presenter {
 
     LoginTask loginTask;
 
+    @Override
+    public void initData() {
+        super.initData();
+        mView.onSuccess();
+    }
+
     public MainPresenter(MainContract.View view) {
         setmView(view);
         loginTask = Injection.provideLoginTask();
@@ -100,7 +106,7 @@ public class MainPresenter extends MainContract.Presenter {
             @Override
             public void onTaskLoaded(Task task) {
                 mView.onSuccess(task);
-
+//                mView.
             }
 
             @Override
