@@ -41,7 +41,7 @@ public class TasksLocalDataSourceTest {
             }
 
             @Override
-            public void onDataNotAvailable() {
+            public void onDataNotAvailable(String type, String msg) {
 
             }
         });

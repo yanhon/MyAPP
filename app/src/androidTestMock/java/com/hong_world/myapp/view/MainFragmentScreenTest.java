@@ -47,7 +47,7 @@ public class MainFragmentScreenTest {
 
     @Test
     public void emptyLogin2() {
-        onView(withId(R.id.editText)).perform(typeText("11"), closeSoftKeyboard());
+        onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
         onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
     }

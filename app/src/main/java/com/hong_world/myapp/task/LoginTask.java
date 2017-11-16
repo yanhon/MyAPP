@@ -31,8 +31,8 @@ public class LoginTask extends BaseUseCase<LoginTask.RequestValues, LoginTask.Re
             }
 
             @Override
-            public void onDataNotAvailable() {
-                getUseCaseCallback().onError();
+            public void onDataNotAvailable(String type, String msg) {
+                getUseCaseCallback().onError(type,msg);
             }
         });
     }

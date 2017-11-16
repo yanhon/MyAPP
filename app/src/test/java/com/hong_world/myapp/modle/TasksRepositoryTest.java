@@ -47,7 +47,7 @@ public class TasksRepositoryTest {
 
     @Test
     public void loginBean() {
-        Task newTask = new Task("135", "Some Task Description");
+        Task newTask = new Task("1352", "Some Task Description");
         mTasksRepository.getTask(newTask, mGetTaskCallback);
         verify(mTasksRemoteDataSource).getTask(any(Task.class), mTaskCallbackCaptor.capture());
         mTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
@@ -58,7 +58,7 @@ public class TasksRepositoryTest {
         Task newTask = new Task("135", "Some Task Description");
         mTasksRepository.getTask(newTask, mGetTaskCallback);
 //        verify(mTasksRemoteDataSource).getTask(any(Task.class), mTaskCallbackCaptor.capture());
-        mGetTaskCallback.onDataNotAvailable();
+        mGetTaskCallback.onDataNotAvailable("","");
     }
 
     @After

@@ -28,5 +28,11 @@ public interface BaseView<P extends BasePresenter> {
 
     void onSuccess();
 
+    void onDataNotAvailable(String type, String msg);
+
     void onLoading();
+
+    void onTimeOut();
+
+    boolean isActive();
 }

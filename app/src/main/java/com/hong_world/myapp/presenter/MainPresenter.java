@@ -13,7 +13,9 @@ import com.hong_world.myapp.task.LoginTask;
 /**
  * Date: 2017/10/31.17:38
  * Author: hong_world
- * Description: 可直接通过TasksReposenter获取数据，或间接通过(UseCase)LoginTask
+ * Description: 可直接或间接通过(UseCase)LoginTask控制mode(TasksRepository)获取数据、
+ * -------------通过databinding控制View(xml)
+ * -------------通过BaseView接口控制view(fragment/activity)
  * Version:
  */
 public class MainPresenter extends MainContract.Presenter {
@@ -67,8 +69,8 @@ public class MainPresenter extends MainContract.Presenter {
             }
 
             @Override
-            public void onError() {
-                mView.onError();
+            public void onError(String type, String msg) {
+                mView.onDataNotAvailable(type, msg);
             }
         });
         loginTask.run();
@@ -88,8 +90,8 @@ public class MainPresenter extends MainContract.Presenter {
             }
 
             @Override
-            public void onError() {
-                mView.onError();
+            public void onError(String type, String msg) {
+                mView.onDataNotAvailable(type, msg);
             }
         });
         loginTask.run();
@@ -106,12 +108,11 @@ public class MainPresenter extends MainContract.Presenter {
             @Override
             public void onTaskLoaded(Task task) {
                 mView.onSuccess(task);
-//                mView.
             }
 
             @Override
-            public void onDataNotAvailable() {
-                mView.onError();
+            public void onDataNotAvailable(String type, String msg) {
+                mView.onDataNotAvailable(type, msg);
             }
         });
     }

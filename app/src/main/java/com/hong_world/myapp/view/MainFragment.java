@@ -72,17 +72,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     @Override
-    public void onError() {
-        super.onError();
-        Toast.makeText(getActivity(), "错误", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean isActive() {
-        return isAdded();
-    }
-
-    @Override
     protected boolean needTopBar() {
         return true;
     }

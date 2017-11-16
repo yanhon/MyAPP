@@ -30,12 +30,11 @@ import com.hong_world.myapp.bean.Task;
  */
 public interface TasksDataSource {
 
-
     interface GetTaskCallback<C> {
 
         void onTaskLoaded(C bean);
 
-        void onDataNotAvailable();
+        void onDataNotAvailable(String type, String msg);
     }
 
 

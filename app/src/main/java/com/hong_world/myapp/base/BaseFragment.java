@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
 import com.hong_world.library.view.status.callback.LoadingCallback;
+import com.hong_world.library.view.status.callback.TimeoutCallback;
+import com.hong_world.myapp.GlobalContants;
 import com.hong_world.myapp.R;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.databinding.BaseLayoutBinding;
@@ -128,6 +131,34 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
         }
     }
 
+    /**
+     * 请求错误信息展示
+     *
+     * @param type
+     * @param msg
+     */
+    @Override
+    public void onDataNotAvailable(String type, String msg) {
+        switch (type) {
+            case GlobalContants.TIMEOUT:
+                onTimeOut();
+                break;
+            case GlobalContants.DATAEMPTY:
+                onEmpty();
+                break;
+            case GlobalContants.NONETWORK:
+                break;
+            case GlobalContants.TOKENERROR:
+                break;
+            case GlobalContants.GETDATAERROR:
+                onError();
+                break;
+            case GlobalContants.PUTDATAERROR:
+                Toast.makeText(getActivity(), "请求参数错误", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
     @Override
     public void onEmpty() {
         if (mBaseLoadService != null) {
@@ -147,5 +178,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
+    }
+
+    @Override
+    public void onTimeOut() {
+        if (mBaseLoadService != null) {
+            mBaseLoadService.showCallback(TimeoutCallback.class);
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 }
