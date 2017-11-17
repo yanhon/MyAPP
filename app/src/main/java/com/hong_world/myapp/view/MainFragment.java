@@ -6,9 +6,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.common.base.BaseFragment;
 import com.hong_world.myapp.Injection;
 import com.hong_world.myapp.R;
-import com.hong_world.myapp.base.BaseFragment;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.contract.MainContract;
 import com.hong_world.myapp.databinding.FragmentLoginBinding;
@@ -68,7 +69,9 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     @Override
     public void onSuccess(Task task) {
-        Toast.makeText(getActivity(), task.getPhone() + task.getPwd(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), task.getPhone() + task.getPwd() + ">", Toast.LENGTH_SHORT).show();
+        ARouter.getInstance().build("/home/act").navigation();
+//        startActivity(new Intent(getActivity(), HomeActivity.class));
     }
 
     @Override

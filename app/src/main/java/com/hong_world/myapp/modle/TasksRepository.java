@@ -2,7 +2,7 @@ package com.hong_world.myapp.modle;
 
 import android.support.annotation.NonNull;
 
-import com.hong_world.myapp.GlobalContants;
+import com.hong_world.common.GlobalContants;
 import com.hong_world.myapp.bean.Task;
 
 /**

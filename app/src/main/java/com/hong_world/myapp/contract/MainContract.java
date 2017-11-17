@@ -1,8 +1,8 @@
 package com.hong_world.myapp.contract;
 
-import com.hong_world.myapp.base.BaseNormalPresenter;
-import com.hong_world.myapp.base.BasePresenter;
-import com.hong_world.myapp.base.BaseView;
+import com.hong_world.common.base.BaseNormalPresenter;
+import com.hong_world.library.base.BasePresenter;
+import com.hong_world.library.base.BaseView;
 import com.hong_world.myapp.bean.Task;
 
 /**

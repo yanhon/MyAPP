@@ -9,7 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/bmodle" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/homemodle" />
             <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/routerlibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

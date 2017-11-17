@@ -2,7 +2,7 @@ package com.hong_world.myapp.task;
 
 import android.support.annotation.NonNull;
 
-import com.hong_world.myapp.base.BaseUseCase;
+import com.hong_world.library.base.BaseUseCase;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
 import com.hong_world.myapp.modle.TasksRepository;

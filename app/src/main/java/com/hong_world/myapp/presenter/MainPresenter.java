@@ -3,7 +3,7 @@ package com.hong_world.myapp.presenter;
 import android.databinding.ObservableField;
 
 import com.hong_world.myapp.Injection;
-import com.hong_world.myapp.base.BaseUseCase;
+import com.hong_world.library.base.BaseUseCase;
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.contract.MainContract;
 import com.hong_world.myapp.modle.TasksDataSource;

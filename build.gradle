@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
@@ -25,4 +25,25 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+ext {
+// Sdk and tools
+    minSdkVersion = 18
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+    versionCode = 32
+    versionName = '2.1.1'
+    testNum = "0001"
+//home是否是作为模块，true的时候是，false的时候可以独立运行
+    isMouleDebugHome = true;
+
+// App dependencies
+    supportVersion = '26.0.0-alpha1'
+    espressoVersion = '2.2.2'
+    fragmentationVersion = '1.1.5'
+
+//arouter
+    arouterVersion = '1.2.4'
+    arouterCompilerVersion = '1.1.4'
 }

@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.myapp.R;
 import com.hong_world.myapp.utils.EspressoIdlingResource;
+@Route(path = "/app/act")
 
 public class MainActivity extends AppCompatActivity {
 
