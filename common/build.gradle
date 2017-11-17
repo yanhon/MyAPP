@@ -13,7 +13,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+//        multiDexEnabled true
         javaCompileOptions {
             annotationProcessorOptions {
 //                includeCompileClasspath true
@@ -43,7 +43,8 @@ dependencies {
     api project(':library')
     api 'com.android.support:design:26.1.0'
     api project(':routerlibrary')
-    api "com.alibaba:arouter-api:$rootProject.arouterVersion"
     api 'org.greenrobot:greendao:3.2.2'
     api 'net.zetetic:android-database-sqlcipher:3.5.6'
+    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.arouterCompilerVersion"
+
 }
