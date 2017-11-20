@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.myapp.R;
 import com.hong_world.myapp.utils.EspressoIdlingResource;
-@Route(path = "/app/act")
+import com.hong_world.routerlibrary.provider.IAppProvider;
 
+@Route(path = IAppProvider.APP_ACT_MIAN,group = IAppProvider.APP_GROUP)
 public class MainActivity extends AppCompatActivity {
 
     @Override

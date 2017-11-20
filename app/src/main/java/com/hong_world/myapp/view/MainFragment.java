@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.myapp.Injection;
@@ -14,6 +15,8 @@ import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.contract.MainContract;
 import com.hong_world.myapp.databinding.FragmentLoginBinding;
 import com.hong_world.myapp.presenter.MainPresenter;
+import com.hong_world.routerlibrary.provider.IAppProvider;
+import com.hong_world.routerlibrary.provider.IBProvider;
 
 /**
  * Date: 2017/10/31.17:38
@@ -21,7 +24,7 @@ import com.hong_world.myapp.presenter.MainPresenter;
  * Description:
  * Version:
  */
-
+@Route(path = IAppProvider.APP_FRG_MIAN, group = IAppProvider.APP_GROUP)
 public class MainFragment extends BaseFragment<MainPresenter> implements MainContract.View<MainPresenter> {
 
     private EditText editText;
@@ -70,7 +73,8 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @Override
     public void onSuccess(Task task) {
         Toast.makeText(getActivity(), task.getPhone() + task.getPwd() + ">", Toast.LENGTH_SHORT).show();
-        ARouter.getInstance().build("/home/act").navigation();
+//        ARouter.getInstance().build(IHomeProvider.HOME_ACT_MAIN).navigation();
+        ARouter.getInstance().build(IBProvider.B_ACT_B, IBProvider.B_GROUP).navigation();
 //        startActivity(new Intent(getActivity(), HomeActivity.class));
     }
 

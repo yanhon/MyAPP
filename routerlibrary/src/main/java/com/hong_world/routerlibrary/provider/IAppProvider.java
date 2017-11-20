@@ -8,5 +8,8 @@ package com.hong_world.routerlibrary.provider;
  */
 
 public interface IAppProvider extends IBaseProvider {
-
+    String APP_GROUP = "app";
+    String APP_SERVICE_PATH = "/app/service/apps";
+    String APP_ACT_MIAN = "/app/act/main";
+    String APP_FRG_MIAN = "/app/frg/main";
 }

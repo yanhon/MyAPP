@@ -1,7 +1,5 @@
 package com.hong_world.routerlibrary.provider;
 
-import com.alibaba.android.arouter.facade.template.IProvider;
-
 /**
  * Date: 2017/11/17.14:29
  * Author: hong_world
@@ -9,7 +7,9 @@ import com.alibaba.android.arouter.facade.template.IProvider;
  * Version:
  */
 
-public interface IBProvider extends IProvider {
-    void sayHello(String name);
+public interface IBProvider extends IBaseProvider {
+    String B_SERVICE = "/b/service/bs";
+    String B_ACT_B = "/b/act/ba";
+    String B_GROUP = "bp";
 
 }

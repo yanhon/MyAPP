@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.template.IProvider;
 /**
  * Date: 2017/11/17.14:27
  * Author: hong_world
- * Description:
+ * Description: 只有第一次被调用的时候才会初始化，之后将不会
  * Version:
  */
 
