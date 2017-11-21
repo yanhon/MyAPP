@@ -45,6 +45,6 @@ dependencies {
     api project(':routerlibrary')
     api 'org.greenrobot:greendao:3.2.2'
     api 'net.zetetic:android-database-sqlcipher:3.5.6'
-    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.arouterCompilerVersion"
+    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
 
 }

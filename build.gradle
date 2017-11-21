@@ -36,7 +36,7 @@ ext {
     versionName = '2.1.1'
     testNum = "0001"
 //home是否是作为模块，true的时候是，false的时候可以独立运行
-    isMouleDebugHome = true;
+    homeIsLibarary = true;
 
 // App dependencies
     supportVersion = '26.0.0-alpha1'
