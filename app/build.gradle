@@ -51,7 +51,10 @@ android {
         }
     }
 }
-
+configurations {
+    mockapi
+    prodapi
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -83,7 +86,7 @@ dependencies {
 
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
     api project(':bmodle')
-
-    //    api project(':common')
-    implementation project(':homemodle')
+    api project(':homemodle')
+    mockapi project(path: ':bmodle', configuration: 'mockDebug')
+    prodapi project(path: ':bmodle', configuration: 'prod1Debug')
 }
