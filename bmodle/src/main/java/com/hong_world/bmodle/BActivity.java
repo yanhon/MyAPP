@@ -16,6 +16,7 @@ public class BActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b);
         ServiceManager.getInstance().getHomeProvider().sayHello("我shiB");
+        String s = Injection.s;
     }
 
     public void startHomes(View view) {
