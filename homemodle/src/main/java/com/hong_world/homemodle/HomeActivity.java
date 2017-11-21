@@ -1,6 +1,8 @@
 package com.hong_world.homemodle;
 
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
@@ -27,5 +30,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public void startB(View view) {
         ARouter.getInstance().build(IBProvider.B_ACT_B, IBProvider.B_GROUP).navigation();
+    }
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

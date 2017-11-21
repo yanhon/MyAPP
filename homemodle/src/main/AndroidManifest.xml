@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hong_world.homemodle">
 
-    <application>
+    <application
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".HomeActivity"></activity>
     </application>
 

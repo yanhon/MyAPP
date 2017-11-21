@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.hong_world.myapp.bean.Task;
 import com.hong_world.myapp.modle.TasksDataSource;
-import com.hong_world.myapp.utils.EspressoIdlingResource;
+import com.hong_world.common.utils.EspressoIdlingResource;
 
 /**
  * Date: 2017/11/3.13:52

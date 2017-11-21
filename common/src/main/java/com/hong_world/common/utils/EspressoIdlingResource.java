@@ -1,4 +1,4 @@
-package com.hong_world.myapp.utils;
+package com.hong_world.common.utils;
 
 import android.support.test.espresso.IdlingResource;
 
