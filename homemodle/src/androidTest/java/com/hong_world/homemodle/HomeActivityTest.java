@@ -1,9 +1,13 @@
 package com.hong_world.homemodle;
 
+import android.app.Application;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +30,17 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class HomeActivityTest {
     @Rule
     public IntentsTestRule<HomeActivity> mainActivityIntentsTestRule =
-            new IntentsTestRule<>(HomeActivity.class);
+            new IntentsTestRule<HomeActivity>(HomeActivity.class){
+                @Override
+                protected void beforeActivityLaunched() {
+                    super.beforeActivityLaunched();
+                    if (true) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
+                        ARouter.openLog();     // 打印日志
+                        ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+                    }
+                    ARouter.init((Application) InstrumentationRegistry.getTargetContext().getApplicationContext());
+                }
+            };
 
     @Before
     public void registerIdlingResource() {//监听是同步还是异步状态

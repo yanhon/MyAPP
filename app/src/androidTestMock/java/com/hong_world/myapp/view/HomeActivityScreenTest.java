@@ -5,7 +5,6 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.homemodle.HomeActivity;
 import com.hong_world.myapp.R;
 
@@ -34,11 +33,6 @@ public class HomeActivityScreenTest {
 
     @Before
     public void registerIdlingResource() {//监听是同步还是异步状态
-        if (true) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        }
-        ARouter.init(mainActivityIntentsTestRule.getActivity().getApplication());
         Espresso.registerIdlingResources(
                 mainActivityIntentsTestRule.getActivity().getCountingIdlingResource());
     }
