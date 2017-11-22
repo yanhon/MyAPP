@@ -1,11 +1,17 @@
-apply plugin: 'com.android.library'
-
+if (rootProject.ext.BIsLibarary) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
 
 
     defaultConfig {
+        if (!rootProject.ext.BIsLibarary) {
+            applicationId "com.hong_world.bmodle"
+        }
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -28,13 +34,24 @@ android {
         }
        debug{}
     }
+    sourceSets {
+        main {
+            if (!rootProject.ext.BIsLibarary) {
+                manifest.srcFile 'src/mock/java/AndroidManifest.xml'
+                java.srcDir 'src/mock/java/'
+            }
+            else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java.srcDir 'src/mian/java/'
+            }
+
+        }
+    }
     publishNonDefault true
     productFlavors {
         mock {
-//            buildConfigField ("int","APP_TYPE","1")
         }
         prod {
-//            buildConfigField ("int","APP_TYPE","2")
         }
     }
 }
@@ -47,6 +64,13 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testImplementation 'org.mockito:mockito-all:2.0.2-beta'
+    // Espresso UI Testing
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
+
     api project(':common')
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
 

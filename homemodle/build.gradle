@@ -16,6 +16,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        flavorDimensions "versionCode"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        multiDexEnabled true
@@ -29,21 +30,27 @@ android {
     sourceSets {
         main {
             if (!rootProject.ext.homeIsLibarary) {
-                manifest.srcFile 'src/debug/java/AndroidManifest.xml'
-                java.srcDir 'src/debug/java/'
-            } else {
+                manifest.srcFile 'src/mock/java/AndroidManifest.xml'
+                java.srcDir 'src/mock/java/'
+            }
+            else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
                 java.srcDir 'src/mian/java/'
             }
 
         }
     }
-
+    publishNonDefault true
+    productFlavors {
+        mock {}
+        prod {}
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{}
     }
 
 }

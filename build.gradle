@@ -37,6 +37,7 @@ ext {
     testNum = "0001"
 //home是否是作为模块，true的时候是，false的时候可以独立运行
     homeIsLibarary = true;
+    BIsLibarary = true;
 
 // App dependencies
     supportVersion = '26.0.0-alpha1'

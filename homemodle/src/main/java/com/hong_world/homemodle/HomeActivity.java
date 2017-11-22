@@ -25,12 +25,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ARouter.getInstance().inject(this);
         Toast.makeText(this, ok, Toast.LENGTH_SHORT).show();
-
+        String s = Injection.s;
     }
 
     public void startB(View view) {
         ARouter.getInstance().build(IBProvider.B_ACT_B, IBProvider.B_GROUP).navigation();
     }
+
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {
         return EspressoIdlingResource.getIdlingResource();
