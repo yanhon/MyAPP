@@ -56,7 +56,7 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public void getTask(@NonNull Task task, @NonNull final GetTaskCallback callback) {
         if (task.getPhone().equals("135")) {
-            callback.onDataNotAvailable(GlobalContants.DATAEMPTY,"");
+            callback.onDataNotAvailable(GlobalContants.DATAEMPTY, "");
             return;
         }
         mTasksRemoteDataSource.getTask(task, new GetTaskCallback<Task>() {
@@ -67,7 +67,7 @@ public class TasksRepository implements TasksDataSource {
 
             @Override
             public void onDataNotAvailable(String type, String msg) {
-                callback.onDataNotAvailable(type,msg);
+                callback.onDataNotAvailable(type, msg);
             }
         });
     }
@@ -78,42 +78,8 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
-    public void completeTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void completeTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void clearCompletedTasks() {
-
-    }
-
-    @Override
-    public void refreshTasks() {
-
-    }
-
-    @Override
     public void deleteAllTasks() {
 
     }
 
-    @Override
-    public void deleteTask(@NonNull String taskId) {
-
-    }
 }

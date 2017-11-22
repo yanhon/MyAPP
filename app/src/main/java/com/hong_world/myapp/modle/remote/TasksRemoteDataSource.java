@@ -56,43 +56,12 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     }
 
-    @Override
-    public void completeTask(@NonNull Task task) {
 
-    }
-
-    @Override
-    public void completeTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void clearCompletedTasks() {
-
-    }
-
-    @Override
-    public void refreshTasks() {
-
-    }
 
     @Override
     public void deleteAllTasks() {
 
     }
 
-    @Override
-    public void deleteTask(@NonNull String taskId) {
 
-    }
 }

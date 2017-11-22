@@ -53,42 +53,8 @@ public class TasksLocalDataSource implements TasksDataSource {
     }
 
     @Override
-    public void completeTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void completeTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void activateTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void clearCompletedTasks() {
-
-    }
-
-    @Override
-    public void refreshTasks() {
-
-    }
-
-    @Override
     public void deleteAllTasks() {
         MyApplication.getDaoSession().getTaskDao().deleteAll();
     }
 
-    @Override
-    public void deleteTask(@NonNull String taskId) {
-
-    }
 }

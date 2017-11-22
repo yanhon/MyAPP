@@ -103,7 +103,7 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
 
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-//    api project(':bmodle')
+    api project(':bmodle')
     api project(':homemodle')
 
     mockapi project(path: ':bmodle', configuration: 'mockDebug')
