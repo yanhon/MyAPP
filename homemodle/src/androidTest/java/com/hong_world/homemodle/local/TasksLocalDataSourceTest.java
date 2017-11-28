@@ -1,4 +1,4 @@
-package com.hong_world.myapp.modle.local;
+package com.hong_world.homemodle.local;
 
 import android.support.test.runner.AndroidJUnit4;
 

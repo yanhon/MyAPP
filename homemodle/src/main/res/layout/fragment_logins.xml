@@ -7,11 +7,11 @@
 
         <variable
             name="view"
-            type="com.hong_world.myapp.view.MainFragment" />
+            type="com.hong_world.homemodle.view.MainFragment" />
 
         <variable
             name="presenter"
-            type="com.hong_world.myapp.presenter.MainPresenter" />
+            type="com.hong_world.homemodle.presenter.MainPresenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -51,7 +51,7 @@
             app:layout_constraintVertical_bias="0.077" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/mbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -59,7 +59,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:onClick="@{()->presenter.loginTask(presenter.task.phone,presenter.task.pwd)}"
-            android:text="Button"
+            android:text="mbutton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -78,6 +78,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.833" />
     </android.support.constraint.ConstraintLayout>
 </layout>

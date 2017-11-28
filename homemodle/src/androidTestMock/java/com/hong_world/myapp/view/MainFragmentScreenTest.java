@@ -1,4 +1,4 @@
-package com.hong_world.homemodle;
+package com.hong_world.myapp.view;
 
 import android.app.Application;
 import android.support.test.InstrumentationRegistry;
@@ -8,6 +8,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.homemodle.R;
+import com.hong_world.homemodle.view.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,20 +19,22 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * Date: 2017/11/21.13:46
+ * Date: 2017/11/7.9:41
  * Author: hong_world
  * Description:
  * Version:
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class HomeActivityTest {
+public class MainFragmentScreenTest {
     @Rule
-    public IntentsTestRule<HomeActivity> mainActivityIntentsTestRule =
-            new IntentsTestRule<HomeActivity>(HomeActivity.class){
+    public IntentsTestRule<MainActivity> mainActivityIntentsTestRule =
+            new IntentsTestRule<MainActivity>(MainActivity.class) {
                 @Override
                 protected void beforeActivityLaunched() {
                     super.beforeActivityLaunched();
@@ -50,7 +54,16 @@ public class HomeActivityTest {
 
     @Test
     public void emptyLogin() {
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.editText)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.mbutton)).perform(click());
+    }
+
+    @Test
+    public void emptyLogin2() {
+        onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
+        onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
+        onView(withId(R.id.mbutton)).perform(click());
     }
 
     @After

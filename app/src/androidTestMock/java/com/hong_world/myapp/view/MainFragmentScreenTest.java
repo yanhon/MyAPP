@@ -5,6 +5,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.hong_world.homemodle.view.MainActivity;
 import com.hong_world.myapp.R;
 
 import org.junit.After;
@@ -42,14 +43,14 @@ public class MainFragmentScreenTest {
     public void emptyLogin() {
         onView(withId(R.id.editText)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.mbutton)).perform(click());
     }
 
     @Test
     public void emptyLogin2() {
         onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
         onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.mbutton)).perform(click());
     }
 
     @After

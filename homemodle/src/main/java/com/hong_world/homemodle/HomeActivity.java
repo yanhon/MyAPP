@@ -22,7 +22,6 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ARouter.getInstance().inject(this);
         Toast.makeText(this, ok, Toast.LENGTH_SHORT).show();
-        String s = Injection.s;
     }
 
     public void startB(View view) {

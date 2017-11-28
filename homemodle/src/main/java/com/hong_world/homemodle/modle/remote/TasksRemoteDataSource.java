@@ -1,13 +1,13 @@
-package com.hong_world.myapp.modle.remote;
+package com.hong_world.homemodle.modle.remote;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.hong_world.myapp.bean.Task;
-import com.hong_world.myapp.modle.TasksDataSource;
+import com.hong_world.common.bean.Task;
 import com.hong_world.common.utils.EspressoIdlingResource;
+import com.hong_world.homemodle.modle.TasksDataSource;
 
 /**
  * Date: 2017/11/3.13:52
@@ -33,7 +33,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
 
     @Override
-    public void getTask(@NonNull final Task task, @NonNull final GetTaskCallback callback) {
+    public void getTask(@NonNull final Task task, @NonNull final TasksDataSource.GetTaskCallback callback) {
         //net操作一顿
         EspressoIdlingResource.increment();
         Handler handler = new Handler(Looper.getMainLooper());

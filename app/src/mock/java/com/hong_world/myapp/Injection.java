@@ -1,10 +1,5 @@
 package com.hong_world.myapp;
 
-import com.hong_world.myapp.data.FakeTasksRemoteDataSource;
-import com.hong_world.myapp.modle.TasksRepository;
-import com.hong_world.myapp.modle.local.TasksLocalDataSource;
-import com.hong_world.myapp.task.LoginTask;
-
 /**
  * Date: 2017/11/3.11:02
  * Author: hong_world
@@ -14,12 +9,12 @@ import com.hong_world.myapp.task.LoginTask;
 
 public class Injection {
 
-    public static TasksRepository provideTasksRepository() {
-        return TasksRepository.getInstance(FakeTasksRemoteDataSource.getInstance(),
-                TasksLocalDataSource.getInstance());
-    }
-
-    public static LoginTask provideLoginTask() {
-        return new LoginTask(Injection.provideTasksRepository());
-    }
+//    public static TasksRepository provideTasksRepository() {
+//        return TasksRepository.getInstance(FakeTasksRemoteDataSource.getInstance(),
+//                TasksLocalDataSource.getInstance());
+//    }
+//
+//    public static LoginTask provideLoginTask() {
+//        return new LoginTask(Injection.provideTasksRepository());
+//    }
 }

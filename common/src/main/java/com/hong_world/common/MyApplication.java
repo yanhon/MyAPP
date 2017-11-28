@@ -1,15 +1,15 @@
-package com.hong_world.myapp;
+package com.hong_world.common;
 
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.common.bean.DaoMaster;
+import com.hong_world.common.bean.DaoSession;
 import com.hong_world.library.view.status.callback.CustomCallback;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
 import com.hong_world.library.view.status.callback.LoadingCallback;
 import com.hong_world.library.view.status.callback.TimeoutCallback;
-import com.hong_world.myapp.bean.DaoMaster;
-import com.hong_world.myapp.bean.DaoSession;
 import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.greendao.database.Database;

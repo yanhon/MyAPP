@@ -9,9 +9,6 @@ android {
 
 
     defaultConfig {
-        if (!rootProject.ext.BIsLibarary) {
-            applicationId "com.hong_world.bmodle"
-        }
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -34,22 +31,19 @@ android {
         }
        debug{}
     }
-    sourceSets {
-        main {
-            if (!rootProject.ext.BIsLibarary) {
-                manifest.srcFile 'src/mock/java/AndroidManifest.xml'
-                java.srcDir 'src/mock/java/'
-            }
-            else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-                java.srcDir 'src/mian/java/'
-            }
 
-        }
-    }
     publishNonDefault true
     productFlavors {
         mock {
+            if (!rootProject.ext.BIsLibarary) {
+                applicationId "com.hong_world.bmodle"
+                android.sourceSets {
+                    main {
+                        manifest.srcFile 'src/mock/java/AndroidManifest.xml'
+                        java.srcDir 'src/mock/java/'
+                    }
+                }
+            }
         }
         prod {
         }

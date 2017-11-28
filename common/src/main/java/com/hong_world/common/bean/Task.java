@@ -1,14 +1,14 @@
-package com.hong_world.myapp.bean;
+package com.hong_world.common.bean;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.hong_world.myapp.BR;
+import com.hong_world.common.BR;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Date: 2017/11/1.17:15

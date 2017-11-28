@@ -1,14 +1,14 @@
-package com.hong_world.myapp.presenter;
+package com.hong_world.homemodle.presenter;
 
 import android.databinding.ObservableField;
 
-import com.hong_world.myapp.Injection;
+import com.hong_world.common.bean.Task;
+import com.hong_world.homemodle.Injection;
+import com.hong_world.homemodle.contract.MainContract;
+import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.homemodle.modle.TasksRepository;
+import com.hong_world.homemodle.task.LoginTask;
 import com.hong_world.library.base.BaseUseCase;
-import com.hong_world.myapp.bean.Task;
-import com.hong_world.myapp.contract.MainContract;
-import com.hong_world.myapp.modle.TasksDataSource;
-import com.hong_world.myapp.modle.TasksRepository;
-import com.hong_world.myapp.task.LoginTask;
 
 /**
  * Date: 2017/10/31.17:38

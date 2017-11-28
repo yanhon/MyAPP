@@ -1,9 +1,7 @@
-package com.hong_world.myapp.modle;
+package com.hong_world.homemodle.modle;
 
 
 import com.hong_world.common.bean.Task;
-import com.hong_world.homemodle.modle.TasksDataSource;
-import com.hong_world.homemodle.modle.TasksRepository;
 
 import org.junit.After;
 import org.junit.Before;

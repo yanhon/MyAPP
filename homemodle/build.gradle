@@ -9,9 +9,9 @@ android {
 
 
     defaultConfig {
-        if (!rootProject.ext.homeIsLibarary) {
-            applicationId "com.hong_world.homemodle"
-        }
+//        if (!rootProject.ext.homeIsLibarary) {
+//            applicationId "com.hong_world.homemodle"
+//        }
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -27,22 +27,35 @@ android {
             }
         }
     }
-    sourceSets {
-        main {
-            if (!rootProject.ext.homeIsLibarary) {
-                manifest.srcFile 'src/mock/java/AndroidManifest.xml'
-                java.srcDir 'src/mock/java/'
-            }
-            else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-                java.srcDir 'src/mian/java/'
-            }
-
-        }
+    dataBinding {
+        enabled = true
     }
+//    sourceSets {
+//        main {
+//            if (!rootProject.ext.homeIsLibarary) {
+//                manifest.srcFile 'src/mock/java/AndroidManifest.xml'
+//                java.srcDir 'src/mock/java/'
+//            }
+//            else {
+//                manifest.srcFile 'src/main/AndroidManifest.xml'
+//                java.srcDir 'src/mian/java/'
+//            }
+//
+//        }
+//    }
     publishNonDefault true
     productFlavors {
-        mock {}
+        mock {
+            if (!rootProject.ext.homeIsLibarary) {
+                applicationId "com.hong_world.homemodle"
+                android.sourceSets {
+                    main {
+                        manifest.srcFile 'src/mock/java/AndroidManifest.xml'
+                        java.srcDir 'src/mock/java/'
+                    }
+                }
+            }
+        }
         prod {}
     }
     buildTypes {
@@ -50,7 +63,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{}
+        debug {}
     }
 
 }
