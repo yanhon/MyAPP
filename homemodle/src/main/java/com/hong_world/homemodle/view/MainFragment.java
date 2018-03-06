@@ -44,7 +44,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     @Override
     public MainPresenter getPresenter() {
-        return new MainPresenter(this, Injection.provideLoginTask());
+        return new MainPresenter(this);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 //        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);
     }
 
-    public void login(View view) {
-        mPresenter.loginTask(editText.getText().toString(), editText1.getText().toString());
-    }
+//    public void login(View view) {
+//        mPresenter.loginTask(editText.getText().toString(), editText1.getText().toString());
+//    }
 
     @Override
     public void onSuccess(Task task) {

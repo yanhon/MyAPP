@@ -78,7 +78,8 @@ public class MainPresenterTest {
     @Test
     public void unuse_LoginTask_to_request() {
         mainPresenter = getMainPresenter();
-        mainPresenter.logins();
+        Task task = new Task("123", "321");
+        mainPresenter.loginTaskRepository(task);
         verify(mTasksRepository).getTask(any(Task.class), mGetTaskCallbackCaptor.capture());
         mGetTaskCallbackCaptor.getValue().onTaskLoaded(any(Task.class));
         verify(mMainView).onSuccess(any(Task.class));

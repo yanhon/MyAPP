@@ -27,23 +27,40 @@ public class MainPresenter extends MainContract.Presenter {
 
     LoginTask loginTask;
 
+    TasksDataSource mTasksRepository;
+
     @Override
     public void initData() {
         super.initData();
         mView.onSuccess();
     }
 
+    /**
+     * base的mvp
+     * @param view
+     */
     public MainPresenter(MainContract.View view) {
         setmView(view);
-        loginTask = Injection.provideLoginTask();
+        mTasksRepository = Injection.provideTasksRepository();
     }
 
+    /**
+     * 加入clean
+     * @param view
+     * @param loginTask
+     */
     public MainPresenter(MainContract.View view, LoginTask loginTask) {
         setmView(view);
         this.loginTask = loginTask;
     }
 
-    public MainPresenter(MainContract.View view, LoginTask loginTask, TasksRepository mTasksRepository) {
+    /**
+     * test
+     * @param view
+     * @param loginTask
+     * @param mTasksRepository
+     */
+    public MainPresenter(MainContract.View view, LoginTask loginTask, TasksDataSource mTasksRepository) {
         setmView(view);
         this.loginTask = loginTask;
         this.mTasksRepository = mTasksRepository;
@@ -53,6 +70,7 @@ public class MainPresenter extends MainContract.Presenter {
     public void loginTask(String phone, String pwd) {
 //       phone = this.phone.get();
 //       pwd = this.pwd.get();
+        mView.onLoading();
         Task newTask;
         if (phone != null && pwd != null && phone.length() != 0 && pwd.length() != 0) {
             newTask = new Task(phone, pwd);
@@ -60,24 +78,33 @@ public class MainPresenter extends MainContract.Presenter {
             mView.onError();
             return;
         }
-
-        loginTask.setRequestValues(new LoginTask.RequestValues(newTask));
-        loginTask.setUseCaseCallback(new BaseUseCase.UseCaseCallback<LoginTask.ResponseValue>() {
+        loginTask(newTask);
+    }
+    /**
+     * 通过TasksRepository获取数据
+     * @param task 实体
+     */
+    @Override
+    public void loginTask(Task task) {
+        mTasksRepository.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
             @Override
-            public void onSuccess(LoginTask.ResponseValue response) {
-                mView.onSuccess(response.getTask());
+            public void onTaskLoaded(Task task) {
+                mView.onSuccess();
+                mView.onSuccess(task);
             }
 
             @Override
-            public void onError(String type, String msg) {
+            public void onDataNotAvailable(String type, String msg) {
                 mView.onDataNotAvailable(type, msg);
             }
         });
-        loginTask.run();
+
     }
 
-    @Override
-    public void loginTask(Task task) {
+    /**
+     *  通过useCase处理
+     */
+    public void loginTaskRepository(Task task) {
         if (task.getPhone() == null && task.getPwd() == null && task.getPhone().length() != 0 && task.getPwd().length() != 0) {
             mView.onError();
             return;
@@ -95,25 +122,5 @@ public class MainPresenter extends MainContract.Presenter {
             }
         });
         loginTask.run();
-    }
-
-    TasksRepository mTasksRepository;
-
-    /**
-     * 通过TasksRepository获取数据
-     */
-    public void logins() {
-        Task task = new Task("135", "123456");
-        mTasksRepository.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
-            @Override
-            public void onTaskLoaded(Task task) {
-                mView.onSuccess(task);
-            }
-
-            @Override
-            public void onDataNotAvailable(String type, String msg) {
-                mView.onDataNotAvailable(type, msg);
-            }
-        });
     }
 }
