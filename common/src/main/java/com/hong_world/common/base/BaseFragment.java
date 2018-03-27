@@ -3,12 +3,15 @@ package com.hong_world.common.base;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
@@ -41,6 +44,15 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (isBindEventBusHere()) {
+//            EventBus.getDefault().register(this);
+        }
+        ARouter.getInstance().inject(this);
+    }
+
+    @Override
     protected View onCreateMyView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (needTopBar()) {
             baseLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.base_layout, container, false);
@@ -54,6 +66,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
             return mBinding.getRoot();
         }
+    }
+    @LayoutRes
+    protected abstract int getLayoutId();
+
+    @Override
+    protected void initDataSource() {
+
     }
 
     public void initStatusView(View view) {
@@ -97,6 +116,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
         super.onDestroyView();
         if (mPresenter != null) {
             mPresenter.detachView(this);
+        }
+        if (isBindEventBusHere()) {
+//            EventBus.getDefault().unregister(this);
         }
     }
 
@@ -157,6 +179,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onEmpty() {
+        hideSoftInput();
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(EmptyCallback.class);
         }
@@ -164,6 +187,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onError() {
+        hideSoftInput();
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(ErrorCallback.class);
         }
@@ -171,6 +195,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onLoading() {
+        hideSoftInput();
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
@@ -178,6 +203,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onTimeOut() {
+        hideSoftInput();
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(TimeoutCallback.class);
         }
@@ -186,5 +212,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
     @Override
     public boolean isActive() {
         return isAdded();
+    }
+
+    /**
+     * is bind eventBus
+     *
+     * @return
+     */
+    protected boolean isBindEventBusHere() {
+        return false;
     }
 }

@@ -1,10 +1,14 @@
 package com.hong_world.common;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.bean.DaoMaster;
 import com.hong_world.common.bean.DaoSession;
+import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.view.status.callback.CustomCallback;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
@@ -14,6 +18,11 @@ import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Date: 2017/11/13.17:32
  * Author: hong_world
@@ -21,12 +30,13 @@ import org.greenrobot.greendao.database.Database;
  * Version:
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends BaseApplication {
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
     public static final boolean ENCRYPTED = true;
     private static DaoSession daoSession;
+
 
     @Override
     public void onCreate() {
@@ -38,7 +48,7 @@ public class MyApplication extends Application {
     }
 
     private void initArouter() {
-        if (true) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
+        if (isDebug()) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
@@ -69,6 +79,10 @@ public class MyApplication extends Application {
 
     public static DaoSession getDaoSession() {
         return daoSession;
+    }
+
+    private boolean isDebug() {
+        return BuildConfig.DEBUG;
     }
 
 }

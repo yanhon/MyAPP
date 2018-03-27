@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.hong_world.common.MyApplication;
 import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
 
@@ -22,8 +23,9 @@ public class BActivity extends AppCompatActivity {
     public void startHomes(View view) {
 //        ARouter.getInstance().build(IHomeProvider.HOME_ACT_MAIN).navigation();
 //      startActivity(new Intent(this, HomeActivity.class));
-        Bundle bundle = new Bundle();
-        bundle.putString("ok", "123");
-        ServiceManager.getInstance().getHomeProvider().openActivity(bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("ok", "123");
+//        ServiceManager.getInstance().getHomeProvider().openActivity(bundle);
+        MyApplication.getInstance().closeApp();
     }
 }
