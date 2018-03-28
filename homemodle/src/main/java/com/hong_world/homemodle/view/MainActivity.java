@@ -17,7 +17,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-//        super.initViews(savedInstanceState);
         setContentView(getLayoutId());
         addFragmentToActivity(getSupportFragmentManager()
                 , MainFragment.getInstance(), R.id.fl);

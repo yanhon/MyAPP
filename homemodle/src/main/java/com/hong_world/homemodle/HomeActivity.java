@@ -2,7 +2,6 @@ package com.hong_world.homemodle;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -19,9 +18,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-//        super.initViews(savedInstanceState);
         setContentView(getLayoutId());
-        Toast.makeText(this, ok, Toast.LENGTH_SHORT).show();
     }
 
     @Override
