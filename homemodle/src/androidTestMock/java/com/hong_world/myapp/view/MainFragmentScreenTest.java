@@ -10,6 +10,12 @@ import android.test.suitebuilder.annotation.LargeTest;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.view.MainActivity;
+import com.hong_world.library.view.status.callback.CustomCallback;
+import com.hong_world.library.view.status.callback.EmptyCallback;
+import com.hong_world.library.view.status.callback.ErrorCallback;
+import com.hong_world.library.view.status.callback.LoadingCallback;
+import com.hong_world.library.view.status.callback.TimeoutCallback;
+import com.kingja.loadsir.core.LoadSir;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,6 +49,14 @@ public class MainFragmentScreenTest {
                         ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
                     }
                     ARouter.init((Application) InstrumentationRegistry.getTargetContext().getApplicationContext());
+                    LoadSir.beginBuilder()
+                            .addCallback(new ErrorCallback())
+                            .addCallback(new EmptyCallback())
+                            .addCallback(new LoadingCallback())
+                            .addCallback(new TimeoutCallback())
+                            .addCallback(new CustomCallback())
+                            .setDefaultCallback(LoadingCallback.class)
+                            .commit();
                 }
             };
 
@@ -61,8 +75,8 @@ public class MainFragmentScreenTest {
 
     @Test
     public void emptyLogin2() {
-        onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
-        onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
+//        onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
+//        onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.mbutton)).perform(click());
     }
 
