@@ -116,4 +116,7 @@ dependencies {
     prodapi project(path: ':homemodle', configuration: 'prodRelease')
     mockapi project(path: ':homemodle', configuration: 'mockDebug')
     mockapi project(path: ':homemodle', configuration: 'mockRelease')
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+
 }

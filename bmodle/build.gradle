@@ -67,5 +67,6 @@ dependencies {
 
     api project(':common')
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
 }

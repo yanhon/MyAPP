@@ -53,5 +53,11 @@ dependencies {
     api 'org.greenrobot:greendao:3.2.2'
     api 'net.zetetic:android-database-sqlcipher:3.5.6'
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-
+    // Dagger dependencies
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    api "com.google.dagger:dagger:$rootProject.daggerVersion"
+    api "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    api "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
 }

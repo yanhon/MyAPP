@@ -4,7 +4,7 @@
     package="com.hong_world.myapp">
 
     <application
-        android:name="com.hong_world.common.MyApplication"
+        android:name=".MainApplication"
         tools:replace="android:label,android:icon,android:allowBackup,android:name"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
