@@ -2,8 +2,7 @@ package com.hong_world.homemodle.di.module;
 
 import android.support.annotation.Nullable;
 
-import com.hong_world.homemodle.di.scoped.ActivityScoped;
-import com.hong_world.homemodle.view.MainActivity;
+import com.hong_world.common.di.scoped.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,11 +14,11 @@ import dagger.Provides;
  * Version:
  */
 @Module
-public abstract class MainModule {
+public class MainModule {
     @Provides
-    @ActivityScoped
+    @ActivityScope
     @Nullable
-    static String provideMsg(MainActivity activity) {
+     String provideMsg() {
         return "from MainModule";
     }
 }

@@ -1,4 +1,4 @@
-package com.hong_world.homemodle.di.scoped;
+package com.hong_world.common.di.scoped;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -16,5 +16,5 @@ import javax.inject.Scope;
 @Documented
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityScoped {
+public @interface ActivityScope {
 }

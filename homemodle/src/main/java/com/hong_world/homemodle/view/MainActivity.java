@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(getLayoutId());
-//        AndroidInjection.inject(this);
+        AndroidInjection.inject(this);
         addFragmentToActivity(getSupportFragmentManager()
                 , MainFragment.getInstance(), R.id.fl);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
