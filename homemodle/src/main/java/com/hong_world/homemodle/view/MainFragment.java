@@ -25,12 +25,11 @@ import com.hong_world.routerlibrary.provider.IHomeProvider;
  * Version:
  */
 @Route(path = IHomeProvider.HOME_FRG_MIAN, group = IHomeProvider.HOME_GROUP)
-public class MainFragment extends BaseFragment<MainPresenter> implements MainContract.View<MainPresenter> {
+public class MainFragment extends BaseFragment<MainPresenter,FragmentLoginsBinding> implements MainContract.View<MainPresenter> {
 
     private EditText editText;
     private EditText editText1;
     private Button button;
-    private FragmentLoginsBinding binding;
 
     public static MainFragment getInstance() {
         return new MainFragment();
@@ -60,9 +59,8 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        binding = (FragmentLoginsBinding) getBindView();
-        binding.setView(this);
-        binding.setPresenter(mPresenter);
+        mBinding.setView(this);
+        mBinding.setPresenter(mPresenter);
 //        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);
     }
 

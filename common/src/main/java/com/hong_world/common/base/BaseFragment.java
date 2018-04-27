@@ -33,9 +33,9 @@ import com.kingja.loadsir.core.LoadSir;
  * Version:
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompatFragment implements BaseView<P> {
+public abstract class BaseFragment<P extends BasePresenter, B extends ViewDataBinding> extends BaseAppCompatFragment implements BaseView<P> {
     protected P mPresenter;
-    private ViewDataBinding mBinding;
+    protected B mBinding;
     private BaseLayoutBinding baseLayoutBinding;
     protected LoadService mBaseLoadService;
 
@@ -93,7 +93,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 //        });
     }
 
-    protected ViewDataBinding getBindView() {
+    protected B getBindView() {
         return mBinding;
     }
 

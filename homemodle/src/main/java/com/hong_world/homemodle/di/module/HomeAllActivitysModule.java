@@ -18,7 +18,7 @@ import dagger.android.ContributesAndroidInjector;
 })
 public abstract class HomeAllActivitysModule {
     @ActivityScope
-    @ContributesAndroidInjector(modules = MainModule.class)
+    @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity contributeMainActivitytInjector();
 
 }

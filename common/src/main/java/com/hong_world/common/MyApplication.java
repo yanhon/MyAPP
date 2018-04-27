@@ -23,6 +23,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+
 /**
  * Date: 2017/11/13.17:32
  * Author: hong_world
@@ -30,13 +36,18 @@ import java.util.List;
  * Version:
  */
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends BaseApplication implements HasActivityInjector {
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
     public static final boolean ENCRYPTED = true;
     private static DaoSession daoSession;
-
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
+    }
 
     @Override
     public void onCreate() {

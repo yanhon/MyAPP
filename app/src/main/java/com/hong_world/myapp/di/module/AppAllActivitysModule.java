@@ -1,12 +1,8 @@
 package com.hong_world.myapp.di.module;
 
 import com.hong_world.common.di.component.BaseActivityComponent;
-import com.hong_world.common.di.scoped.ActivityScope;
-import com.hong_world.homemodle.di.module.MainModule;
-import com.hong_world.homemodle.view.MainActivity;
 
 import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
 
 /**
  * Data: 2018/4/7 0007
@@ -17,8 +13,8 @@ import dagger.android.ContributesAndroidInjector;
 @Module(subcomponents = {
         BaseActivityComponent.class
 })
-public abstract class AllActivitysModule {
+public abstract class AppAllActivitysModule {
 //    @ActivityScope
-//    @ContributesAndroidInjector(modules = MainModule.class)
+//    @ContributesAndroidInjector(modules = MainActivityModule.class)
 //    abstract MainActivity contributeMainActivitytInjector();
 }

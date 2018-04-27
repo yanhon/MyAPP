@@ -22,9 +22,9 @@ import com.hong_world.library.base.BaseView;
  * Version:
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends BaseAppCompatActivity implements BaseView<P> {
+public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends BaseAppCompatActivity implements BaseView<P> {
     protected P mPresenter;
-    private ViewDataBinding mBinding;
+    protected B mBinding;
 
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {

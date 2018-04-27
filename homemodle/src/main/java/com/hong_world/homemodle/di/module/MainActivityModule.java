@@ -14,11 +14,11 @@ import dagger.Provides;
  * Version:
  */
 @Module
-public class MainModule {
+public class MainActivityModule {
     @Provides
     @ActivityScope
     @Nullable
      String provideMsg() {
-        return "from MainModule";
+        return "from MainActivityModule";
     }
 }
