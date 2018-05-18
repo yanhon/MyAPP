@@ -1,7 +1,12 @@
 package com.hong_world.common.net;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import com.hong_world.common.GlobalContants;
 import com.hong_world.library.net.exception.APIResultException;
+import com.orhanobut.logger.Logger;
 
 import org.reactivestreams.Subscriber;
 
@@ -26,18 +31,33 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public class MyHttp {
-    public static void toBaseResponseSubscribe(Observable ob,final MySubscribe subscriber, final FragmentLifeCycleEvent event, final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject) {
+    public static void toBaseResponseSubscribe(Context c, Observable ob, final MySubscribe subscriber, final FragmentLifeCycleEvent event, final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject) {
+        AlertDialog dialog = new AlertDialog.Builder(c).create();
         //数据预处理
         ObservableTransformer<BaseResponse<Object>, Object> result = handleResult(event, lifecycleSubject);
-       Observable observable=  ob.compose(result)
+        Observable observable = ob.compose(result)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-
+                        Logger.i("展示dialog");
+                        dialog.show();
                     }
-                }).subscribeOn(Schedulers.io())
+                }).doOnNext(new Consumer() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Logger.i("关闭展示dialog");
+//                        dialog.dismiss();
+                    }
+                }).doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Logger.i("error关闭展示dialog");
+//                        dialog.dismiss();
+                    }
+                })
+//                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-            observable.subscribe(subscriber);
+        observable.subscribe(subscriber);
     }
 
     /**

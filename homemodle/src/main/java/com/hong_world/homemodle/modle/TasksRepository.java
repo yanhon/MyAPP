@@ -74,21 +74,21 @@ public class TasksRepository implements TasksDataSource {
             public void onTaskLoaded(Task task) {
                 callback.onTaskLoaded(task);
                 com.orhanobut.logger.Logger.i("开始");
-                PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
-                lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
-
-                WorkerService service = ServiceGenerator.createService(WorkerService.class, "http://auth.zhugongbang.com/");
-                MyHttp.toBaseResponseSubscribe(service.login(new LoginReq("17742676885", "123456")), new MySubscribe<RegisterResp>() {
-                    @Override
-                    public void _onError(String errorMsg) {
-                        com.orhanobut.logger.Logger.i(errorMsg);
-                    }
-
-                    @Override
-                    public void _onNext(RegisterResp o) {
-                        com.orhanobut.logger.Logger.i(o.getId());
-                    }
-                }, FragmentLifeCycleEvent.DESTROY, lifecycleSubject);
+//                PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
+//                lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
+//
+//                WorkerService service = ServiceGenerator.createService(WorkerService.class, "http://auth.zhugongbang.com/");
+//                MyHttp.toBaseResponseSubscribe(service.login(new LoginReq("17742676885", "123456")), new MySubscribe<RegisterResp>() {
+//                    @Override
+//                    public void _onError(String errorMsg) {
+//                        com.orhanobut.logger.Logger.i(errorMsg);
+//                    }
+//
+//                    @Override
+//                    public void _onNext(RegisterResp o) {
+//                        com.orhanobut.logger.Logger.i(o.getId());
+//                    }
+//                }, FragmentLifeCycleEvent.DESTROY, lifecycleSubject);
             }
 
             @Override
