@@ -1,9 +1,19 @@
 package com.hong_world.homemodle.modle;
 
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.bean.Task;
+import com.hong_world.common.net.FragmentLifeCycleEvent;
+import com.hong_world.common.net.MyHttp;
+import com.hong_world.common.net.MySubscribe;
+import com.hong_world.common.net.ServiceGenerator;
+import com.hong_world.homemodle.net.LoginReq;
+import com.hong_world.homemodle.net.RegisterResp;
+import com.hong_world.homemodle.net.WorkerService;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Date: 2017/11/1.17:24
@@ -63,6 +73,22 @@ public class TasksRepository implements TasksDataSource {
             @Override
             public void onTaskLoaded(Task task) {
                 callback.onTaskLoaded(task);
+                com.orhanobut.logger.Logger.i("开始");
+                PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
+                lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
+
+                WorkerService service = ServiceGenerator.createService(WorkerService.class, "http://auth.zhugongbang.com/");
+                MyHttp.toBaseResponseSubscribe(service.login(new LoginReq("17742676885", "123456")), new MySubscribe<RegisterResp>() {
+                    @Override
+                    public void _onError(String errorMsg) {
+                        com.orhanobut.logger.Logger.i(errorMsg);
+                    }
+
+                    @Override
+                    public void _onNext(RegisterResp o) {
+                        com.orhanobut.logger.Logger.i(o.getId());
+                    }
+                }, FragmentLifeCycleEvent.DESTROY, lifecycleSubject);
             }
 
             @Override

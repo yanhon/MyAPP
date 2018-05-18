@@ -14,4 +14,10 @@ public class GlobalContants {
     public final static String PUTDATAERROR = "5";//提交型数据错误
     public final static String TOKENERROR = "6";//token异常
     public final static String NONETWORK = "7";//网络未连接
+
+    public final static String APPID = "appId";
+    public final static String ACCESSTOKEN = "accessToken";
+    public final static String TIMESTAMP = "timestamp";
+    public final static String REFRESH_TOKEN = "refreshToken";
+    public final static String SIGN = "sign";
 }

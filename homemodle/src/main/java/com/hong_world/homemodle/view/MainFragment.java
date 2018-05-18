@@ -10,13 +10,21 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.bean.Task;
-import com.hong_world.homemodle.Injection;
+import com.hong_world.common.net.FragmentLifeCycleEvent;
+import com.hong_world.homemodle.net.LoginReq;
+import com.hong_world.common.net.MyHttp;
+import com.hong_world.common.net.MySubscribe;
+import com.hong_world.homemodle.net.RegisterResp;
+import com.hong_world.common.net.ServiceGenerator;
+import com.hong_world.homemodle.net.WorkerService;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.MainContract;
 import com.hong_world.homemodle.databinding.FragmentLoginsBinding;
 import com.hong_world.homemodle.presenter.MainPresenter;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Date: 2017/10/31.17:38

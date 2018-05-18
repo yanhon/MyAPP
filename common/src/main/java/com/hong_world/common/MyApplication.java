@@ -3,6 +3,7 @@ package com.hong_world.common;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -15,6 +16,10 @@ import com.hong_world.library.view.status.callback.ErrorCallback;
 import com.hong_world.library.view.status.callback.LoadingCallback;
 import com.hong_world.library.view.status.callback.TimeoutCallback;
 import com.kingja.loadsir.core.LoadSir;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -45,6 +50,23 @@ public class MyApplication extends BaseApplication {
         initGreenDao();
         initViewStatus();
         initArouter();
+        initLogger();
+    }
+
+    private void initLogger() {
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+                .methodCount(3)         // (Optional) How many method line to show. Default 2
+                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+                .tag("MyApp_test")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+            @Override
+            public boolean isLoggable(int priority, @Nullable String tag) {
+                return isDebug();
+            }
+        });
     }
 
     private void initArouter() {
