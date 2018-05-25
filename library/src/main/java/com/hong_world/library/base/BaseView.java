@@ -1,5 +1,11 @@
 package com.hong_world.library.base;
 
+import android.app.Activity;
+
+import com.hong_world.library.net.FragmentLifeCycleEvent;
+
+import io.reactivex.subjects.PublishSubject;
+
 /**
  * Date: 2017/10/31.17:02
  * Author: hong_world
@@ -35,4 +41,9 @@ public interface BaseView<P extends BasePresenter> {
     void onTimeOut();
 
     boolean isActive();
+
+    Activity getActivityContext();
+
+    PublishSubject<FragmentLifeCycleEvent> getLifecycleSubject();
+
 }

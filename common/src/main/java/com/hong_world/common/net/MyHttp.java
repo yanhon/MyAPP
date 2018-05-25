@@ -1,14 +1,14 @@
 package com.hong_world.common.net;
 
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
-import com.hong_world.common.GlobalContants;
+import com.hong_world.library.net.ApiRetryFunc;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.net.exception.APIResultException;
 import com.orhanobut.logger.Logger;
 
-import org.reactivestreams.Subscriber;
+import java.lang.reflect.Type;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -16,12 +16,14 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import okhttp3.ResponseBody;
 
 /**
  * Date: 2018/5/17. 17:17
@@ -31,10 +33,11 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public class MyHttp {
-    public static void toBaseResponseSubscribe(Context c, Observable ob, final MySubscribe subscriber, final FragmentLifeCycleEvent event, final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject) {
-        AlertDialog dialog = new AlertDialog.Builder(c).create();
+    //---------------------------------bad method start-------
+    public static void toBaseResponseSubscribe(Context c, final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject, Observable ob, final MySubscribe subscriber) {
+        ProgressDialog dialog = new ProgressDialog(c);
         //数据预处理
-        ObservableTransformer<BaseResponse<Object>, Object> result = handleResult(event, lifecycleSubject);
+        ObservableTransformer<BaseResponse<Object>, Object> result = handleResult(FragmentLifeCycleEvent.DESTROY, lifecycleSubject);
         Observable observable = ob.compose(result)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -55,7 +58,6 @@ public class MyHttp {
 //                        dialog.dismiss();
                     }
                 })
-//                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         observable.subscribe(subscriber);
     }
@@ -80,9 +82,20 @@ public class MyHttp {
                     @Override
                     public ObservableSource<T> apply(BaseResponse<T> result) throws Exception {
                         if (result.isSuccess() == true) {
-                            return createData(result.getData());
+                            return  Observable.create(new ObservableOnSubscribe<T>() {
+
+                                @Override
+                                public void subscribe(ObservableEmitter<T> e) throws Exception {
+                                    try {
+                                        e.onNext(result.getData());
+                                        e.onComplete();
+                                    } catch (Exception s) {
+                                        e.onError(s);
+                                    }
+                                }
+                            });
                         } else {
-                            return Observable.error(new APIResultException(result.getErrorCode() + "", result.getMsg()));
+                            return Observable.error(new APIResultException(result.getErrorCode() , result.getMsg()));
                         }
                     }
                 }).takeUntil(compareLifecycleObservable)
@@ -114,6 +127,46 @@ public class MyHttp {
                 }
             }
         });
-
     }
+    //---------------------------------bad method end-------
+
+    public static Observable toBaseResponseSubscribe(Observable ob) {
+        return ob.compose(apiTransformer());
+    }
+
+    public static <T> ObservableTransformer<BaseResponse<T>, T> apiTransformer() {
+        return new ObservableTransformer<BaseResponse<T>, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<BaseResponse<T>> upstream) {
+                return upstream
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .flatMap(new Function<BaseResponse<T>, ObservableSource<T>>() {
+                            @Override
+                            public Observable<T> apply(BaseResponse<T> result) throws Exception {
+                                if (result.isSuccess()) {
+                                    return  Observable.create(new ObservableOnSubscribe<T>() {
+
+                                        @Override
+                                        public void subscribe(ObservableEmitter<T> e) throws Exception {
+                                            try {
+                                                e.onNext(result.getData());
+                                                e.onComplete();
+                                            } catch (Exception s) {
+                                                e.onError(s);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    return Observable.error(new APIResultException(result.getErrorCode(), result.getMsg()));
+                                }
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retryWhen(new ApiRetryFunc(3,
+                                1000));
+            }
+        };
+    }
+
 }

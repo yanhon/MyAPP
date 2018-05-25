@@ -1,5 +1,6 @@
 package com.hong_world.common.base;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -15,9 +16,11 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.base.BaseAppCompatFragment;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
+import com.hong_world.library.utils.StringUtil;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
 import com.hong_world.library.view.status.callback.LoadingCallback;
@@ -25,6 +28,8 @@ import com.hong_world.library.view.status.callback.TimeoutCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Date: 2017/10/31.17:56
@@ -34,6 +39,7 @@ import com.kingja.loadsir.core.LoadSir;
  */
 
 public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompatFragment implements BaseView<P> {
+    public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
     protected P mPresenter;
     private ViewDataBinding mBinding;
     private BaseLayoutBinding baseLayoutBinding;
@@ -45,6 +51,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
         super.onCreate(savedInstanceState);
         if (isBindEventBusHere()) {
 //            EventBus.getDefault().register(this);
@@ -67,6 +74,19 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
             return mBinding.getRoot();
         }
     }
+
+    @Override
+    public void onPause() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.PAUSE);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.STOP);
+        super.onStop();
+    }
+
     @LayoutRes
     protected abstract int getLayoutId();
 
@@ -113,9 +133,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     public void onDestroyView() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.DESTROY);
         super.onDestroyView();
         if (mPresenter != null) {
             mPresenter.detachView(this);
+            mPresenter.removeAllDisposable();
         }
         if (isBindEventBusHere()) {
 //            EventBus.getDefault().unregister(this);
@@ -165,16 +187,22 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
                 onEmpty();
                 break;
             case GlobalContants.NONETWORK:
+                onSuccess();
                 break;
             case GlobalContants.TOKENERROR:
+                onSuccess();
                 break;
             case GlobalContants.GETDATAERROR:
                 onError();
                 break;
             case GlobalContants.PUTDATAERROR:
-                Toast.makeText(getActivity(), "请求参数错误", Toast.LENGTH_SHORT).show();
+                onSuccess();
                 break;
+            default:
+                onSuccess();
         }
+        if (StringUtil.isNotEmpty(msg))
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -221,5 +249,15 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
      */
     protected boolean isBindEventBusHere() {
         return false;
+    }
+
+    @Override
+    public PublishSubject<FragmentLifeCycleEvent> getLifecycleSubject() {
+        return lifecycleSubject;
+    }
+
+    @Override
+    public Activity getActivityContext() {
+        return getActivity();
     }
 }

@@ -1,5 +1,6 @@
 package com.hong_world.myapp.data;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -7,6 +8,9 @@ import android.support.annotation.NonNull;
 import com.hong_world.common.bean.Task;
 import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Date: 2017/11/3.11:03
@@ -49,6 +53,11 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
     }
 
     @Override
+    public void getTask(@NonNull Task task, Context c, PublishSubject<FragmentLifeCycleEvent> lifecycleSubject, @NonNull GetTaskCallback callback) {
+
+    }
+
+    @Override
     public void saveTask(@NonNull Task task) {
 
     }
@@ -59,5 +68,8 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
 
     }
 
-
+    @Override
+    public Observable getTask() {
+        return null;
+    }
 }

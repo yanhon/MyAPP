@@ -16,9 +16,14 @@
 
 package com.hong_world.homemodle.modle;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hong_world.common.bean.Task;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 
 /**
@@ -38,7 +43,11 @@ public interface TasksDataSource {
         void onDataNotAvailable(String type, String msg);
     }
 
+    Observable getTask();
+
     void getTask(@NonNull Task task, @NonNull GetTaskCallback callback);
+
+    void getTask(@NonNull Task task, Context c, PublishSubject<FragmentLifeCycleEvent> lifecycleSubject, @NonNull GetTaskCallback callback);
 
     void saveTask(@NonNull Task task);
 

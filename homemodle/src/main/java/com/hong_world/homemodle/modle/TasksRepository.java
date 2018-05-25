@@ -1,18 +1,25 @@
 package com.hong_world.homemodle.modle;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.bean.Task;
-import com.hong_world.common.net.FragmentLifeCycleEvent;
 import com.hong_world.common.net.MyHttp;
 import com.hong_world.common.net.MySubscribe;
 import com.hong_world.common.net.ServiceGenerator;
 import com.hong_world.homemodle.net.LoginReq;
 import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.homemodle.net.WorkerService;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
+import com.orhanobut.logger.Logger;
 
+import java.util.Optional;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -64,7 +71,21 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
+    public Observable getTask() {
+        Observable r = mTasksRemoteDataSource.getTask().doOnNext(new Consumer<RegisterResp>() {
+            @Override
+            public void accept(RegisterResp registerResp) throws Exception {
+                Logger.i("保存到数据库");
+            }
+        });
+        Observable d = mTasksLocalDataSource.getTask();
+//        Observable.concat(r, d).firstElement().toObservable();
+        return Observable.concat(d, r);
+    }
+
+    @Override
     public void getTask(@NonNull Task task, @NonNull final GetTaskCallback callback) {
+        Logger.i("wowo");
         if (task.getPhone().equals("135")) {
             callback.onDataNotAvailable(GlobalContants.DATAEMPTY, "");
             return;
@@ -73,22 +94,21 @@ public class TasksRepository implements TasksDataSource {
             @Override
             public void onTaskLoaded(Task task) {
                 callback.onTaskLoaded(task);
-                com.orhanobut.logger.Logger.i("开始");
-//                PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
-//                lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
-//
-//                WorkerService service = ServiceGenerator.createService(WorkerService.class, "http://auth.zhugongbang.com/");
-//                MyHttp.toBaseResponseSubscribe(service.login(new LoginReq("17742676885", "123456")), new MySubscribe<RegisterResp>() {
-//                    @Override
-//                    public void _onError(String errorMsg) {
-//                        com.orhanobut.logger.Logger.i(errorMsg);
-//                    }
-//
-//                    @Override
-//                    public void _onNext(RegisterResp o) {
-//                        com.orhanobut.logger.Logger.i(o.getId());
-//                    }
-//                }, FragmentLifeCycleEvent.DESTROY, lifecycleSubject);
+            }
+
+            @Override
+            public void onDataNotAvailable(String type, String msg) {
+                callback.onDataNotAvailable(type, msg);
+            }
+        });
+    }
+
+    @Override
+    public void getTask(@NonNull Task task, Context c, PublishSubject<FragmentLifeCycleEvent> lifecycleSubject, @NonNull final GetTaskCallback callback) {
+        mTasksRemoteDataSource.getTask(task, c, lifecycleSubject, new GetTaskCallback<Task>() {
+            @Override
+            public void onTaskLoaded(Task task) {
+                callback.onTaskLoaded(task);
             }
 
             @Override

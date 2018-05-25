@@ -26,8 +26,8 @@ public class HttpErrorInterceptor implements Interceptor {
 
         HttpStatusException interceptorException;
         if (response.code() == 404) {
-            String msg = URLDecoder.decode(response.header("custom_message"), "utf-8");
-            interceptorException = new HttpStatusException(404, msg);
+//            String msg = URLDecoder.decode(response.header("custom_message"), "utf-8");
+            interceptorException = new HttpStatusException(404, "404");
             throw interceptorException;
         } else if (response.code() == 401) {
             interceptorException = new HttpStatusException(401, "401");

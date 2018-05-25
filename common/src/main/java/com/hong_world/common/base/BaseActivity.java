@@ -1,19 +1,22 @@
 package com.hong_world.common.base;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.library.base.BaseAppCompatActivity;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Date: 2017/11/22.13:55
@@ -23,6 +26,8 @@ import com.hong_world.library.base.BaseView;
  */
 
 public abstract class BaseActivity<P extends BasePresenter> extends BaseAppCompatActivity implements BaseView<P> {
+    public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
+
     protected P mPresenter;
     private ViewDataBinding mBinding;
 
@@ -33,6 +38,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
         super.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
         if (isBindEventBusHere()) {
@@ -128,9 +134,32 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     protected void onDestroy() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.DESTROY);
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView(this);
         }
+    }
+
+    @Override
+    public void onPause() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.PAUSE);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        lifecycleSubject.onNext(FragmentLifeCycleEvent.STOP);
+        super.onStop();
+    }
+
+    @Override
+    public PublishSubject<FragmentLifeCycleEvent> getLifecycleSubject() {
+        return lifecycleSubject;
+    }
+
+    @Override
+    public Activity getActivityContext() {
+        return this;
     }
 }

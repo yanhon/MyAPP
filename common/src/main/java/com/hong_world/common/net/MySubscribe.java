@@ -1,5 +1,7 @@
 package com.hong_world.common.net;
 
+import com.hong_world.library.net.exception.DefaultErrorBundle;
+
 import io.reactivex.observers.DisposableObserver;
 
 /**
@@ -19,7 +21,7 @@ public abstract class MySubscribe<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        _onError(e.toString());
+        _onError(ErrorMessageFactory.create(new DefaultErrorBundle((Exception) e).getException()).getMsg());
     }
 
     @Override

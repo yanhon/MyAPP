@@ -40,7 +40,7 @@ public abstract class BaseExpiredInterceptor implements Interceptor {
             charset = contentType.charset(UTF8);
         }
         String bodyString = buffer.clone().readString(charset);
-        Logger.i("网络拦截器:" + bodyString + " host:" + request.url().toString());
+        Logger.i("BaseExpiredInterceptor 网络拦截器:" + bodyString + " host:" + request.url().toString());
         boolean isText = isText(contentType);
         if (!isText) {
             return response;

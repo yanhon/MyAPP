@@ -1,14 +1,18 @@
 package com.hong_world.common.net.interceptor;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hong_world.common.net.BaseResponse;
-import com.hong_world.library.net.exception.APIResultException;
 import com.hong_world.library.net.interceptor.base.BaseExpiredInterceptor;
 
 import java.io.IOException;
 
 import okhttp3.Response;
+
+import static com.hong_world.library.net.exception.NetCodeConfig.ACCESS_TOKEN_EXPIRED;
+import static com.hong_world.library.net.exception.NetCodeConfig.ERROR_SIGN;
+import static com.hong_world.library.net.exception.NetCodeConfig.OTHER_PHONE_LOGINED;
+import static com.hong_world.library.net.exception.NetCodeConfig.REFRESH_TOKEN_EXPIRED;
+import static com.hong_world.library.net.exception.NetCodeConfig.TIMESTAMP_ERROR;
 
 /**
  * Date: 2018/5/17. 14:16
@@ -25,11 +29,11 @@ public class TokenInterceptor extends BaseExpiredInterceptor {
         baseResponse = new Gson().fromJson(bodyString, BaseResponse.class);
         if (baseResponse != null) {
             int code = baseResponse.getErrorCode();
-            if (code == APIResultException.ACCESS_TOKEN_EXPIRED
-                    || code == APIResultException.REFRESH_TOKEN_EXPIRED
-                    || code == APIResultException.OTHER_PHONE_LOGINED
-                    || code == APIResultException.ERROR_SIGN
-                    || code == APIResultException.TIMESTAMP_ERROR
+            if (code == ACCESS_TOKEN_EXPIRED
+                    || code == REFRESH_TOKEN_EXPIRED
+                    || code == OTHER_PHONE_LOGINED
+                    || code == ERROR_SIGN
+                    || code == TIMESTAMP_ERROR
                     ) {
                 return true;
             }
@@ -41,22 +45,22 @@ public class TokenInterceptor extends BaseExpiredInterceptor {
     public Response responseExpired(Chain chain, String bodyString) {
         try {
             switch (baseResponse.getErrorCode()) {
-                case APIResultException.ACCESS_TOKEN_EXPIRED: //AccessToken错误或已过期
+                case ACCESS_TOKEN_EXPIRED: //AccessToken错误或已过期
                     refreshToken();
 
                     break;
 //                    case APIResultException.NO_ACCESS_TOKEN://缺少授权信息,没有accessToken,应该是没有登录
-                case APIResultException.REFRESH_TOKEN_EXPIRED://RefreshToken错误或已过期
+                case REFRESH_TOKEN_EXPIRED://RefreshToken错误或已过期
                     reLogin();
 
                     break;
-                case APIResultException.OTHER_PHONE_LOGINED://帐号在其它手机已登录
+                case OTHER_PHONE_LOGINED://帐号在其它手机已登录
 
                     notifyLoginExit(baseResponse.getMsg());
                     break;
-                case APIResultException.ERROR_SIGN://签名错误
+                case ERROR_SIGN://签名错误
                     break;
-                case APIResultException.TIMESTAMP_ERROR://timestamp过期
+                case TIMESTAMP_ERROR://timestamp过期
                     break;
                 default:
                     break;

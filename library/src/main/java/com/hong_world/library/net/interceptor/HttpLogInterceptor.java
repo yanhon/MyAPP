@@ -48,7 +48,7 @@ public class HttpLogInterceptor implements Interceptor {
         showMessage.append(message.concat("\n"));
         // 响应结束，打印整条日志
         if (message.startsWith("<-- END HTTP")) {
-            Logger.e("test", showMessage.toString());
+            Logger.e(showMessage.toString());
         }
 
     }
@@ -79,11 +79,11 @@ public class HttpLogInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception e) {
-            Logger.e("test", e.toString());
+            Logger.e(e.toString());
             throw e;
         }
         long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
-        Logger.e("test", tookMs + "");
+        Logger.e(tookMs + "");
         //响应日志拦截
         return logForResponse(response, tookMs);
     }
@@ -116,7 +116,7 @@ public class HttpLogInterceptor implements Interceptor {
                 }
             }
         } catch (Exception e) {
-            Logger.e("test", e.toString());
+            Logger.e(e.toString());
         } finally {
             Logger.e("--> END " + request.method());
         }
@@ -150,7 +150,7 @@ public class HttpLogInterceptor implements Interceptor {
                 }
             }
         } catch (Exception e) {
-            Logger.e("test", e.toString());
+            Logger.e(e.toString());
         } finally {
             Logger.e("<-- END HTTP");
         }
