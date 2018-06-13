@@ -40,7 +40,7 @@ public class TasksLocalDataSource implements TasksDataSource {
 
 
     @Override
-    public Observable getTask() {
+    public Observable getTask(String name, String pwd) {
         return Observable.create(new ObservableOnSubscribe<RegisterResp>() {
             @Override
             public void subscribe(ObservableEmitter<RegisterResp> e) throws Exception {

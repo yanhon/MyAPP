@@ -1,5 +1,7 @@
 package com.hong_world.library.net.exception;
 
+import io.reactivex.exceptions.CompositeException;
+
 /**
  * Date: 2018/5/24. 11:45
  * Author: hong_world
@@ -12,7 +14,10 @@ public class DefaultErrorBundle {
     private final Exception mException;
 
     public DefaultErrorBundle(Exception exception) {
-        mException = exception;
+        if (exception instanceof CompositeException) {
+            mException = (Exception) ((CompositeException) exception).getExceptions().get(0);
+        } else
+            mException = exception;
     }
 
     public Exception getException() {

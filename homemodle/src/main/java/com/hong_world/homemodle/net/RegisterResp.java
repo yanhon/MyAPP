@@ -180,4 +180,29 @@ public class RegisterResp  {
     public void setIdcard(String idcard) {
         this.idcard = idcard;
     }
+
+    @Override
+    public String toString() {
+        return "RegisterResp{" +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", headimg='" + headimg + '\'' +
+                ", realname='" + realname + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", privince='" + privince + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", workId='" + workId + '\'' +
+                ", workYear='" + workYear + '\'' +
+                ", workType='" + workType + '\'' +
+                ", workNum='" + workNum + '\'' +
+                ", token='" + token + '\'' +
+                ", idcard='" + idcard + '\'' +
+                '}';
+    }
 }

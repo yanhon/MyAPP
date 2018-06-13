@@ -86,7 +86,7 @@ public class MainPresenter extends MainContract.Presenter {
 //            return;
 //        }
 //        loginTask2(newTask);
-        loginTask3();
+        loginTask3(phone, pwd);
     }
 
     /**
@@ -134,11 +134,11 @@ public class MainPresenter extends MainContract.Presenter {
     /**
      * 使用CompositeDisposable 实现生命周期管理请求，简洁结合mvp
      */
-    public void loginTask3() {
+    public void loginTask3(String name, String pwd) {
         f = new RxBaseObserver<RegisterResp>(this) {
             @Override
             protected void onSuccess(RegisterResp data) {
-                Logger.i("name:" + data.getUserName());
+                Logger.i("name:" + data.toString());
             }
 
             @Override
@@ -146,7 +146,7 @@ public class MainPresenter extends MainContract.Presenter {
 
             }
         };
-        mTasksRepository.getTask().subscribe(f);
+        mTasksRepository.getTask(name, pwd).subscribe(f);
         addDisposable(f);
     }
 

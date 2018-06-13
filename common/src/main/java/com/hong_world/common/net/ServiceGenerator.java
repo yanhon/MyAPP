@@ -60,10 +60,10 @@ public class ServiceGenerator {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .hostnameVerifier(new DefaultHostnameVerifier())//https的全局访问规则
                 .addNetworkInterceptor(new HttpLogInterceptor().setLevel(BuildConfig.DEBUG ? HttpLogInterceptor.Level.BODY : HttpLogInterceptor.Level.BASIC))
+                .addInterceptor(new TokenInterceptor())
                 .addNetworkInterceptor(new HeadersInterceptor(null))
                 .addInterceptor(new HttpErrorInterceptor())
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-                .addInterceptor(new TokenInterceptor())
                 .cookieJar(new CookieJar() {
                     private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
 

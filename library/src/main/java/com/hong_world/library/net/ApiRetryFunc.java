@@ -1,6 +1,5 @@
 package com.hong_world.library.net;
 
-import com.hong_world.library.net.exception.APIResultException;
 import com.orhanobut.logger.Logger;
 
 import java.net.ConnectException;
@@ -35,7 +34,8 @@ public class ApiRetryFunc implements Function<Observable<? extends Throwable>, O
                 .flatMap(new Function<Throwable, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(Throwable throwable) throws Exception {
-                        if (++retryCount <= maxRetries) {
+                        if (++retryCount <= maxRetries && (throwable instanceof SocketTimeoutException
+                                || throwable instanceof ConnectException)) {
                             Logger.d("get response data error, it will try after " + retryDelayMillis
                                     + " millisecond, retry count " + retryCount);
                             return Observable.timer(retryDelayMillis, TimeUnit.MILLISECONDS);

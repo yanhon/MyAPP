@@ -32,6 +32,9 @@ public class HttpErrorInterceptor implements Interceptor {
         } else if (response.code() == 401) {
             interceptorException = new HttpStatusException(401, "401");
             throw interceptorException;
+        } else if (response.code() != 200) {
+            interceptorException = new HttpStatusException( response.code(), response.code() + "");
+            throw interceptorException;
         }
         return response;
     }

@@ -43,7 +43,7 @@ public interface TasksDataSource {
         void onDataNotAvailable(String type, String msg);
     }
 
-    Observable getTask();
+    Observable getTask(String name, String pwd);
 
     void getTask(@NonNull Task task, @NonNull GetTaskCallback callback);
 

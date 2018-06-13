@@ -69,7 +69,7 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
     }
 
     @Override
-    public Observable getTask() {
+    public Observable getTask(String name, String pwd) {
         return null;
     }
 }

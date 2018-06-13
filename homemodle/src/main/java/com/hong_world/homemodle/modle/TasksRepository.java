@@ -71,14 +71,14 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
-    public Observable getTask() {
-        Observable r = mTasksRemoteDataSource.getTask().doOnNext(new Consumer<RegisterResp>() {
+    public Observable getTask(String name, String pwd) {
+        Observable r = mTasksRemoteDataSource.getTask(name, pwd).doOnNext(new Consumer<RegisterResp>() {
             @Override
             public void accept(RegisterResp registerResp) throws Exception {
                 Logger.i("保存到数据库");
             }
         });
-        Observable d = mTasksLocalDataSource.getTask();
+        Observable d = mTasksLocalDataSource.getTask(name, pwd);
 //        Observable.concat(r, d).firstElement().toObservable();
         return Observable.concat(d, r);
     }

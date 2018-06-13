@@ -82,7 +82,7 @@ public class MyHttp {
                     @Override
                     public ObservableSource<T> apply(BaseResponse<T> result) throws Exception {
                         if (result.isSuccess() == true) {
-                            return  Observable.create(new ObservableOnSubscribe<T>() {
+                            return Observable.create(new ObservableOnSubscribe<T>() {
 
                                 @Override
                                 public void subscribe(ObservableEmitter<T> e) throws Exception {
@@ -95,7 +95,7 @@ public class MyHttp {
                                 }
                             });
                         } else {
-                            return Observable.error(new APIResultException(result.getErrorCode() , result.getMsg()));
+                            return Observable.error(new APIResultException(result.getErrorCode(), result.getMsg()));
                         }
                     }
                 }).takeUntil(compareLifecycleObservable)
@@ -130,7 +130,7 @@ public class MyHttp {
     }
     //---------------------------------bad method end-------
 
-    public static Observable toBaseResponseSubscribe(Observable ob) {
+    public static <T> Observable<T> toBaseResponseSubscribe(Observable<BaseResponse<T>> ob) {
         return ob.compose(apiTransformer());
     }
 
@@ -145,7 +145,7 @@ public class MyHttp {
                             @Override
                             public Observable<T> apply(BaseResponse<T> result) throws Exception {
                                 if (result.isSuccess()) {
-                                    return  Observable.create(new ObservableOnSubscribe<T>() {
+                                    return Observable.create(new ObservableOnSubscribe<T>() {
 
                                         @Override
                                         public void subscribe(ObservableEmitter<T> e) throws Exception {
@@ -169,4 +169,13 @@ public class MyHttp {
         };
     }
 
+    public static <T> ObservableTransformer<T, T> uiScheduler() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
 }

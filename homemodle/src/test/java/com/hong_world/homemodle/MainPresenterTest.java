@@ -89,9 +89,9 @@ public class MainPresenterTest {
     @Test
     public void loginStringSuccess3() {
         mainPresenter = getMainPresenter();
-        when(mTasksRepository.getTask()).thenReturn(Observable.just(new RegisterResp()));
-        mainPresenter.loginTask3();
-        verify(mTasksRepository).getTask();
+        when(mTasksRepository.getTask("","")).thenReturn(Observable.just(new RegisterResp()));
+        mainPresenter.loginTask3("","");
+        verify(mTasksRepository).getTask("","");
 
 //        verify(mMainView).onSuccess(task);
     }
