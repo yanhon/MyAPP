@@ -8,8 +8,12 @@ import android.support.annotation.NonNull;
 import com.hong_world.common.bean.Task;
 import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -33,6 +37,17 @@ public class FakeTasksRemoteDataSource implements TasksDataSource {
         return INSTANCE;
     }
 
+
+    @Override
+    public Observable getTask(String name, String pwd) {
+        return Observable.create(new ObservableOnSubscribe() {
+            @Override
+            public void subscribe(ObservableEmitter e) throws Exception {
+                e.onNext(new RegisterResp());
+                e.onComplete();
+            }
+        });
+    }
 
     @Override
     public void getTask(@NonNull final Task task, @NonNull final GetTaskCallback callback) {
