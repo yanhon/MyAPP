@@ -55,7 +55,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
     public static TasksRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TasksRemoteDataSource();
-            workerService = ServiceGenerator.createService(WorkerService.class, "http://auth.zhugongbang.com/");
+            workerService = ServiceGenerator.createService(WorkerService.class, "http://auth.***.com/");
             workerServiceProviders = new RxCache.Builder()
                     .persistence(BaseApplication.getInstance().getExternalCacheDir(), new GsonSpeaker())
                     .using(WorkerService.class);
