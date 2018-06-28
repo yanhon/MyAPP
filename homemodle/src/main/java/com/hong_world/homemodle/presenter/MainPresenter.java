@@ -134,11 +134,16 @@ public class MainPresenter extends MainContract.Presenter {
     /**
      * 使用CompositeDisposable 实现生命周期管理请求，简洁结合mvp
      */
-    public void loginTask3(String name, String pwd) {
+    public void loginTask3(final String name, final String pwd) {
         f = new RxBaseObserver<RegisterResp>(this) {
             @Override
             protected void onSuccess(RegisterResp data) {
                 Logger.i("name:" + data.toString());
+//                mView.onSuccess();
+                Task task = new Task();
+                task.setPhone(name);
+                task.setPwd(pwd);
+                mView.onSuccess(task);
             }
 
             @Override
