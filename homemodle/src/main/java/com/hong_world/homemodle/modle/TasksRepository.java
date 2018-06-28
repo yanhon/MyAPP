@@ -80,7 +80,7 @@ public class TasksRepository implements TasksDataSource {
         });
         Observable d = mTasksLocalDataSource.getTask(name, pwd);
 //        Observable.concat(r, d).firstElement().toObservable();
-        return Observable.concat(d, r);
+        return r;
     }
 
     @Override
