@@ -47,17 +47,31 @@ android {
     publishNonDefault true
     productFlavors {
         mock {
+
+        }
+        prod {
+
+        }
+        prod2 {
+            android.sourceSets {
+                main {
+//                    manifest.srcFile 'src/app/AndroidManifest.xml'
+                    java.srcDir 'src/prod/java/'
+                }
+            }
+//            applicationIdSuffix = ".prod"
+        }
+        productFlavors.all { flavor ->
             if (!rootProject.ext.homeIsLibarary) {
                 applicationId "com.hong_world.homemodle"
                 android.sourceSets {
                     main {
-                        manifest.srcFile 'src/mock/java/AndroidManifest.xml'
-                        java.srcDir 'src/mock/java/'
+                        manifest.srcFile 'src/app/AndroidManifest.xml'
+                        java.srcDir 'src/app/java/'
                     }
                 }
             }
         }
-        prod {}
     }
     buildTypes {
         release {
@@ -65,8 +79,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {}
+        debugOline {
+            matchingFallbacks = ['debug', 'qa', 'release']
+        }
     }
-
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true)
+        }
+    }
 }
 
 dependencies {

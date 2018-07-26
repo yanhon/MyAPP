@@ -31,6 +31,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {}
+        debugOline {
+            matchingFallbacks = ['debug', 'qa', 'release']
+        }
     }
 
     publishNonDefault true
@@ -47,6 +50,21 @@ android {
             }
         }
         prod {
+        }
+        prod2 {
+            android.sourceSets {
+                main {
+//                    manifest.srcFile 'src/app/AndroidManifest.xml'
+                    java.srcDir 'src/prod/java/'
+                }
+            }
+        }
+    }
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true)
         }
     }
 }

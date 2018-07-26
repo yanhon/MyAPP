@@ -20,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -78,8 +79,18 @@ public class TasksRepository implements TasksDataSource {
                 Logger.i("保存到数据库");
             }
         });
-        Observable d = mTasksLocalDataSource.getTask(name, pwd);
-//        Observable.concat(r, d).firstElement().toObservable();
+        Observable d = mTasksLocalDataSource.getTask(name, pwd).filter(new Predicate<RegisterResp>() {
+            @Override
+            public boolean test(RegisterResp o) throws Exception {
+                if (o.getPhone() == null) {
+                    Logger.i("数据库数据失效");
+                    return false;
+                } else
+                    Logger.i("数据库数据有效");
+                return true;
+            }
+        });
+//        return Observable.concat(d, r).firstElement().toObservable();
         return r;
     }
 

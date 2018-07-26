@@ -28,6 +28,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_HOST", "\"http://auth.zhugongbang.com/\"")
+        }
+        debug{
+            buildConfigField("String", "API_HOST", "\"http://auth.zhugongbang.com/\"")
+        }
+        debugOline {
+            matchingFallbacks = ['debug', 'qa', 'release']
+            buildConfigField("String", "API_HOST", "\"http://auth.zhugongbang.com/\"")
         }
     }
 

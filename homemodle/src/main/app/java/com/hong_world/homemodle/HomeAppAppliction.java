@@ -1,4 +1,4 @@
-package com.hong_world.homemodle.debug;
+package com.hong_world.homemodle;
 
 import com.hong_world.common.MyApplication;
 
@@ -9,6 +9,6 @@ import com.hong_world.common.MyApplication;
  * Version:
  */
 
-public class HomeDebugAppliction extends MyApplication {
+public class HomeAppAppliction extends MyApplication {
 
 }

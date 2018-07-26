@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.hong_world.common.BuildConfig;
 import com.hong_world.common.bean.Task;
 import com.hong_world.common.net.BaseResponse;
 import com.hong_world.common.net.MyHttp;
@@ -55,7 +56,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
     public static TasksRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TasksRemoteDataSource();
-            workerService = ServiceGenerator.createService(WorkerService.class, "http://auth.***.com/");
+            workerService = ServiceGenerator.createService(WorkerService.class, BuildConfig.API_HOST);
             workerServiceProviders = new RxCache.Builder()
                     .persistence(BaseApplication.getInstance().getExternalCacheDir(), new GsonSpeaker())
                     .using(WorkerService.class);

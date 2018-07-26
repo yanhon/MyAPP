@@ -50,30 +50,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            debuggable true
+        }
+        debugOline {
+            debuggable true
+            matchingFallbacks = ['debug', 'qa', 'release']
         }
 
     }
+    publishNonDefault true
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
-        mock {
+        mock {//单元测试
             applicationIdSuffix = ".mock"
         }
         prod {
-//            applicationIdSuffix = ".prod"
+            applicationIdSuffix = ".prod"
+        }
+        prod2 {
+            applicationIdSuffix = ".prod2"
         }
     }
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
         if (variant.buildType.name.equals('release')
                 && variant.getFlavors().get(0).name.equals('mock')) {
-            variant.setIgnore(true);
+            variant.setIgnore(true)
         }
     }
 }
-configurations {
-    mockapi
-    prodapi
-}
+//configurations {
+//    mockapi
+//    prodapi
+//}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
@@ -108,12 +117,12 @@ dependencies {
     if (rootProject.ext.homeIsLibarary)
         api project(':homemodle')
 
-    mockapi project(path: ':bmodle', configuration: 'mockDebug')
-    mockapi project(path: ':bmodle', configuration: 'mockRelease')
-    prodapi project(path: ':bmodle', configuration: 'prodDebug')
-    prodapi project(path: ':bmodle', configuration: 'prodRelease')
-    prodapi project(path: ':homemodle', configuration: 'prodDebug')
-    prodapi project(path: ':homemodle', configuration: 'prodRelease')
-    mockapi project(path: ':homemodle', configuration: 'mockDebug')
-    mockapi project(path: ':homemodle', configuration: 'mockRelease')
+//    mockapi project(path: ':bmodle', configuration: 'mockDebug')
+//    mockapi project(path: ':bmodle', configuration: 'mockRelease')
+//    prodapi project(path: ':bmodle', configuration: 'prodDebug')
+//    prodapi project(path: ':bmodle', configuration: 'prodRelease')
+//    prodapi project(path: ':homemodle', configuration: 'prodDebug')
+//    prodapi project(path: ':homemodle', configuration: 'prodRelease')
+//    mockapi project(path: ':homemodle', configuration: 'mockDebug')
+//    mockapi project(path: ':homemodle', configuration: 'mockRelease')
 }
