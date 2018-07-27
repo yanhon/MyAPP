@@ -38,11 +38,11 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompatFragment implements BaseView<P> {
+public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseAppCompatFragment implements BaseView<P> {
     public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
     protected P mPresenter;
-    private ViewDataBinding mBinding;
-    private BaseLayoutBinding baseLayoutBinding;
+    protected V mBinding;
+    protected BaseLayoutBinding baseLayoutBinding;
     protected LoadService mBaseLoadService;
 
     protected boolean needTopBar() {
@@ -57,6 +57,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 //            EventBus.getDefault().register(this);
         }
         ARouter.getInstance().inject(this);
+        createPresenter();
     }
 
     @Override
@@ -71,6 +72,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
             return baseLayoutBinding.getRoot();
         } else {
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+            initStatusView(mBinding.getRoot());
             return mBinding.getRoot();
         }
     }
@@ -113,7 +115,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 //        });
     }
 
-    protected ViewDataBinding getBindView() {
+    protected V getBindView() {
         return mBinding;
     }
 
@@ -124,7 +126,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        getPresenter();
         if (baseLayoutBinding != null) {
             baseLayoutBinding.setPresenter(mPresenter);
         }
@@ -138,6 +139,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
         if (mPresenter != null) {
             mPresenter.detachView(this);
             mPresenter.removeAllDisposable();
+            mPresenter = null;
         }
         if (isBindEventBusHere()) {
 //            EventBus.getDefault().unregister(this);
@@ -187,15 +189,18 @@ public abstract class BaseFragment<P extends BasePresenter> extends BaseAppCompa
                 onEmpty();
                 break;
             case GlobalContants.NONETWORK:
-                onSuccess();
+                onError();
                 break;
             case GlobalContants.TOKENERROR:
                 onSuccess();
                 break;
             case GlobalContants.GETDATAERROR:
-                onError();
+                onSuccess();
                 break;
             case GlobalContants.PUTDATAERROR:
+                onSuccess();
+                break;
+            case GlobalContants.NOTFIND:
                 onSuccess();
                 break;
             default:

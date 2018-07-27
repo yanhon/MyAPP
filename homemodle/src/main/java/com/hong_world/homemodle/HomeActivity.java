@@ -31,7 +31,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public BasePresenter createPresenter() {
         return null;
     }
 

@@ -31,7 +31,6 @@ public class MainPresenter extends MainContract.Presenter {
     LoginTask loginTask;
 
     TasksDataSource mTasksRepository;
-    private RxBaseObserver<RegisterResp> f;
 
     @Override
     public void initData() {
@@ -135,7 +134,7 @@ public class MainPresenter extends MainContract.Presenter {
      * 使用CompositeDisposable 实现生命周期管理请求，简洁结合mvp
      */
     public void loginTask3(final String name, final String pwd) {
-        f = new RxBaseObserver<RegisterResp>(this) {
+        mTasksRepository.getTask(name, pwd).subscribe(addDisposable(new RxBaseObserver<RegisterResp>(this) {
             @Override
             protected void onSuccess(RegisterResp data) {
                 Logger.i("name:" + data.toString());
@@ -150,9 +149,7 @@ public class MainPresenter extends MainContract.Presenter {
             protected void onFail(String errorCode, String errorMsg) {
 
             }
-        };
-        mTasksRepository.getTask(name, pwd).subscribe(f);
-        addDisposable(f);
+        }));
     }
 
     /**

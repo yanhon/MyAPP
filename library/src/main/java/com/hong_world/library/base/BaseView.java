@@ -16,7 +16,7 @@ import io.reactivex.subjects.PublishSubject;
 public interface BaseView<P extends BasePresenter> {
     void setPresenter(P presenter);
 
-    P getPresenter();
+    P createPresenter();
 
     void onBack();
 

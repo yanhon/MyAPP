@@ -1,6 +1,7 @@
 package com.hong_world.library.base;
 
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * Date: 2017/10/31.17:02
@@ -27,7 +28,7 @@ public interface BasePresenter<V extends BaseView> {
     String title();
 
     //添加指定的请求
-    void addDisposable(Disposable disposable);
+    DisposableObserver addDisposable(DisposableObserver disposable);
 
     //移除指定的请求
     void removeDisposable(Disposable disposable);

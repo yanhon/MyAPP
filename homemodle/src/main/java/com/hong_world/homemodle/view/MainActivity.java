@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public BasePresenter createPresenter() {
         return null;
     }
 

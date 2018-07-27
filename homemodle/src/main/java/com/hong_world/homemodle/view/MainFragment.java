@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.bean.Task;
+import com.hong_world.library.iloader.ILoaderManager;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.homemodle.net.LoginReq;
 import com.hong_world.common.net.MyHttp;
@@ -33,12 +34,7 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 @Route(path = IHomeProvider.HOME_FRG_MIAN, group = IHomeProvider.HOME_GROUP)
-public class MainFragment extends BaseFragment<MainPresenter> implements MainContract.View<MainPresenter> {
-
-    private EditText editText;
-    private EditText editText1;
-    private Button button;
-    private FragmentLoginsBinding binding;
+public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBinding> implements MainContract.View<MainPresenter> {
 
     public static MainFragment getInstance() {
         return new MainFragment();
@@ -51,7 +47,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
 
     @Override
-    public MainPresenter getPresenter() {
+    public MainPresenter createPresenter() {
         return new MainPresenter(this);
     }
 
@@ -68,15 +64,10 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        binding = (FragmentLoginsBinding) getBindView();
-        binding.setView(this);
-        binding.setPresenter(mPresenter);
-//        ILoaderManager.getLoader().loadResource(binding.imageView,R.mipmap.ic_launcher,null);
+        mBinding.setView(this);
+        mBinding.setPresenter(mPresenter);
+//        ILoaderManager.getLoader().loadResource(mBinding.imageView,R.mipmap.ic_launcher,null);
     }
-
-//    public void login(View view) {
-//        mPresenter.loginTask(editText.getText().toString(), editText1.getText().toString());
-//    }
 
     @Override
     public void onSuccess(Task task) {

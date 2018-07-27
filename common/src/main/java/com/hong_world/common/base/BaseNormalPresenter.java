@@ -5,6 +5,7 @@ import com.hong_world.library.base.BaseView;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * Date: 2017/10/31.17:02
@@ -69,10 +70,11 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
 
     //添加指定的请求
     @Override
-    public void addDisposable(Disposable disposable) {
+    public DisposableObserver addDisposable(DisposableObserver disposable) {
         if (mCompositeDisposable == null)
             mCompositeDisposable = new CompositeDisposable();
         mCompositeDisposable.add(disposable);
+        return disposable;
     }
 
     //移除指定的请求

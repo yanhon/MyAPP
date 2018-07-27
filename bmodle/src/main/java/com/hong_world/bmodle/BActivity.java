@@ -39,7 +39,7 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public BasePresenter createPresenter() {
         return null;
     }
 
