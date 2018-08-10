@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HomeModle</string>
+    <string name="home_pager">我的</string>
+    <string name="message">消息</string>
+    <string name="project_hierarchy">体系</string>
+    <string name="project">项目</string>
 </resources>

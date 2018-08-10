@@ -28,6 +28,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import me.yokeyword.fragmentation.Fragmentation;
+
 /**
  * Date: 2017/11/13.17:32
  * Author: hong_world
@@ -51,6 +53,15 @@ public class MyApplication extends BaseApplication {
         initViewStatus();
         initArouter();
         initLogger();
+        initFragmentation();
+    }
+
+    private void initFragmentation() {
+        Fragmentation.builder()
+                // 显示悬浮球 ; 其他Mode:SHAKE: 摇一摇唤出   NONE：隐藏
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(BuildConfig.DEBUG)
+                .install();
     }
 
     private void initLogger() {

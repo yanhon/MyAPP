@@ -18,8 +18,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(getLayoutId());
-        addFragmentToActivity(getSupportFragmentManager()
-                , MainFragment.getInstance(), R.id.fl);
+//        addFragmentToActivity(getSupportFragmentManager()
+//                , NewListFragment.getInstance(), R.id.fl);
+        loadRootFragment(R.id.fl, HomeFragment.getInstance());
     }
 
     @Override

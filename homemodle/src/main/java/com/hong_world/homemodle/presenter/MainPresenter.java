@@ -85,7 +85,11 @@ public class MainPresenter extends MainContract.Presenter {
 //            return;
 //        }
 //        loginTask2(newTask);
-        loginTask3(phone, pwd);
+//        loginTask3(phone, pwd);
+        Task task = new Task();
+        task.setPhone("000");
+        task.setPwd(pwd);
+        mView.onSuccess(task);
     }
 
     /**

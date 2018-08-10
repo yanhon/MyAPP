@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
+import com.hong_world.library.base.BaseSupportActivity;
+import com.hong_world.library.base.BaseSupportFragment;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.base.BaseAppCompatFragment;
 import com.hong_world.library.base.BasePresenter;
@@ -28,6 +31,12 @@ import com.hong_world.library.view.status.callback.TimeoutCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
 import io.reactivex.subjects.PublishSubject;
 
@@ -38,14 +47,19 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseAppCompatFragment implements BaseView<P> {
+public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseSupportFragment implements BaseView<P> {
     public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
     protected P mPresenter;
     protected V mBinding;
     protected BaseLayoutBinding baseLayoutBinding;
     protected LoadService mBaseLoadService;
+    protected SmartRefreshLayout smartRefreshLayout;
 
     protected boolean needTopBar() {
+        return true;
+    }
+
+    protected boolean enableRefresh() {
         return true;
     }
 
@@ -67,14 +81,84 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.MATCH_PARENT);
-            baseLayoutBinding.idMainFl.addView(mBinding.getRoot(), params);
+            smartRefreshLayout = baseLayoutBinding.idMainFl;
+            smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            smartRefreshLayout.setEnableRefresh(enableRefresh());
             initStatusView(baseLayoutBinding.idMainFl);
+            setOnMultiPurposeListener();
             return baseLayoutBinding.getRoot();
         } else {
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
-            initStatusView(mBinding.getRoot());
-            return mBinding.getRoot();
+            smartRefreshLayout = new SmartRefreshLayout(inflater.getContext());
+            smartRefreshLayout.setEnableRefresh(enableRefresh());
+            smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            initStatusView(smartRefreshLayout);
+            setOnMultiPurposeListener();
+            return mBaseLoadService.getLoadLayout();
         }
+    }
+
+    public void onRefresh() {
+
+    }
+
+    public void setOnMultiPurposeListener() {
+        smartRefreshLayout.setOnMultiPurposeListener(new OnMultiPurposeListener() {
+            @Override
+            public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
+
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                BaseFragment.this.onRefresh();
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onHeaderReleased(RefreshHeader header, int headerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onHeaderStartAnimator(RefreshHeader header, int headerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onHeaderFinish(RefreshHeader header, boolean success) {
+
+            }
+
+            @Override
+            public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent, int offset, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterReleased(RefreshFooter footer, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterStartAnimator(RefreshFooter footer, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterFinish(RefreshFooter footer, boolean success) {
+
+            }
+        });
     }
 
     @Override
@@ -97,13 +181,17 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     }
 
+    protected SmartRefreshLayout getSmartRefreshLayout() {
+        return smartRefreshLayout;
+    }
+
     public void initStatusView(View view) {
         mBaseLoadService = LoadSir.getDefault().register(view, new Callback.OnReloadListener() {
             @Override
             public void onReload(View v) {
 //                mBaseLoadService.showSuccess();
                 onLoading();
-                mPresenter.initData();
+                onRefresh();
             }
         });
 //        .setCallBack(ErrorCallback.class, new Transport() {
@@ -183,7 +271,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     public void onDataNotAvailable(String type, String msg) {
         switch (type) {
             case GlobalContants.TIMEOUT:
-                onTimeOut();
+                onSuccess();
                 break;
             case GlobalContants.DATAEMPTY:
                 onEmpty();
@@ -192,7 +280,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                 onError();
                 break;
             case GlobalContants.TOKENERROR:
-                onSuccess();
+                onError();
                 break;
             case GlobalContants.GETDATAERROR:
                 onSuccess();

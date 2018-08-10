@@ -33,7 +33,7 @@ import io.reactivex.subjects.PublishSubject;
  * Description:
  * Version:
  */
-@Route(path = IHomeProvider.HOME_FRG_MIAN, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_FRG_MAIN, group = IHomeProvider.HOME_GROUP)
 public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBinding> implements MainContract.View<MainPresenter> {
 
     public static MainFragment getInstance() {

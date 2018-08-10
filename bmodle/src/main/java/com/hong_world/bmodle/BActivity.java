@@ -13,6 +13,7 @@ import com.hong_world.common.base.BaseActivity;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
+import com.hong_world.view.coordinatorLayout.StandardCoordinatorFragment;
 
 @Route(path = IBProvider.B_ACT_B, group = IBProvider.B_GROUP)
 public class BActivity extends BaseActivity implements View.OnClickListener {
@@ -23,6 +24,7 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
         setContentView(getLayoutId());
         ServiceManager.getInstance().getHomeProvider().sayHello("我shiB");
         String s = Injection.s;
+        loadRootFragment(R.id.fl, StandardCoordinatorFragment.getInstance());
     }
 
     @Override

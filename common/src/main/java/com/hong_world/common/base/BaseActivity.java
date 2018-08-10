@@ -10,6 +10,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.library.base.BaseSupportActivity;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.library.base.BaseAppCompatActivity;
@@ -25,7 +26,7 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends BaseAppCompatActivity implements BaseView<P> {
+public abstract class BaseActivity<P extends BasePresenter> extends BaseSupportActivity implements BaseView<P> {
     public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
 
     protected P mPresenter;

@@ -14,6 +14,9 @@ public interface IHomeProvider extends IBaseProvider {
     String HOME_GROUP = "home";
     String HOME_ACT_MAIN = "/home/act/home";
     String HOME_ACT_MIAN = "/home/act/main";
-    String HOME_FRG_MIAN = "/home/frg/main";
-    void openActivity( Bundle bundle);
+    String HOME_FRG_MAIN = "/home/frg/main";
+    String HOME_FRG_HOME = "/home/frg/home";
+    String HOME_FRG_NEW_LIST = "/home/frg/newList";
+
+    void openActivity(Bundle bundle);
 }

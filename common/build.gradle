@@ -17,7 +17,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
 //                includeCompileClasspath true
-                arguments = [moduleName: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
             }
         }
     }
@@ -30,7 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("String", "API_HOST", "\"http://auth.zhugongbang.com/\"")
         }
-        debug{
+        debug {
             buildConfigField("String", "API_HOST", "\"http://auth.zhugongbang.com/\"")
         }
         debugOline {
@@ -65,5 +65,6 @@ dependencies {
     api 'org.greenrobot:greendao:3.2.2'
     api 'net.zetetic:android-database-sqlcipher:3.5.6'
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
 }

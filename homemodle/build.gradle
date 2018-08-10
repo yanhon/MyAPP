@@ -24,7 +24,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
 //                includeCompileClasspath true
-                arguments = [moduleName: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
             }
         }
     }
@@ -109,5 +109,5 @@ dependencies {
 
     api project(':common')
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 }
