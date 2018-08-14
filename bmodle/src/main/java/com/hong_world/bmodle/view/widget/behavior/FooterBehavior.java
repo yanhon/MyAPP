@@ -1,6 +1,5 @@
-package com.hong_world.view.widget.behavior;
+package com.hong_world.bmodle.view.widget.behavior;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -8,10 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
-
-import java.util.logging.Logger;
 
 /**
  * Date: 2018/8/10. 16:01

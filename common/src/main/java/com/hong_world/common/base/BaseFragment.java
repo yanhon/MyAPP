@@ -1,6 +1,7 @@
 package com.hong_world.common.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -31,6 +33,7 @@ import com.hong_world.library.view.status.callback.TimeoutCallback;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -193,14 +196,14 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                 onLoading();
                 onRefresh();
             }
-        });
-//        .setCallBack(ErrorCallback.class, new Transport() {
-//            @Override
-//            public void order(Context context, View view) {
-//                TextView mTvEmpty = (TextView) view.findViewById(R.id.id_tv_error);
-//                mTvEmpty.setText("12345615121");
-//            }
-//        });
+        })
+                .setCallBack(ErrorCallback.class, new Transport() {
+                    @Override
+                    public void order(Context context, View view) {
+                        TextView mTvEmpty = (TextView) view.findViewById(R.id.id_tv_error);
+                        mTvEmpty.setText("12345615121");
+                    }
+                });
     }
 
     protected V getBindView() {
@@ -259,6 +262,10 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         if (mBaseLoadService != null) {
             mBaseLoadService.showSuccess();
         }
+        if (smartRefreshLayout != null) {
+            smartRefreshLayout.finishRefresh();
+            smartRefreshLayout.finishLoadMore();
+        }
     }
 
     /**
@@ -277,10 +284,10 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                 onEmpty();
                 break;
             case GlobalContants.NONETWORK:
-                onError();
+                onError(msg);
                 break;
             case GlobalContants.TOKENERROR:
-                onError();
+                onError(msg);
                 break;
             case GlobalContants.GETDATAERROR:
                 onSuccess();
@@ -294,6 +301,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             default:
                 onSuccess();
         }
+        smartRefreshLayout.finishRefresh();
+        smartRefreshLayout.finishLoadMore();
         if (StringUtil.isNotEmpty(msg))
             Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -307,10 +316,17 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     }
 
     @Override
-    public void onError() {
+    public void onError(String msg) {
         hideSoftInput();
         if (mBaseLoadService != null) {
-            mBaseLoadService.showCallback(ErrorCallback.class);
+            mBaseLoadService.setCallBack(ErrorCallback.class, new Transport() {
+                @Override
+                public void order(Context context, View view) {
+                    if (StringUtil.isEmpty(msg)) return;
+                    TextView mTvEmpty = (TextView) view.findViewById(R.id.id_tv_error);
+                    mTvEmpty.setText(msg);
+                }
+            }).showCallback(ErrorCallback.class);
         }
     }
 

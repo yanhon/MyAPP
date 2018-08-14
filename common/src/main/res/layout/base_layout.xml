@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="date"
+            type="Object" />
+
+        <variable
             name="presenter"
             type="com.hong_world.library.base.BasePresenter" />
     </data>

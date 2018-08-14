@@ -1,19 +1,14 @@
 package com.hong_world.bmodle;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
-import com.hong_world.view.coordinatorLayout.StandardCoordinatorFragment;
+import com.hong_world.bmodle.view.coordinatorLayout.StandardCoordinatorFragment;
 
 @Route(path = IBProvider.B_ACT_B, group = IBProvider.B_GROUP)
 public class BActivity extends BaseActivity implements View.OnClickListener {

@@ -30,7 +30,7 @@ public interface BaseView<P extends BasePresenter> {
 
     void onEmpty();
 
-    void onError();
+    void onError(String msg);
 
     void onSuccess();
 

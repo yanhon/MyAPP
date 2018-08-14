@@ -100,7 +100,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseSupportA
     }
 
     @Override
-    public void onError() {
+    public void onError(String msg) {
 
     }
 

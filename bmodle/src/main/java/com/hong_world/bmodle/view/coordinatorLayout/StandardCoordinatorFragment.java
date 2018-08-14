@@ -1,4 +1,4 @@
-package com.hong_world.view.coordinatorLayout;
+package com.hong_world.bmodle.view.coordinatorLayout;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

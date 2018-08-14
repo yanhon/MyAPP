@@ -161,7 +161,7 @@ public class MainPresenter extends MainContract.Presenter {
      */
     public void loginTaskRepository(Task task) {
         if (task.getPhone() == null && task.getPwd() == null && task.getPhone().length() != 0 && task.getPwd().length() != 0) {
-            mView.onError();
+            mView.onError("");
             return;
         }
         loginTask.setRequestValues(new LoginTask.RequestValues(task));

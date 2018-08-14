@@ -72,7 +72,7 @@ public class MainPresenterTest {
     public void login_empty_show_errorView() {
         mainPresenter = getMainPresenter();
         mainPresenter.loginTask("1", null);
-        verify(mMainView).onError();
+        verify(mMainView).onError("");
     }
 
     @Test

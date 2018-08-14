@@ -14,7 +14,7 @@ public class BaseResponse<T> {
     private T data;
 
     public boolean isSuccess() {
-        return success;
+        return success||errorCode==0;
     }
 
     public void setSuccess(boolean success) {

@@ -16,6 +16,7 @@ import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.HomeContract;
 import com.hong_world.homemodle.databinding.FragmentHomeBinding;
 import com.hong_world.homemodle.presenter.HomePresenter;
+import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
 import me.yokeyword.fragmentation.ISupportFragment;
@@ -71,7 +72,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
             mFragments[FIRST] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
-            mFragments[SECOND] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
+            mFragments[SECOND] = (ISupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation();
             mFragments[THIRD] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
             mFragments[FOUR] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation();
 
@@ -87,7 +88,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
 
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
-            mFragments[SECOND] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
+            mFragments[SECOND] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation()).getClass());
             mFragments[THIRD] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
             mFragments[FOUR] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation()).getClass());
         }
