@@ -22,11 +22,158 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="a"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="b"
+                app:layout_constraintBaseline_toBaselineOf="@id/a"
+                app:layout_constraintLeft_toRightOf="@+id/a"
+                app:layout_constraintTop_toTopOf="@+id/a" />
+
+            <Button
+                android:id="@+id/c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="c"
+                app:layout_constraintLeft_toLeftOf="@+id/a"
+                app:layout_constraintTop_toBottomOf="@+id/a" />
+
+            <Button
+                android:id="@+id/d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="d"
+                app:layout_constraintLeft_toRightOf="@+id/c"
+                app:layout_constraintTop_toBottomOf="@+id/b" />
+
+            <Button
+                android:id="@+id/e"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="e"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/d" />
+
+            <Button
+                android:id="@+id/f"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="f"
+                app:layout_constraintDimensionRatio="1:1.5"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/e" />
+
+            <Button
+                android:id="@+id/g"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="g"
+                app:layout_constraintEnd_toStartOf="@+id/h"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/f" />
+
+            <Button
+                android:id="@+id/h"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="hhhhhhhhhhhhhhhhhhhhhh"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintEnd_toStartOf="@+id/button6"
+                app:layout_constraintStart_toEndOf="@+id/g"
+                app:layout_constraintTop_toBottomOf="@id/f" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="j"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@+id/h"
+                app:layout_constraintTop_toBottomOf="@+id/f" />
+
+            <TextView
+                android:id="@+id/k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="圆形布局"
+                app:layout_constraintCircle="@id/f"
+                app:layout_constraintCircleAngle="70"
+                app:layout_constraintCircleRadius="50dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/gl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="c" />
+
+            <android.support.constraint.Placeholder
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="88dp"
+                android:layout_marginTop="36dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.Barrier
+                android:id="@+id/id_barrier1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierAllowsGoneWidgets="true"
+                android:background="@color/cardview_shadow_end_color"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="f,k" />
+        </android.support.constraint.ConstraintLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:adapter="@{adapter}"
-            app:layoutManager="@{layoutManager}" />
+            app:layoutManager="@{layoutManager}"
+
+            app:layout_constraintTop_toBottomOf="@+id/cl" />
     </android.support.constraint.ConstraintLayout>
 </layout>

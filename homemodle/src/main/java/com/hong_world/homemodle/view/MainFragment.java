@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.bean.Task;
 import com.hong_world.library.iloader.ILoaderManager;
@@ -66,7 +67,8 @@ public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBind
         super.initViews(view, savedInstanceState);
         mBinding.setView(this);
         mBinding.setPresenter(mPresenter);
-//        ILoaderManager.getLoader().loadResource(mBinding.imageView,R.mipmap.ic_launcher,null);
+//        Glide.with(this).load(R.mipmap.ic_launcher).into(mBinding.imageView3);
+        ILoaderManager.getLoader().loadResource(mBinding.imageView3,R.mipmap.ic_launcher,null);
     }
 
     @Override

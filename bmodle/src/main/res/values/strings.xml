@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">BModle</string>
-    <string name="behavior_footer">com.hong_world.view.widget.behavior.FooterBehavior</string>
-    <string name="behavior_footer2">com.hong_world.view.widget.behavior.MyBehavior</string>
+    <string name="behavior_footer">com.hong_world.bmodle.view.widget.behavior.FooterBehavior</string>
+    <string name="behavior_footer2">com.hong_world.bmodle.view.widget.behavior.MyBehavior</string>
 </resources>

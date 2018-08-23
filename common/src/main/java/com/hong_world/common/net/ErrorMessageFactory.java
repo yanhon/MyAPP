@@ -47,7 +47,13 @@ public class ErrorMessageFactory {
 
         if (exception instanceof ConnectException) {
 //            message = "无法连接到服务器，请稍后再试" + exception.toString();
-            message = "无法连接到服务器，请稍后再试";
+            if (NetworkUtils.isConnected()) {
+                bean.setCode(GlobalContants.NOTFIND);
+                message = "无法连接到服务器，请稍后再试";
+            } else {
+                bean.setCode(GlobalContants.NONETWORK);
+                message = "请检查网络连接";
+            }
         } else if (exception instanceof JsonSyntaxException) {
             message = "json解析错误" + exception.toString();
         } else if (exception instanceof InterruptedException) {

@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 
@@ -32,7 +33,7 @@ public class MyBehavior extends CoordinatorLayout.Behavior<View> {
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         //根据dependency top值的变化改变 child 的 translationY
         float translationY = Math.abs(dependency.getTop());
-        child.setTranslationY(translationY);
+        child.setTranslationY((int) translationY);
         Logger.i("onDependentViewChanged: " + translationY);
         return true;
 

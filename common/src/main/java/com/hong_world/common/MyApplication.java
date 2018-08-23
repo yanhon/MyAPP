@@ -10,6 +10,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.bean.DaoMaster;
 import com.hong_world.common.bean.DaoSession;
 import com.hong_world.library.base.BaseApplication;
+import com.hong_world.library.iloader.GlideLoader;
+import com.hong_world.library.iloader.ILoaderManager;
 import com.hong_world.library.view.status.callback.CustomCallback;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
@@ -106,8 +108,8 @@ public class MyApplication extends BaseApplication {
     }
 
     private void initILoaderManager() {
-//        ILoaderManager.setLoader(new FrescoLoader());//外部定制图片加载库Fresco
-//        ILoaderManager.getLoader().init(this);
+        ILoaderManager.setLoader(new GlideLoader());//外部定制图片加载库Fresco
+        ILoaderManager.getLoader().init(this);
     }
 
     public static DaoSession getDaoSession() {

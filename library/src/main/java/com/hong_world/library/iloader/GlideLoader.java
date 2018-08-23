@@ -3,9 +3,7 @@ package com.hong_world.library.iloader;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 
 import java.io.File;
 
@@ -56,11 +54,11 @@ public class GlideLoader implements ILoader {
         Glide.get(context).clearDiskCache();
     }
 
-    private RequestManager getRequestManager(Context context) {
-        return Glide.with(context);
+    private GlideRequests getRequestManager(Context context) {
+        return GlideApp.with(context);
     }
 
-    private void load(DrawableTypeRequest request, ImageView target, Options options) {
+    private void load(GlideRequest request, ImageView target, Options options) {
         if (options == null) options = Options.defaultOptions();
 
         if (options.loadingResId != Options.RES_NONE) {
@@ -69,6 +67,6 @@ public class GlideLoader implements ILoader {
         if (options.loadErrorResId != Options.RES_NONE) {
             request.error(options.loadErrorResId);
         }
-        request.crossFade().into(target);
+        request.into(target);
     }
 }

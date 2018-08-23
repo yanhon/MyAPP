@@ -69,10 +69,15 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
     List<Level0Item> list;
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        StatusBarUtil.setColor(_mActivity,getResources().getColor(R.color.shimmer_color));
+    }
+
+    @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        StatusBarUtil.darkMode(this.getActivity());
-        StatusBarUtil.setPaddingSmart(getContext(), baseLayoutBinding.toolbar);
+        StatusBarUtil.setColor(_mActivity,getResources().getColor(R.color.shimmer_color));
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         getSmartRefreshLayout().setEnableNestedScroll(true);
 //        getSmartRefreshLayout().setEnableLoadMore(true);

@@ -39,6 +39,8 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
 import io.reactivex.subjects.PublishSubject;
@@ -86,6 +88,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                     FrameLayout.LayoutParams.MATCH_PARENT);
             smartRefreshLayout = baseLayoutBinding.idMainFl;
             smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+            smartRefreshLayout.setPrimaryColorsId(R.color.colorPrimary);
             smartRefreshLayout.setEnableRefresh(enableRefresh());
             initStatusView(baseLayoutBinding.idMainFl);
             setOnMultiPurposeListener();
@@ -93,6 +97,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         } else {
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
             smartRefreshLayout = new SmartRefreshLayout(inflater.getContext());
+//            smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+//            smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+//            smartRefreshLayout.setPrimaryColorsId(R.color.colorPrimary);
             smartRefreshLayout.setEnableRefresh(enableRefresh());
             smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             initStatusView(smartRefreshLayout);

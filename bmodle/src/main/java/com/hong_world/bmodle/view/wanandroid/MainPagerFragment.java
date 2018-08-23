@@ -50,10 +50,15 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark),50);
+    }
+
+    @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        StatusBarUtil.darkMode(this.getActivity());
-        StatusBarUtil.setPaddingSmart(getContext(), baseLayoutBinding.toolbar);
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark),50);
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         mBinding.setPresenter(mPresenter);
         mAdapter = new SingleDataBindingUseAdapter(R.layout.item_search_pager, mPresenter);
