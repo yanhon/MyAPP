@@ -1,6 +1,7 @@
 package com.hong_world.common.base;
 
 import android.app.Activity;
+import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -19,12 +20,10 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
-import com.hong_world.library.base.BaseSupportActivity;
-import com.hong_world.library.base.BaseSupportFragment;
-import com.hong_world.library.net.FragmentLifeCycleEvent;
-import com.hong_world.library.base.BaseAppCompatFragment;
 import com.hong_world.library.base.BasePresenter;
+import com.hong_world.library.base.BaseSupportFragment;
 import com.hong_world.library.base.BaseView;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.utils.StringUtil;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
@@ -39,7 +38,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
@@ -76,7 +74,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 //            EventBus.getDefault().register(this);
         }
         ARouter.getInstance().inject(this);
-        createPresenter();
+        setPresenter(createPresenter());
+        if (mPresenter != null) getLifecycle().addObserver((LifecycleObserver) mPresenter);
     }
 
     @Override
@@ -234,11 +233,12 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     public void onDestroyView() {
         lifecycleSubject.onNext(FragmentLifeCycleEvent.DESTROY);
         super.onDestroyView();
-        if (mPresenter != null) {
-            mPresenter.detachView(this);
-            mPresenter.removeAllDisposable();
+//        if (mPresenter != null) {
+//            mPresenter.detachView();
+//            mPresenter.removeAllDisposable();
             mPresenter = null;
-        }
+        com.orhanobut.logger.Logger.i("BaseFragment onDestroyView");
+//        }
         if (isBindEventBusHere()) {
 //            EventBus.getDefault().unregister(this);
         }

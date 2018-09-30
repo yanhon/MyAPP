@@ -10,12 +10,11 @@ import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.hong_world.library.base.BaseSupportActivity;
-import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.common.utils.EspressoIdlingResource;
-import com.hong_world.library.base.BaseAppCompatActivity;
 import com.hong_world.library.base.BasePresenter;
+import com.hong_world.library.base.BaseSupportActivity;
 import com.hong_world.library.base.BaseView;
+import com.hong_world.library.net.FragmentLifeCycleEvent;
 
 import io.reactivex.subjects.PublishSubject;
 
@@ -138,7 +137,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseSupportA
         lifecycleSubject.onNext(FragmentLifeCycleEvent.DESTROY);
         super.onDestroy();
         if (mPresenter != null) {
-            mPresenter.detachView(this);
+            mPresenter.detachView();
         }
     }
 

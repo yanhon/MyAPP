@@ -1,7 +1,13 @@
 package com.hong_world.common.base;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
+import android.widget.Toast;
+
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
+import com.orhanobut.logger.Logger;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -14,20 +20,27 @@ import io.reactivex.observers.DisposableObserver;
  * Version:
  */
 
-public abstract class BaseNormalPresenter<V extends BaseView> implements BasePresenter<V> {
+public abstract class BaseNormalPresenter<V extends BaseView> implements BasePresenter<V>, LifecycleObserver {
     protected V mView;
     //用来存放Disposable的容器
     private CompositeDisposable mCompositeDisposable;
 
     public void setmView(V mView) {
         this.mView = mView;
-        mView.setPresenter(this);
+//        mView.setPresenter(this);
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void toa() {
+        Toast.makeText(mView.getActivityContext(), "toa", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
-    public void detachView(V view) {
-        if (view != null) {
-            view = null;
+    public void detachView() {
+        Logger.i("BaseNormalPresenter detachView");
+        if (mView != null) {
+            mView = null;
         }
     }
 
@@ -40,7 +53,7 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
 
     @Override
     public void initData() {
-        mView.onLoading();
+//        mView.onLoading();
     }
 
     @Override
@@ -85,8 +98,10 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
     }
 
     //取消所有的请求Tag
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @Override
     public void removeAllDisposable() {
+        Logger.i("BaseNormalPresenter removeAllDisposable");
         if (mCompositeDisposable != null)
             mCompositeDisposable.clear();
     }
