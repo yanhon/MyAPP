@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -18,9 +17,9 @@ import com.hong_world.homemodle.databinding.FragmentHomeBinding;
 import com.hong_world.homemodle.presenter.HomePresenter;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
+import com.hong_world.routerlibrary.provider.IKotlinModuleProvider;
 
 import me.yokeyword.fragmentation.ISupportFragment;
-import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Date: 2018/8/7. 16:55
@@ -71,7 +70,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
-            mFragments[FIRST] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
+            mFragments[FIRST] = (ISupportFragment) ARouter.getInstance().build(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID).navigation();
             mFragments[SECOND] = (ISupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation();
             mFragments[THIRD] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
             mFragments[FOUR] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation();
@@ -87,10 +86,10 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
-            mFragments[FIRST] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
-            mFragments[SECOND] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation()).getClass());
-            mFragments[THIRD] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
-            mFragments[FOUR] = findChildFragment(((SupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation()).getClass());
+            mFragments[FIRST] = findChildFragment(((ISupportFragment) ARouter.getInstance().build(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID).navigation()).getClass());
+            mFragments[SECOND] = findChildFragment(((ISupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation()).getClass());
+            mFragments[THIRD] = findChildFragment(((ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation()).getClass());
+            mFragments[FOUR] = findChildFragment(((ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation()).getClass());
         }
     }
 

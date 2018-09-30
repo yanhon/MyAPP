@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.2.71'
 
     repositories {
         google()
@@ -8,8 +9,9 @@ buildscript {
         mavenCentral() // add repository
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // add plugin
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -30,15 +32,16 @@ task clean(type: Delete) {
 ext {
 // Sdk and tools
     minSdkVersion = 18
-    targetSdkVersion = 27
-    compileSdkVersion = 27
-    buildToolsVersion = '27.0.3'
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.2'
     versionCode = 1
     versionName = '1.0.0'
     testNum = "0001"
     //home是否是作为模块，true的时候是，false的时候可以独立运行
     homeIsLibarary = true
     BIsLibarary = true
+    kotlinModuleIsLibarary = true
 
     // --------------------App dependencies----------------------------
     supportVersion = '27.1.1'

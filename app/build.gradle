@@ -4,12 +4,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.hong_world.myapp"
-        minSdkVersion 18
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
@@ -116,6 +116,8 @@ dependencies {
         api project(':bmodle')
     if (rootProject.ext.homeIsLibarary)
         api project(':homemodle')
+    if (rootProject.ext.kotlinModuleIsLibarary)
+        api project(':kotlin-module')
 
 //    mockapi project(path: ':bmodle', configuration: 'mockDebug')
 //    mockapi project(path: ':bmodle', configuration: 'mockRelease')

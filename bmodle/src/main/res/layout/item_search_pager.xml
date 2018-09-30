@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:textSize="@dimen/sp_16"
                 android:text="@{date.title}"
                 tools:text="Android Handler: 手把手带你深入分析Handler机制源码" />

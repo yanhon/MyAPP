@@ -1,18 +1,12 @@
 package com.hong_world.bmodle.view.wanandroid;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.hong_world.bmodle.BR;
 import com.hong_world.bmodle.R;
-import com.hong_world.bmodle.bean.FeedArticleData;
 import com.hong_world.bmodle.bean.FeedArticleListData;
 import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.databinding.FragmentMainPagerBinding;
@@ -78,6 +72,7 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
     public void onRefresh() {
         super.onRefresh();
         mCurrentPage = 0;
+        mAdapter.loadMoreEnd();
         mAdapter.setEnableLoadMore(false);
         mPresenter.getPageList(mCurrentPage, true);
     }

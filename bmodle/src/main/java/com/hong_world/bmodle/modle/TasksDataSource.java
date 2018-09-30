@@ -1,5 +1,7 @@
 package com.hong_world.bmodle.modle;
 
+import com.hong_world.bmodle.bean.FeedArticleListData;
+
 import io.reactivex.Observable;
 
 /**
@@ -16,5 +18,5 @@ public interface TasksDataSource {
 
         void onDataNotAvailable(String type, String msg);
     }
-    Observable getFeedArticleList(int num);
+    Observable<FeedArticleListData> getFeedArticleList(int num);
 }

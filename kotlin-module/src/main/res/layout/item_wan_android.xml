@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="com.hong_world.kotlin_module.bean.FeedArticleData" />
+
+        <variable
+            name="presenter"
+            type="com.hong_world.kotlin_module.presenter.WanAndroidPresenter" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="2dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/item_wan_android_top_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/item_wan_android_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:maxWidth="200dp"
+                    android:text="@{date.author}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/item_wan_android_chapter_name"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    tools:text="author" />
+
+                <TextView
+
+                    android:id="@+id/item_wan_android_chapter_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:minWidth="100dp"
+                    android:text="@{date.chapterName}"
+                    app:layout_constraintLeft_toRightOf="@id/item_wan_android_author"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="chapter_namechapter_name" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/item_wan_android_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center|start"
+                android:text="@{date.title}"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_wan_android_top_title"
+                tools:text="Android Handler: 手把手带你深入分析Handler机制源码" />
+
+            <ImageView
+                android:id="@+id/item_wan_android_like_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_wan_android_title"
+                app:setIcon="@{date.id}" />
+
+            <TextView
+                android:id="@+id/item_wan_android_niceDate"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center_vertical"
+                android:text="@{date.niceDate}"
+                app:layout_constraintLeft_toRightOf="@id/item_wan_android_like_iv"
+                app:layout_constraintTop_toTopOf="@id/item_wan_android_like_iv"
+                tools:text="14小时之前" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

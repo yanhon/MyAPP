@@ -1,1 +1,1 @@
-include ':app', ':library', ':common', ':homemodle', ':routerlibrary', ':bmodle'
+include ':app', ':library', ':common', ':homemodle', ':routerlibrary', ':bmodle', ':kotlin-module', ':kotlin-module'

@@ -1,10 +1,10 @@
 package com.hong_world.bmodle.modle.remote;
 
+import com.hong_world.bmodle.bean.FeedArticleListData;
 import com.hong_world.bmodle.modle.TasksDataSource;
 import com.hong_world.bmodle.net.BService;
 import com.hong_world.common.net.MyHttp;
 import com.hong_world.common.net.ServiceGenerator;
-import com.hong_world.common.utils.NetworkUtils;
 import com.hong_world.library.base.BaseApplication;
 
 import io.reactivex.Observable;
@@ -39,7 +39,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
     }
 
     @Override
-    public Observable getFeedArticleList(int num) {
+    public Observable<FeedArticleListData> getFeedArticleList(int num) {
         return bServiceProviders.getFeedArticleList( MyHttp.toBaseResponseSubscribe(bService.getFeedArticleList(num)),new DynamicKey(num),new EvictDynamicKey(false));
     }
 }

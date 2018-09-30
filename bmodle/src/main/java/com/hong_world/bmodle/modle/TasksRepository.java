@@ -2,6 +2,8 @@ package com.hong_world.bmodle.modle;
 
 import android.support.annotation.NonNull;
 
+import com.hong_world.bmodle.bean.FeedArticleListData;
+
 import io.reactivex.Observable;
 
 /**
@@ -35,7 +37,7 @@ public class TasksRepository implements TasksDataSource {
     }
 
     @Override
-    public Observable getFeedArticleList(int num) {
+    public Observable<FeedArticleListData> getFeedArticleList(int num) {
         return mTasksRemoteDataSource.getFeedArticleList(num);
     }
 }

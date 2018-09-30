@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictDynamicKey;
 import io.rx_cache2.LifeCache;
+import io.rx_cache2.ProviderKey;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -28,7 +29,8 @@ public interface BService {
     @GET("article/list/{num}/json")
     Observable<BaseResponse<FeedArticleListData>> getFeedArticleList(@Path("num") int num);
 
+    @ProviderKey("getFeedArticleList")
     @LifeCache(duration = 15, timeUnit = TimeUnit.SECONDS)
-    Observable<BaseResponse<FeedArticleListData>> getFeedArticleList(Observable observable, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+    Observable<FeedArticleListData> getFeedArticleList(Observable observable, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
 }
