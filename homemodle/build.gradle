@@ -1,11 +1,11 @@
-if (rootProject.ext.homeIsLibarary) {
+if (deps.homeIsLibarary) {
     apply plugin: 'com.android.library'
 } else {
     apply plugin: 'com.android.application'
 }
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
 
 
 
@@ -13,10 +13,11 @@ android {
 //        if (!rootProject.ext.homeIsLibarary) {
 //            applicationId "com.hong_world.homemodle"
 //        }
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+
         flavorDimensions "versionCode"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -94,20 +95,18 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayout"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    implementation deps.support.app_compat
+    implementation deps.constraint_layout
+    testImplementation deps.junit
+    testImplementation deps.mockito.all
+    testImplementation deps.mockito.core
     // Espresso UI Testing
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.intents
+    implementation deps.espresso.idling_resource
 
     api project(':common')
-    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
+    annotationProcessor deps.arouter.compiler
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 }

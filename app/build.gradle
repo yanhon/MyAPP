@@ -4,14 +4,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
     defaultConfig {
         applicationId "com.hong_world.myapp"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
@@ -85,13 +86,11 @@ android {
 //}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayout"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    implementation deps.support.app_compat
+    implementation deps.constraint_layout
+    testImplementation deps.junit
+    testImplementation deps.mockito.all
+
 
     //    testImplementation 'org.hamcrest:hamcrest-all:1.3'
 
@@ -106,17 +105,17 @@ dependencies {
     //    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Espresso UI Testing
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.intents
+    implementation deps.espresso.idling_resource
 
-    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-    if (rootProject.ext.BIsLibarary)
+    annotationProcessor deps.arouter.compiler
+    if (deps.BIsLibarary)
         api project(':bmodle')
-    if (rootProject.ext.homeIsLibarary)
+    if (deps.homeIsLibarary)
         api project(':homemodle')
-    if (rootProject.ext.kotlinModuleIsLibarary)
+    if (deps.kotlinModuleIsLibarary)
         api project(':kotlin-module')
 
 //    mockapi project(path: ':bmodle', configuration: 'mockDebug')

@@ -1,4 +1,4 @@
-if (rootProject.ext.kotlinModuleIsLibarary) {
+if (deps.kotlinModuleIsLibarary) {
     apply plugin: 'com.android.library'
 } else {
     apply plugin: 'com.android.application'
@@ -14,14 +14,15 @@ kapt {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+
 
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -102,24 +103,22 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayout"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    implementation deps.support.app_compat
+    implementation deps.constraint_layout
+    testImplementation deps.junit
+    testImplementation deps.mockito.all    // Espresso UI Testing
     // Espresso UI Testing
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.intents
+    implementation deps.espresso.idling_resource
 
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':common')
-    kapt "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kapt deps.arouter.compiler
+    implementation deps.kotlin.stdlib
+
 }
 
 

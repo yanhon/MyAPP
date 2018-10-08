@@ -2,15 +2,15 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
 
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        multiDexEnabled true
@@ -47,24 +47,21 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    implementation deps.support.app_compat
+    api deps.support.design
+    api deps.support.cardview
+    testImplementation deps.junit
+    testImplementation deps.mockito.all
     // Espresso UI Testing
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation deps.espresso.intents
+    implementation deps.espresso.idling_resource
     api project(':library')
-    api "com.android.support:design:$rootProject.ext.supportVersion"
     api project(':routerlibrary')
-    api 'org.greenrobot:greendao:3.2.2'
-    api 'net.zetetic:android-database-sqlcipher:3.5.6'
-    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouterCompilerVersion"
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
-    api 'com.android.support:cardview-v7:27.1.1'
+    api deps.greendao.greendao
+    api deps.greendao.android_database_sqlcipher
+    annotationProcessor deps.arouter.compiler
+    api deps.base_recycler_view_adapter_helper
+    api deps.smart_refresh_layout
 }
