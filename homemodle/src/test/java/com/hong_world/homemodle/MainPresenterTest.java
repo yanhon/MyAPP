@@ -1,8 +1,6 @@
 package com.hong_world.homemodle;
 
 import android.app.Activity;
-import android.content.Context;
-import android.test.mock.MockContext;
 
 import com.hong_world.common.bean.Task;
 import com.hong_world.homemodle.contract.MainContract;
@@ -64,11 +62,11 @@ public class MainPresenterTest {
     @Test
     public void loginStringSuccess() {
         mainPresenter = getMainPresenter();
-        mainPresenter.loginTask("123", "321");
-        Task task = new Task("123", "321");
+        mainPresenter.loginTask(new Task());
         verify(mTasksRepository).getTask(any(Task.class), mGetTaskCallbackCaptor.capture());//断言
-        mGetTaskCallbackCaptor.getValue().onTaskLoaded(task);
-        verify(mMainView).onSuccess(task);
+        mGetTaskCallbackCaptor.getValue().onTaskLoaded(new Task());
+        verify(mMainView).onSuccess();
+        verify(mMainView).onSuccess(any(Task.class));
     }
 
     /**
@@ -81,7 +79,7 @@ public class MainPresenterTest {
         mainPresenter.loginTask2(task);
         when(mMainView.getLifecycleSubject()).thenReturn(lifecycleSubject);
         when(mMainView.getActivityContext()).thenReturn(context);
-        verify(mTasksRepository).getTask(any(Task.class), new MockContext(), mMainView.getLifecycleSubject(), mGetTaskCallbackCaptor.capture());//断言
+        verify(mTasksRepository).getTask(any(Task.class), context, mMainView.getLifecycleSubject(), mGetTaskCallbackCaptor.capture());//断言
         mGetTaskCallbackCaptor.getValue().onTaskLoaded(task);
         verify(mMainView).onSuccess(task);
     }
@@ -109,7 +107,7 @@ public class MainPresenterTest {
     @Test
     public void login_empty_show_errorView() {
         mainPresenter = getMainPresenter();
-        mainPresenter.loginTask("1", null);
+        mainPresenter.loginTaskString("1", null);
         verify(mMainView).onError("");
     }
 

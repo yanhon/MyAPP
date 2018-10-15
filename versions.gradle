@@ -11,8 +11,9 @@ versions.support = "27.1.1"
 versions.kotlin = "1.2.71"
 versions.espresso = "3.0.2"
 versions.mockito = "2.0.2-beta"
-versions.mockito_all = "2.0.2-beta"
+versions.mockito_all = "1.10.19"
 versions.junit = "4.12"
+versions.atsl_runner = "1.0.2"
 versions.android_gradle_plugin = "3.2.0"
 
 versions.constraint_layout = "1.1.2"
@@ -95,6 +96,7 @@ deps.kotlin = kotlin
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"
 mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+mockito.android = "org.mockito:mockito-android:$versions.mockito_all"
 deps.mockito = mockito
 
 def atsl = [:]

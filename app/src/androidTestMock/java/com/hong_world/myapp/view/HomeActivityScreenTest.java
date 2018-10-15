@@ -3,7 +3,6 @@ package com.hong_world.myapp.view;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import com.hong_world.homemodle.HomeActivity;
 import com.hong_world.myapp.R;
@@ -25,7 +24,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
  * Version:
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class HomeActivityScreenTest {
     @Rule
     public IntentsTestRule<HomeActivity> mainActivityIntentsTestRule =

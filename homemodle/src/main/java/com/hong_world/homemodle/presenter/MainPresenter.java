@@ -10,7 +10,6 @@ import com.hong_world.homemodle.modle.TasksDataSource;
 import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.homemodle.task.LoginTask;
 import com.hong_world.library.base.BaseUseCase;
-import com.orhanobut.logger.Logger;
 
 /**
  * Date: 2017/10/31.17:38
@@ -72,6 +71,19 @@ public class MainPresenter extends MainContract.Presenter {
         this.mTasksRepository = mTasksRepository;
     }
 
+    public void loginTaskString(String phone, String pwd) {
+        phone = this.phone.get();
+        pwd = this.pwd.get();
+        mView.onLoading();
+        Task newTask;
+        if (phone != null && pwd != null && phone.length() != 0 && pwd.length() != 0) {
+            newTask = new Task(phone, pwd);
+        } else {
+            mView.onError("");
+            return;
+        }
+    }
+
     @Override
     public void loginTask(String phone, String pwd) {
 //       phone = this.phone.get();
@@ -85,11 +97,11 @@ public class MainPresenter extends MainContract.Presenter {
 //            return;
 //        }
 //        loginTask2(newTask);
-//        loginTask3(phone, pwd);
-        Task task = new Task();
-        task.setPhone("000");
-        task.setPwd(pwd);
-        mView.onSuccess(task);
+        loginTask3(phone, pwd);
+//        Task task = new Task();
+//        task.setPhone("000");
+//        task.setPwd(pwd);
+//        mView.onSuccess(task);
     }
 
     /**
@@ -141,7 +153,6 @@ public class MainPresenter extends MainContract.Presenter {
         mTasksRepository.getTask(name, pwd).subscribe(addDisposable(new RxBaseObserver<RegisterResp>(this) {
             @Override
             protected void onSuccess(RegisterResp data) {
-                Logger.i("name:" + data.toString());
 //                mView.onSuccess();
                 Task task = new Task();
                 task.setPhone(name);

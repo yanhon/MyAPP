@@ -39,10 +39,10 @@ android {
                 throw new InvalidUserDataException(ex.toString())
             }
         }
-
         debug {
             storeFile file("./keystore/debug.keystore")
         }
+
     }
     buildTypes {
         release {
@@ -53,9 +53,10 @@ android {
         debug {
             debuggable true
         }
-        debugOline {
+        oline {
             debuggable true
             matchingFallbacks = ['debug', 'qa', 'release']
+            signingConfig signingConfigs.debug
         }
 
     }
@@ -70,6 +71,12 @@ android {
         }
         prod2 {
             applicationIdSuffix = ".prod2"
+        }
+    }
+
+    sourceSets {
+        prod2 {
+            java.srcDir 'src/prod/java/'//解决在productFlavors中配置将引起资源文件重复问题
         }
     }
     // Remove mockRelease as it's not needed.
@@ -90,26 +97,20 @@ dependencies {
     implementation deps.constraint_layout
     testImplementation deps.junit
     testImplementation deps.mockito.all
-
-
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
     //    testImplementation 'org.hamcrest:hamcrest-all:1.3'
-
     //    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-
     //    androidTestImplementation "com.android.support.test:rules:1.0.1"
-
     //    androidTestImplementation 'org.mockito:mockito-core:2.11.0'
-
     //    androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
-
     //    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
-
     // Espresso UI Testing
     androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"
     androidTestImplementation deps.espresso.intents
     implementation deps.espresso.idling_resource
-
     annotationProcessor deps.arouter.compiler
     if (deps.BIsLibarary)
         api project(':bmodle')
@@ -117,13 +118,12 @@ dependencies {
         api project(':homemodle')
     if (deps.kotlinModuleIsLibarary)
         api project(':kotlin-module')
-
-//    mockapi project(path: ':bmodle', configuration: 'mockDebug')
-//    mockapi project(path: ':bmodle', configuration: 'mockRelease')
-//    prodapi project(path: ':bmodle', configuration: 'prodDebug')
-//    prodapi project(path: ':bmodle', configuration: 'prodRelease')
-//    prodapi project(path: ':homemodle', configuration: 'prodDebug')
-//    prodapi project(path: ':homemodle', configuration: 'prodRelease')
-//    mockapi project(path: ':homemodle', configuration: 'mockDebug')
-//    mockapi project(path: ':homemodle', configuration: 'mockRelease')
+    //    mockapi project(path: ':bmodle', configuration: 'mockDebug')
+    //    mockapi project(path: ':bmodle', configuration: 'mockRelease')
+    //    prodapi project(path: ':bmodle', configuration: 'prodDebug')
+    //    prodapi project(path: ':bmodle', configuration: 'prodRelease')
+    //    prodapi project(path: ':homemodle', configuration: 'prodDebug')
+    //    prodapi project(path: ':homemodle', configuration: 'prodRelease')
+    //    mockapi project(path: ':homemodle', configuration: 'mockDebug')
+    //    mockapi project(path: ':homemodle', configuration: 'mockRelease')
 }

@@ -14,8 +14,8 @@ import com.hong_world.kotlin_module.contract.WanAndroidContract
 import com.hong_world.kotlin_module.databinding.FragmentWanAndroidBinding
 import com.hong_world.kotlin_module.presenter.WanAndroidPresenter
 import com.hong_world.routerlibrary.provider.IKotlinModuleProvider
+import kotlinx.android.synthetic.main.fragment_wan_android.*
 import java.util.*
-
 /**
  * Date: 2018/9/21. 10:22
  * Author: hong_world
@@ -42,12 +42,12 @@ class WanAndroidFragment : BaseFragment<WanAndroidPresenter, FragmentWanAndroidB
         getSmartRefreshLayout().setEnableOverScrollDrag(true)
         mBinding.presenter = mPresenter
         mAdapter = SingleDataBindingUseAdapter<FeedArticleData, Any>(R.layout.item_wan_android, mPresenter)
-        mBinding.adapter = mAdapter
-        mBinding.layoutManager = LinearLayoutManager(this.context)
+        rv.adapter = mAdapter
+        rv.layoutManager = LinearLayoutManager(this.context)
         mAdapter.setOnLoadMoreListener({
             getSmartRefreshLayout().setEnableRefresh(false)
             mPresenter.getPageList(mCurrentPage, false)
-        }, mBinding.rv)
+        }, rv)
         mPresenter.getPageList(mCurrentPage, true)
     }
 

@@ -27,21 +27,42 @@ android {
     dataBinding {
         enabled = true
     }
+
+    // 签名配置
+    signingConfigs {
+        release {
+            try {
+                storeFile file("E:/AndroidDemo/MyAPP/app/keystore/appRelease.jks")
+                storePassword "123456"
+                keyAlias "app"
+                keyPassword "123456"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+        debug {
+            storeFile file("E:/AndroidDemo/MyAPP/app/keystore/debug.keystore")
+        }
+
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {}
-        debugOline {
+        oline {
+            debuggable true
             matchingFallbacks = ['debug', 'qa', 'release']
+            signingConfig signingConfigs.debug
         }
     }
 
     publishNonDefault true
     productFlavors {
         mock {
-            if (!rootProject.ext.BIsLibarary) {
+            if (!deps.BIsLibarary) {
                 applicationId "com.hong_world.bmodle"
                 android.sourceSets {
                     main {
@@ -54,14 +75,15 @@ android {
         prod {
         }
         prod2 {
-            android.sourceSets {
-                main {
-//                    manifest.srcFile 'src/app/AndroidManifest.xml'
-                    java.srcDir 'src/prod/java/'
-                }
-            }
         }
     }
+
+    sourceSets {
+        prod2 {
+            java.srcDir 'src/prod/java/'//解决在productFlavors中配置将引起资源文件重复问题
+        }
+    }
+
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
         if (variant.buildType.name.equals('release')
@@ -79,6 +101,11 @@ dependencies {
     testImplementation deps.junit
 
     testImplementation deps.mockito.all
+
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+
     // Espresso UI Testing
     androidTestImplementation deps.espresso.core
     //androidTestImplementation "com.android.support.test.espresso:espresso-contrib:3.0.1"

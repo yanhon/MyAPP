@@ -74,13 +74,10 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             mFragments[SECOND] = (ISupportFragment) ARouter.getInstance().build(IBProvider.B_FRG_MAIN_PAGER).navigation();
             mFragments[THIRD] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_NEW_LIST).navigation();
             mFragments[FOUR] = (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_MAIN).navigation();
-
-            loadMultipleRootFragment(R.id.frameLayout, FIRST,
-                    mFragments[FIRST],
-                    mFragments[SECOND],
-                    mFragments[THIRD],
-                    mFragments[FOUR]
-            );
+            if (mFragments[FIRST] != null)
+                loadMultipleRootFragment(R.id.frameLayout, FIRST,
+                        mFragments
+                );
 
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
@@ -105,19 +102,20 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int i = item.getItemId();
-                if (i == R.id.tab_navigation) {
-                    showHideFragment(mFragments[FIRST], mFragments[selectNum]);
-                    selectNum = FIRST;
-                } else if (i == R.id.tab_knowledge_hierarchy) {
-                    showHideFragment(mFragments[SECOND], mFragments[selectNum]);
-                    selectNum = SECOND;
-                } else if (i == R.id.tab_project) {
-                    showHideFragment(mFragments[THIRD], mFragments[selectNum]);
-                    selectNum = THIRD;
-                } else if (i == R.id.tab_main_pager) {
-                    showHideFragment(mFragments[FOUR], mFragments[selectNum]);
-                    selectNum = FOUR;
-                }
+                if (mFragments[FIRST] != null)
+                    if (i == R.id.tab_navigation) {
+                        showHideFragment(mFragments[FIRST], mFragments[selectNum]);
+                        selectNum = FIRST;
+                    } else if (i == R.id.tab_knowledge_hierarchy) {
+                        showHideFragment(mFragments[SECOND], mFragments[selectNum]);
+                        selectNum = SECOND;
+                    } else if (i == R.id.tab_project) {
+                        showHideFragment(mFragments[THIRD], mFragments[selectNum]);
+                        selectNum = THIRD;
+                    } else if (i == R.id.tab_main_pager) {
+                        showHideFragment(mFragments[FOUR], mFragments[selectNum]);
+                        selectNum = FOUR;
+                    }
                 return true;
             }
         });

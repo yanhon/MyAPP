@@ -45,6 +45,24 @@ android {
 //
 //        }
 //    }
+    // 签名配置
+    signingConfigs {
+        release {
+            try {
+                storeFile file("E:/AndroidDemo/MyAPP/app/keystore/appRelease.jks")
+                storePassword "123456"
+                keyAlias "app"
+                keyPassword "123456"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+        debug {
+            storeFile file("E:/AndroidDemo/MyAPP/app/keystore/debug.keystore")
+        }
+
+    }
+
     publishNonDefault true
     productFlavors {
         mock {
@@ -54,36 +72,47 @@ android {
 
         }
         prod2 {
-            android.sourceSets {
-                main {
-//                    manifest.srcFile 'src/app/AndroidManifest.xml'
-                    java.srcDir 'src/prod/java/'
-                }
-            }
+//            android.sourceSets {
+//                main {
+////                    manifest.srcFile 'src/app/AndroidManifest.xml'
+//                    java.srcDir 'src/prod/java/'
+//                }
+//            }
 //            applicationIdSuffix = ".prod"
         }
         productFlavors.all { flavor ->
-            if (!rootProject.ext.homeIsLibarary) {
+            if (!deps.homeIsLibarary) {
                 applicationId "com.hong_world.homemodle"
                 android.sourceSets {
                     main {
-                        manifest.srcFile 'src/app/AndroidManifest.xml'
-                        java.srcDir 'src/app/java/'
+                        manifest.srcFile 'src/main/app/AndroidManifest.xml'
+                        java.srcDir 'src/main/app/java/'
                     }
                 }
             }
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {}
-        debugOline {
+        oline {
+            debuggable true
             matchingFallbacks = ['debug', 'qa', 'release']
+            signingConfig signingConfigs.debug
         }
     }
+
+    sourceSets {
+        prod2 {
+            java.srcDir 'src/prod/java/'//解决在productFlavors中配置将引起资源文件重复问题
+        }
+    }
+
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
         if (variant.buildType.name.equals('release')
@@ -97,7 +126,13 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.support.app_compat
     implementation deps.constraint_layout
+
     testImplementation deps.junit
+
+//    androidTestImplementation deps.junit
+//    androidTestImplementation deps.atsl.runner
+//    androidTestImplementation deps.atsl.rules
+
     testImplementation deps.mockito.all
     testImplementation deps.mockito.core
     // Espresso UI Testing
