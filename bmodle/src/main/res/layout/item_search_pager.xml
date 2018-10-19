@@ -24,6 +24,7 @@
         android:layout_marginTop="@dimen/dp_8"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="@{()->presenter.onItemClick(date)}"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/dp_3"
         app:cardElevation="@dimen/dp_2">

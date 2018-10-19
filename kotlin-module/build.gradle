@@ -69,7 +69,7 @@ android {
     }
 
     publishNonDefault true
-
+//    resourcePrefix "kotlin_"//限制资源名必须加kotlin_,防止资源名冲突
     productFlavors {
         mock {
 

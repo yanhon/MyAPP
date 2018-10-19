@@ -10,11 +10,11 @@ package com.hong_world.common.net;
 public class BaseResponse<T> {
     private int errorCode;
     private String msg;
-    private boolean success;
+    private boolean success=true;
     private T data;
 
     public boolean isSuccess() {
-        return success||errorCode==0;
+        return success&&errorCode==0;
     }
 
     public void setSuccess(boolean success) {

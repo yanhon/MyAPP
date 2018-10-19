@@ -1,6 +1,6 @@
 package com.hong_world.homemodle;
 
-import com.hong_world.common.MyApplication;
+import com.hong_world.common.CommonApplication;
 
 /**
  * Date: 2017/11/21.10:26
@@ -9,6 +9,6 @@ import com.hong_world.common.MyApplication;
  * Version:
  */
 
-public class HomeAppAppliction extends MyApplication {
+public class HomeAppAppliction extends CommonApplication {
 
 }

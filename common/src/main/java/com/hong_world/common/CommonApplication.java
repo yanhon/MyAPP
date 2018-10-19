@@ -1,10 +1,6 @@
 package com.hong_world.common;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.bean.DaoMaster;
@@ -25,11 +21,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import org.greenrobot.greendao.database.Database;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import me.yokeyword.fragmentation.Fragmentation;
 
 /**
@@ -39,7 +30,7 @@ import me.yokeyword.fragmentation.Fragmentation;
  * Version:
  */
 
-public class MyApplication extends BaseApplication {
+public class CommonApplication extends BaseApplication {
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
@@ -56,6 +47,7 @@ public class MyApplication extends BaseApplication {
         initArouter();
         initLogger();
         initFragmentation();
+        Logger.i("初始化");
     }
 
     private void initFragmentation() {

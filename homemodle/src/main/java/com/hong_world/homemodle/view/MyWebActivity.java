@@ -12,13 +12,12 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.homemodle.R;
 import com.hong_world.library.base.BasePresenter;
-import com.hong_world.library.utils.StringUtil;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
-@Route(path = IHomeProvider.HOME_ACT_MIAN, group = IHomeProvider.HOME_GROUP)
-public class MainActivity extends BaseActivity {
+@Route(path = IHomeProvider.HOME_ACT_WEB, group = IHomeProvider.HOME_GROUP)
+public class MyWebActivity extends BaseActivity {
     @Autowired
     String urls;
 
@@ -27,10 +26,7 @@ public class MainActivity extends BaseActivity {
         setContentView(getLayoutId());
 //        addFragmentToActivity(getSupportFragmentManager()
 //                , NewListFragment.getInstance(), R.id.fl);
-        if (StringUtil.isEmpty(urls))
-            loadRootFragment(R.id.fl, HomeFragment.getInstance());
-        else
-            loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).withString("urls", urls).navigation());
+        loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).withString("urls", urls).navigation());
 
     }
 

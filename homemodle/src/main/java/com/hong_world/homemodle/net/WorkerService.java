@@ -38,7 +38,7 @@ public interface WorkerService {
      * @return
      */
     @ProviderKey("getTask")
-    @LifeCache(duration = 1, timeUnit = TimeUnit.MINUTES)
+    @LifeCache(duration = 1, timeUnit = TimeUnit.SECONDS)
     Observable<BaseResponse<RegisterResp>> getUser(Observable user, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
 }

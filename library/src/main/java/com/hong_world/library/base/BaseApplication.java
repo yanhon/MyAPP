@@ -38,6 +38,14 @@ public class BaseApplication extends Application {
         super.onCreate();
         sInstance = this;
         initActList();
+        initModuleApp(this);
+    }
+
+    /**
+     * 初始化本组件中特有的第三方服务
+     * @param application
+     */
+    public void initModuleApp(Application application) {
     }
 
     private List<Activity> activityList;

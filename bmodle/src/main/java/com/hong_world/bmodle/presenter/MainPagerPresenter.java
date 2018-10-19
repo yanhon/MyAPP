@@ -1,6 +1,7 @@
 package com.hong_world.bmodle.presenter;
 
 import com.hong_world.bmodle.Injection;
+import com.hong_world.bmodle.bean.FeedArticleData;
 import com.hong_world.bmodle.bean.FeedArticleListData;
 import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.modle.TasksDataSource;
@@ -33,5 +34,9 @@ public class MainPagerPresenter extends MainPagerContract.Presenter {
 
             }
         }));
+    }
+
+    public void onItemClick(FeedArticleData data) {
+        mView.onItemClick(data);
     }
 }

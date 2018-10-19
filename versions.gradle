@@ -5,6 +5,15 @@ deps.homeIsLibarary = true
 deps.BIsLibarary = true
 deps.kotlinModuleIsLibarary = true
 
+def build_versions = [:]
+build_versions.version_code = 1
+build_versions.version_name = "1.0.0"
+build_versions.min_sdk = 18
+build_versions.target_sdk = 28
+build_versions.compile_sdk = 28
+build_versions.build_tools = "28.0.2"
+ext.build_versions = build_versions
+
 def versions = [:]
 // --------------------App dependencies----------------------------
 versions.support = "27.1.1"
@@ -30,29 +39,27 @@ versions.rx_android = "2.0.1"
 versions.retrofit2 = "2.3.0"
 versions.rxjava2 = "2.1.7"
 //-------------------------------greendao-------------------------
-versions.greendao = "3.2.2"
 versions.greendao_gradle_plugin = "3.2.2"
 versions.android_database_sqlcipher = "3.5.6"
-
+versions.greendao = "3.2.2"
+//-------------------------------图片-------------------------
 versions.glide = "4.7.1"
 versions.fresco = "1.3.0"
-
+//-------------------------------logger-------------------------
 versions.logger = "2.2.0"
-
+//-------------------------------recycler-------------------------
 versions.base_recycler_view_adapter_helper = "2.9.40"
+//-------------------------------上下拉刷新-------------------------
 versions.smart_refresh_layout = "1.1.0-alpha-14"
+//-------------------------------状态页-------------------------
 versions.loadsir = "1.3.6"
+versions.rxpermissions = "0.10.2"
+versions.agentweb = "4.0.2"
+versions.zhihu_image_selecter = "0.5.2-beta3"
 
 
 
-def build_versions = [:]
-build_versions.version_code = 1
-build_versions.version_name = "1.0.0"
-build_versions.min_sdk = 18
-build_versions.target_sdk = 28
-build_versions.compile_sdk = 28
-build_versions.build_tools = "28.0.2"
-ext.build_versions = build_versions
+
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
@@ -72,6 +79,8 @@ deps.retrofit2_converter_gson = "com.squareup.retrofit2:converter-gson:$versions
 deps.rx_cache = "com.github.VictorAlbertos.RxCache:runtime:$versions.rx_cache"
 deps.jolyglot_gson = "com.github.VictorAlbertos.Jolyglot:gson:$versions.jolyglot_gson"
 deps.fresco = "com.facebook.fresco:fresco:$versions.fresco"
+deps.rxpermissions = "com.github.tbruyelle:rxpermissions:$versions.rxpermissions"
+deps.zhihu_image_selecter = "com.zhihu.android:matisse:$versions.zhihu_image_selecter"
 
 ext.deps = deps
 
@@ -132,6 +141,12 @@ def glide = [:]
 glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
 glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
 deps.glide = glide
+
+def agentweb = [:]
+agentweb.agentweb = "com.just.agentweb:agentweb:$versions.agentweb"
+agentweb.download = "com.just.agentweb:download:$versions.agentweb"
+agentweb.filechooser = "com.just.agentweb:filechooser:$versions.agentweb"
+deps.agentweb = agentweb
 
 def addRepos(RepositoryHandler handler) {
     handler.google()

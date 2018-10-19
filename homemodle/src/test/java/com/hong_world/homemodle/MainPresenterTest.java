@@ -69,20 +69,6 @@ public class MainPresenterTest {
         verify(mMainView).onSuccess(any(Task.class));
     }
 
-    /**
-     * 有毛病
-     */
-    @Test
-    public void loginStringSuccess2() {
-        mainPresenter = getMainPresenter();
-        Task task = new Task("1232", "321");
-        mainPresenter.loginTask2(task);
-        when(mMainView.getLifecycleSubject()).thenReturn(lifecycleSubject);
-        when(mMainView.getActivityContext()).thenReturn(context);
-        verify(mTasksRepository).getTask(any(Task.class), context, mMainView.getLifecycleSubject(), mGetTaskCallbackCaptor.capture());//断言
-        mGetTaskCallbackCaptor.getValue().onTaskLoaded(task);
-        verify(mMainView).onSuccess(task);
-    }
 
     @Test
     public void loginStringSuccess3() {

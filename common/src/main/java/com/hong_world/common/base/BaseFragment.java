@@ -21,9 +21,7 @@ import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
 import com.hong_world.library.base.BasePresenter;
-import com.hong_world.library.base.BaseSupportFragment;
 import com.hong_world.library.base.BaseView;
-import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.utils.StringUtil;
 import com.hong_world.library.view.status.callback.EmptyCallback;
 import com.hong_world.library.view.status.callback.ErrorCallback;
@@ -41,8 +39,6 @@ import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
-import io.reactivex.subjects.PublishSubject;
-
 /**
  * Date: 2017/10/31.17:56
  * Author: hong_world
@@ -50,8 +46,7 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseSupportFragment implements BaseView<P> {
-    public final PublishSubject<FragmentLifeCycleEvent> lifecycleSubject = PublishSubject.create();
+public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseAppFragment implements BaseView<P> {
     protected P mPresenter;
     protected V mBinding;
     protected BaseLayoutBinding baseLayoutBinding;
@@ -68,7 +63,6 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        lifecycleSubject.onNext(FragmentLifeCycleEvent.CREATE);
         super.onCreate(savedInstanceState);
         if (isBindEventBusHere()) {
 //            EventBus.getDefault().register(this);
@@ -82,11 +76,11 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     protected View onCreateMyView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (needTopBar()) {
             baseLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.base_layout, container, false);
-            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT);
+            if (getLayoutId() != 0)
+                mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), null, false);
             smartRefreshLayout = baseLayoutBinding.idMainFl;
-            smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            if (getLayoutId() != 0)
+                smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
             smartRefreshLayout.setPrimaryColorsId(R.color.colorPrimary);
             smartRefreshLayout.setEnableRefresh(enableRefresh());
@@ -172,13 +166,11 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     public void onPause() {
-        lifecycleSubject.onNext(FragmentLifeCycleEvent.PAUSE);
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        lifecycleSubject.onNext(FragmentLifeCycleEvent.STOP);
         super.onStop();
     }
 
@@ -231,12 +223,11 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     public void onDestroyView() {
-        lifecycleSubject.onNext(FragmentLifeCycleEvent.DESTROY);
         super.onDestroyView();
 //        if (mPresenter != null) {
 //            mPresenter.detachView();
 //            mPresenter.removeAllDisposable();
-            mPresenter = null;
+        mPresenter = null;
         com.orhanobut.logger.Logger.i("BaseFragment onDestroyView");
 //        }
         if (isBindEventBusHere()) {
@@ -365,11 +356,6 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
      */
     protected boolean isBindEventBusHere() {
         return false;
-    }
-
-    @Override
-    public PublishSubject<FragmentLifeCycleEvent> getLifecycleSubject() {
-        return lifecycleSubject;
     }
 
     @Override

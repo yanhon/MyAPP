@@ -5,8 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hong_world.bmodle.R;
+import com.hong_world.bmodle.bean.FeedArticleData;
 import com.hong_world.bmodle.bean.FeedArticleListData;
 import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.databinding.FragmentMainPagerBinding;
@@ -15,6 +17,7 @@ import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.routerlibrary.provider.IBProvider;
+import com.hong_world.routerlibrary.provider.IHomeProvider;
 
 /**
  * Date: 2018/8/13. 11:26
@@ -40,19 +43,19 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
 
     @Override
     public String title() {
-        return "首页";
+        return "首页-java";
     }
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark),50);
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark), 50);
     }
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark),50);
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark), 50);
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         mBinding.setPresenter(mPresenter);
         mAdapter = new SingleDataBindingUseAdapter(R.layout.item_search_pager, mPresenter);
@@ -99,6 +102,11 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
             mAdapter.addData(data.getDatas());
             getSmartRefreshLayout().setEnableRefresh(true);
         }
+    }
+
+    @Override
+    public void onItemClick(FeedArticleData data) {
+        ARouter.getInstance().build(IHomeProvider.HOME_ACT_WEB).withString("urls", data.getLink()).navigation();
     }
 
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.hong_world.common.MyApplication;
+import com.hong_world.common.CommonApplication;
 import com.hong_world.common.bean.Task;
 import com.hong_world.homemodle.modle.TasksDataSource;
 import com.hong_world.homemodle.net.RegisterResp;
@@ -57,7 +57,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         //db操作一顿
         task.setPwd(task.getPwd() + "(本地)");
         callback.onTaskLoaded(task);
-        List<Task> list = MyApplication.getDaoSession().getTaskDao().queryBuilder()
+        List<Task> list = CommonApplication.getDaoSession().getTaskDao().queryBuilder()
                 .build()
                 .list();
         StringBuilder sb = new StringBuilder();
@@ -75,12 +75,12 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
-        MyApplication.getDaoSession().getTaskDao().insert(task);
+        CommonApplication.getDaoSession().getTaskDao().insert(task);
     }
 
     @Override
     public void deleteAllTasks() {
-        MyApplication.getDaoSession().getTaskDao().deleteAll();
+        CommonApplication.getDaoSession().getTaskDao().deleteAll();
     }
 
 }

@@ -6,6 +6,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".view.MyWebActivity"></activity>
     </application>
 
 </manifest>

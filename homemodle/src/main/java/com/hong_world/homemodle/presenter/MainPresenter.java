@@ -126,25 +126,6 @@ public class MainPresenter extends MainContract.Presenter {
 
     }
 
-    /**
-     * 可以使用rxLifecycle,当前方法绑定生命周期有点问题
-     *
-     * @param task
-     */
-    public void loginTask2(Task task) {
-        mTasksRepository.getTask(task, mView.getActivityContext(), mView.getLifecycleSubject(), new TasksDataSource.GetTaskCallback<Task>() {
-            @Override
-            public void onTaskLoaded(Task task) {
-                mView.onSuccess();
-                mView.onSuccess(task);
-            }
-
-            @Override
-            public void onDataNotAvailable(String type, String msg) {
-                mView.onDataNotAvailable(type, msg);
-            }
-        });
-    }
 
     /**
      * 使用CompositeDisposable 实现生命周期管理请求，简洁结合mvp

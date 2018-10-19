@@ -41,8 +41,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -68,4 +68,10 @@ dependencies {
     annotationProcessor deps.arouter.compiler
     api deps.base_recycler_view_adapter_helper
     api deps.smart_refresh_layout
+    api deps.rxpermissions
+
+    implementation deps.agentweb.agentweb
+    implementation deps.agentweb.download
+    implementation deps.agentweb.filechooser
+    api deps.zhihu_image_selecter
 }

@@ -8,11 +8,10 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 //import com.blankj.utilcode.util.ShellUtils.CommandResult;
 
-import com.hong_world.common.MyApplication;
+import com.hong_world.common.CommonApplication;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -55,7 +54,7 @@ public final class NetworkUtils {
      * Open the settings of wireless.
      */
     public static void openWirelessSettings() {
-         MyApplication.getInstance().startActivity(
+         CommonApplication.getInstance().startActivity(
                 new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         );
@@ -117,7 +116,7 @@ public final class NetworkUtils {
     public static boolean getMobileDataEnabled() {
         try {
             TelephonyManager tm =
-                    (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+                    (TelephonyManager) CommonApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return false;
             @SuppressLint("PrivateApi")
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
@@ -141,7 +140,7 @@ public final class NetworkUtils {
     public static void setMobileDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm =
-                    (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+                    (TelephonyManager) CommonApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return;
             Method setMobileDataEnabledMethod =
                     tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
@@ -193,7 +192,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager)  MyApplication.getInstance().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager)  CommonApplication.getInstance().getSystemService(Context.WIFI_SERVICE);
         return manager != null && manager.isWifiEnabled();
     }
 
@@ -207,7 +206,7 @@ public final class NetworkUtils {
     @RequiresPermission(CHANGE_WIFI_STATE)
     public static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager)  MyApplication.getInstance().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager)  CommonApplication.getInstance().getSystemService(Context.WIFI_SERVICE);
         if (manager == null || enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
     }
@@ -222,7 +221,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected() {
         ConnectivityManager cm =
-                (ConnectivityManager)  MyApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager)  CommonApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
@@ -248,7 +247,7 @@ public final class NetworkUtils {
      */
     public static String getNetworkOperatorName() {
         TelephonyManager tm =
-                (TelephonyManager)  MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager)  CommonApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : "";
     }
 
@@ -328,7 +327,7 @@ public final class NetworkUtils {
     @RequiresPermission(ACCESS_NETWORK_STATE)
     private static NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager manager =
-                (ConnectivityManager)  MyApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager)  CommonApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null) return null;
         return manager.getActiveNetworkInfo();
     }

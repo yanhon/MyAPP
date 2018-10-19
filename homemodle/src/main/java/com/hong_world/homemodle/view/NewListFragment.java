@@ -4,9 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.homemodle.BR;
@@ -32,11 +30,14 @@ import com.hong_world.homemodle.modle.bean.Level0Item;
 import com.hong_world.homemodle.modle.bean.Level1Item;
 import com.hong_world.homemodle.modle.bean.MultipleItem;
 import com.hong_world.homemodle.presenter.NewListPresenter;
+import com.hong_world.library.base.BaseSupportFragment;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.yokeyword.fragmentation.ISupportFragment;
 
 /**
  * Date: 2018/7/31. 10:15
@@ -46,6 +47,8 @@ import java.util.List;
  */
 @Route(path = IHomeProvider.HOME_FRG_NEW_LIST, group = IHomeProvider.HOME_GROUP)
 public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewListBinding> implements NewListContract.View<NewListPresenter> {
+
+    private MultipleItemQuickAdapter2 mAdapter;
 
     public static NewListFragment getInstance() {
         return new NewListFragment();
@@ -71,13 +74,13 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        StatusBarUtil.setColor(_mActivity,getResources().getColor(R.color.shimmer_color));
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.shimmer_color));
     }
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
-        StatusBarUtil.setColor(_mActivity,getResources().getColor(R.color.shimmer_color));
+        StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.shimmer_color));
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         getSmartRefreshLayout().setEnableNestedScroll(true);
 //        getSmartRefreshLayout().setEnableLoadMore(true);
@@ -85,7 +88,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
         mBinding.setPresenter(mPresenter);
 //        DataBindingUseAdapter mAdapter = new DataBindingUseAdapter(R.layout.item_new_list_view, genData());
 //        MultipleItemQuickAdapter mAdapter = new MultipleItemQuickAdapter(this.getContext(), genData2());
-        final MultipleItemQuickAdapter2 mAdapter = new MultipleItemQuickAdapter2();
+        mAdapter = new MultipleItemQuickAdapter2();
 //        final ExpandableItemAdapter mAdapter = new ExpandableItemAdapter();
         mBinding.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mBinding.setAdapter(mAdapter);
@@ -105,6 +108,15 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 //        mAdapter.loadMoreComplete();
 //        AppCompatDelegate.setDefaultNightMode(
 //                AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        mAdapter.loadMoreEnd();
+        mAdapter.setEnableLoadMore(false);
+        mAdapter.setNewData(genData2());
+        smartRefreshLayout.finishRefresh();
     }
 
     private List<Level0Item> genData3() {
@@ -140,6 +152,11 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
                 list.add(new MultipleItem(i + "", MultipleItem.IMG_TEXT, genData()));
         }
         return list;
+    }
+
+    @Override
+    public void onItemClick(MultipleItem data) {
+        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_IMAGE).navigation());
     }
 
     public class DataBindingUseAdapter extends BaseQuickAdapter<BeanItem, MovieViewHolder> {
@@ -195,7 +212,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 
                     int offset = recyclerView.computeHorizontalScrollOffset();
                     Logger.i("offset = " + offset);
-                    mEntity.scrollPosition = mLayoutManager.findFirstVisibleItemPosition() < 0 ? mEntity.scrollPosition : mLayoutManager.findFirstVisibleItemPosition()+1;
+                    mEntity.scrollPosition = mLayoutManager.findFirstVisibleItemPosition() < 0 ? mEntity.scrollPosition : mLayoutManager.findFirstVisibleItemPosition() + 1;
                     Logger.i("1、mItemWidth = " + mItemWidth + " ,scrollPosition = " + mEntity.scrollPosition);
                     if (mItemWidth <= 0) {
                         View item = mLayoutManager.findViewByPosition(mEntity.scrollPosition);
@@ -313,7 +330,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
                     snapHelper.attachToRecyclerView(recyclerView);
                     Logger.i("scrollPosition= " + item.scrollPosition + " ,scrollOffset= " + item.scrollOffset + " ,item position = " + helper.getAdapterPosition());
                     if (item.scrollPosition > 0) {
-                        linearLayoutManager.scrollToPositionWithOffset(item.scrollPosition-1, item.scrollOffset);
+                        linearLayoutManager.scrollToPositionWithOffset(item.scrollPosition - 1, item.scrollOffset);
 //                        linearLayoutManager.scrollToPosition(item.scrollPosition);
                     }
                     recyclerView.addOnScrollListener(new MyOnScrollListener(item, linearLayoutManager));
