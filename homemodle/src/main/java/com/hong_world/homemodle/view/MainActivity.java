@@ -29,8 +29,11 @@ public class MainActivity extends BaseActivity {
 //                , NewListFragment.getInstance(), R.id.fl);
         if (StringUtil.isEmpty(urls))
             loadRootFragment(R.id.fl, HomeFragment.getInstance());
-        else
-            loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).withString("urls", urls).navigation());
+        else {
+            Bundle bundle = new Bundle();
+            bundle.putString("urls",urls);
+            loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).with(bundle).navigation());
+        }
 
     }
 

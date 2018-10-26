@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import com.hong_world.common.R;
 import com.hong_world.library.base.BaseSupportFragment;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -32,16 +33,19 @@ public abstract class BaseAppFragment extends BaseSupportFragment {
         permissionPass = false;
         compositeDisposable.add(getRxPermissions()
                 .requestEachCombined(permissions)
-                .subscribe(permission -> {
-                    if (permission.granted) {
-                        Logger.i("用户同意了该权限");
-                        permissionPass = true;
-                        passPermission(fromType);
-                    } else if (permission.shouldShowRequestPermissionRationale) {
-                        Logger.i("用户拒绝了该权限，没有选中『不再询问』");
-                    } else {
-                        Logger.i("用户拒绝了该权限，选中『不再询问』");
-                        rejectPermission(msg);
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            Logger.i("用户同意了该权限");
+                            permissionPass = true;
+                            BaseAppFragment.this.passPermission(fromType);
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            Logger.i("用户拒绝了该权限，没有选中『不再询问』");
+                        } else {
+                            Logger.i("用户拒绝了该权限，选中『不再询问』");
+                            BaseAppFragment.this.rejectPermission(msg);
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

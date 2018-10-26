@@ -10,12 +10,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.hong_world.common.R;
 
-import java.util.List;
-
 /**
  * Date: 2018/8/14. 10:26
  * Author: hong_world
- * Description:
+ * Description: 实体实现MultiItemEntity接口实现多种item布局
  * Version:
  */
 public class MultiItemDataBindingUseAdapter<T extends MultiItemEntity> extends BaseMultiItemQuickAdapter<T, BaseViewHolder> {

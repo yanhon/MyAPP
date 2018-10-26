@@ -1,6 +1,5 @@
 package com.hong_world.common.base;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -13,6 +12,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Date: 2017/11/22.13:55
@@ -145,7 +146,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
     }
 
     @Override
-    public Activity getActivityContext() {
-        return this;
+    public void onLoading(Disposable disposable) {
+
     }
 }

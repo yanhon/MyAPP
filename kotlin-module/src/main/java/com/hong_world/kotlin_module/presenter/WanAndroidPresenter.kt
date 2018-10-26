@@ -22,8 +22,19 @@ class WanAndroidPresenter(view: WanAndroidContract.View<*>) : WanAndroidContract
         mTasksRepository = TasksRepository.getInstance(TasksRemoteDataSource.getInstance(), TasksLocalDataSource.getInstance())
     }
 
+//    override fun getPageList(mCurrentPage: Int, isRefresh: Boolean) {
+//        mTasksRepository?.getFeedArticleList(mCurrentPage)?.subscribe(addDisposable(object : RxBaseObserver<FeedArticleListData>(this) {
+//            override fun onSuccess(data: FeedArticleListData) {
+//                mView.getPageListSuccess(data, isRefresh)
+//            }
+//
+//            override fun onFail(errorCode: String?, errorMsg: String?) {
+//            }
+//        }))
+//    }
+
     override fun getPageList(mCurrentPage: Int, isRefresh: Boolean) {
-        mTasksRepository?.getFeedArticleList(mCurrentPage)?.subscribe(addDisposable(object : RxBaseObserver<FeedArticleListData>(this) {
+        addDisposable(mTasksRepository?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<FeedArticleListData>(this) {
             override fun onSuccess(data: FeedArticleListData) {
                 mView.getPageListSuccess(data, isRefresh)
             }

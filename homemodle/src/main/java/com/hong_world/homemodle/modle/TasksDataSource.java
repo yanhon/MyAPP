@@ -20,6 +20,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hong_world.common.bean.Task;
+import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 
 import io.reactivex.Observable;
@@ -43,7 +44,7 @@ public interface TasksDataSource {
         void onDataNotAvailable(String type, String msg);
     }
 
-    Observable getTask(String name, String pwd);
+    Observable<RegisterResp> getTask(String name, String pwd);
 
     void getTask(@NonNull Task task, @NonNull GetTaskCallback callback);
 

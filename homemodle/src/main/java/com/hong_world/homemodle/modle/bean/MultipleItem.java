@@ -1,7 +1,5 @@
 package com.hong_world.homemodle.modle.bean;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ import java.util.List;
  * Version:
  */
 
-public class MultipleItem implements MultiItemEntity {
+public class MultipleItem   {
     public static final int TEXT = 1;
     public static final int IMG_TEXT = 3;
     private String text;
@@ -67,7 +65,7 @@ public class MultipleItem implements MultiItemEntity {
         this.text = text;
     }
 
-    @Override
+
     public int getItemType() {
         return itemType;
     }

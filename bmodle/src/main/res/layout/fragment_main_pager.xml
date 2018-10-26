@@ -6,14 +6,6 @@
     <data>
 
         <variable
-            name="adapter"
-            type="android.support.v7.widget.RecyclerView.Adapter" />
-
-        <variable
-            name="layoutManager"
-            type="android.support.v7.widget.RecyclerView.LayoutManager" />
-
-        <variable
             name="presenter"
             type="com.hong_world.bmodle.presenter.MainPagerPresenter" />
     </data>
@@ -172,9 +164,6 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:adapter="@{adapter}"
-            app:layoutManager="@{layoutManager}"
-
             app:layout_constraintTop_toBottomOf="@+id/cl" />
     </android.support.constraint.ConstraintLayout>
 </layout>

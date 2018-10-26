@@ -15,15 +15,32 @@ import io.reactivex.observers.DisposableObserver;
 
 public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     protected BaseView view;
+    protected boolean showLoading;
+    protected boolean isCancle;
 
     public RxBaseObserver(BasePresenter mPresenter) {
+        this(mPresenter, false, false);
+    }
+
+    public RxBaseObserver(BasePresenter mPresenter, boolean showLoading) {
+        this(mPresenter, true, false);
+    }
+
+    public RxBaseObserver(BasePresenter mPresenter, boolean showLoading, boolean isCancle) {
         this.view = mPresenter.getView();
+        this.isCancle = isCancle;
+        this.showLoading = showLoading;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        view.onLoading();
+        if (showLoading) {
+            if (isCancle)
+                view.onLoading(this);
+            else
+                view.onLoading();
+        }
     }
 
     @Override

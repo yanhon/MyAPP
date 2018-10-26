@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.widget.Toast;
 
+import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 import com.orhanobut.logger.Logger;
@@ -32,7 +33,7 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void toa() {
-        Toast.makeText(mView.getActivityContext(), "toa", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BaseApplication.getInstance(), "toa", Toast.LENGTH_SHORT).show();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -86,14 +87,15 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
     public DisposableObserver addDisposable(DisposableObserver disposable) {
         if (mCompositeDisposable == null)
             mCompositeDisposable = new CompositeDisposable();
-        mCompositeDisposable.add(disposable);
+        if (disposable != null)
+            mCompositeDisposable.add(disposable);
         return disposable;
     }
 
     //移除指定的请求
     @Override
     public void removeDisposable(Disposable disposable) {
-        if (mCompositeDisposable != null)
+        if (mCompositeDisposable != null && disposable != null)
             mCompositeDisposable.remove(disposable);
     }
 
@@ -104,5 +106,6 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
         Logger.i("BaseNormalPresenter removeAllDisposable");
         if (mCompositeDisposable != null)
             mCompositeDisposable.clear();
+//        mView.onSuccess();
     }
 }

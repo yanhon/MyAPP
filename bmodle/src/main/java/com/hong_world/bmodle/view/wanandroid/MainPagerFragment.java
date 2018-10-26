@@ -14,7 +14,7 @@ import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.databinding.FragmentMainPagerBinding;
 import com.hong_world.bmodle.presenter.MainPagerPresenter;
 import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
-import com.hong_world.common.base.BaseFragment;
+import com.hong_world.common.base.BaseListFragment;
 import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
@@ -26,10 +26,8 @@ import com.hong_world.routerlibrary.provider.IHomeProvider;
  * Version:
  */
 @Route(path = IBProvider.B_FRG_MAIN_PAGER)
-public class MainPagerFragment extends BaseFragment<MainPagerPresenter, FragmentMainPagerBinding> implements MainPagerContract.View<MainPagerPresenter> {
+public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, FragmentMainPagerBinding> implements MainPagerContract.View<MainPagerPresenter> {
 
-    private SingleDataBindingUseAdapter mAdapter;
-    private int mCurrentPage;
 
     @Override
     protected int getLayoutId() {
@@ -58,9 +56,9 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
         StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark), 50);
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         mBinding.setPresenter(mPresenter);
-        mAdapter = new SingleDataBindingUseAdapter(R.layout.item_search_pager, mPresenter);
-        mBinding.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mBinding.setAdapter(mAdapter);
+        mAdapter = new SingleDataBindingUseAdapter<FeedArticleData,MainPagerPresenter>(R.layout.item_search_pager, mPresenter);
+        mBinding.rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mBinding.rv.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -74,34 +72,13 @@ public class MainPagerFragment extends BaseFragment<MainPagerPresenter, Fragment
     @Override
     public void onRefresh() {
         super.onRefresh();
-        mCurrentPage = 0;
-        mAdapter.loadMoreEnd();
-        mAdapter.setEnableLoadMore(false);
         mPresenter.getPageList(mCurrentPage, true);
     }
 
-    @Override
-    public void onDataNotAvailable(String type, String msg) {
-        super.onDataNotAvailable(type, msg);
-        mAdapter.setEnableLoadMore(true);
-        getSmartRefreshLayout().setEnableRefresh(true);
-    }
 
     @Override
     public void getPageListSuccess(FeedArticleListData data, boolean isRefresh) {
-        mCurrentPage++;
-        if (isRefresh) {
-            mAdapter.replaceData(data.getDatas());
-            mAdapter.setEnableLoadMore(true);
-        } else {
-            if (!data.isOver()) {
-                mAdapter.loadMoreComplete();
-            } else {
-                mAdapter.loadMoreEnd();
-            }
-            mAdapter.addData(data.getDatas());
-            getSmartRefreshLayout().setEnableRefresh(true);
-        }
+        setPageList(data.getDatas(),data.isOver(),isRefresh);
     }
 
     @Override

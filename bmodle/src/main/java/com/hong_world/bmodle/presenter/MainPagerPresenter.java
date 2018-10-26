@@ -23,7 +23,7 @@ public class MainPagerPresenter extends MainPagerContract.Presenter {
 
     @Override
     public void getPageList(int mCurrentPage, final boolean isRefresh) {
-        mTasksRepository.getFeedArticleList(mCurrentPage).subscribe(addDisposable(new RxBaseObserver<FeedArticleListData>(this) {
+        addDisposable(mTasksRepository.getFeedArticleList(mCurrentPage).subscribeWith(new RxBaseObserver<FeedArticleListData>(this) {
             @Override
             protected void onSuccess(FeedArticleListData data) {
                 getView().getPageListSuccess(data, isRefresh);

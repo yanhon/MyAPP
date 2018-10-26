@@ -13,7 +13,7 @@ import com.hong_world.common.R;
 /**
  * Date: 2018/8/13. 17:58
  * Author: hong_world
- * Description:
+ * Description: 1、可简单的布局，2、可实现实体不耦合MultiItemEntity实现多种item的复杂布局
  * Version:
  */
 public class SingleDataBindingUseAdapter<T, P> extends BaseQuickAdapter<T, BaseViewHolder> {

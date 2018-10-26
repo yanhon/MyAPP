@@ -1,6 +1,5 @@
 package com.hong_world.homemodle.view;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.chad.library.adapter.base.util.MultiTypeDelegate;
+import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.homemodle.BR;
@@ -250,61 +251,73 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
         }
     }
 
-    public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+//    public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+//
+//
+//        public MultipleItemQuickAdapter(Context context, List data) {
+//            super(data);
+//            //Step.1
+////            setMultiTypeDelegate(new MultiTypeDelegate<Entity>() {
+////                @Override
+////                protected int getItemType(Entity entity) {
+////                    //infer the type by entity
+////                    return entity.type;
+////                }
+////            });
+////            //Step.2
+////            getMultiTypeDelegate()
+////                    .registerItemType(Entity.TEXT, R.layout.item_text_view)
+////                    .registerItemType(Entity.IMG, R.layout.item_image_view);
+//            addItemType(MultipleItem.TEXT, R.layout.item_new_list_view_1);
+//            addItemType(MultipleItem.IMG_TEXT, R.layout.item_new_list_view_2);
+//        }
+//
+//        @Override
+//        protected void convert(BaseViewHolder helper, MultipleItem item) {
+//            ViewDataBinding binding = (ViewDataBinding) helper.itemView.getTag(R.id.BaseQuickAdapter_databinding_support);
+//            switch (helper.getItemViewType()) {
+//                case MultipleItem.TEXT:
+//                    binding.setVariable(BR.date, item);
+//                    binding.setVariable(BR.presenter, mPresenter);
+//                    break;
+//                case MultipleItem.IMG_TEXT:
+//                    binding.setVariable(BR.date, item);
+//                    binding.setVariable(BR.presenter, mPresenter);
+//                    break;
+//            }
+//        }
+//
+//        @Override
+//        protected View getItemView(int layoutResId, ViewGroup parent) {
+//            ViewDataBinding binding = DataBindingUtil.inflate(mLayoutInflater, layoutResId, parent, false);
+//            if (binding == null) {
+//                return super.getItemView(layoutResId, parent);
+//            }
+//            View view = binding.getRoot();
+//            view.setTag(R.id.BaseQuickAdapter_databinding_support, binding);
+//            return view;
+//        }
+//    }
 
-
-        public MultipleItemQuickAdapter(Context context, List data) {
-            super(data);
-            //Step.1
-//            setMultiTypeDelegate(new MultiTypeDelegate<Entity>() {
-//                @Override
-//                protected int getItemType(Entity entity) {
-//                    //infer the type by entity
-//                    return entity.type;
-//                }
-//            });
-//            //Step.2
-//            getMultiTypeDelegate()
-//                    .registerItemType(Entity.TEXT, R.layout.item_text_view)
-//                    .registerItemType(Entity.IMG, R.layout.item_image_view);
-            addItemType(MultipleItem.TEXT, R.layout.item_new_list_view_1);
-            addItemType(MultipleItem.IMG_TEXT, R.layout.item_new_list_view_2);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, MultipleItem item) {
-            ViewDataBinding binding = (ViewDataBinding) helper.itemView.getTag(R.id.BaseQuickAdapter_databinding_support);
-            switch (helper.getItemViewType()) {
-                case MultipleItem.TEXT:
-                    binding.setVariable(BR.date, item);
-                    binding.setVariable(BR.presenter, mPresenter);
-                    break;
-                case MultipleItem.IMG_TEXT:
-                    binding.setVariable(BR.date, item);
-                    binding.setVariable(BR.presenter, mPresenter);
-                    break;
-            }
-        }
-
-        @Override
-        protected View getItemView(int layoutResId, ViewGroup parent) {
-            ViewDataBinding binding = DataBindingUtil.inflate(mLayoutInflater, layoutResId, parent, false);
-            if (binding == null) {
-                return super.getItemView(layoutResId, parent);
-            }
-            View view = binding.getRoot();
-            view.setTag(R.id.BaseQuickAdapter_databinding_support, binding);
-            return view;
-        }
-    }
-
-    public class MultipleItemQuickAdapter2 extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+    public class MultipleItemQuickAdapter2 extends SingleDataBindingUseAdapter<MultipleItem,NewListPresenter> {
 
 
         public MultipleItemQuickAdapter2() {
-            super(null);
-            addItemType(MultipleItem.TEXT, R.layout.item_new_list_view_1);
-            addItemType(MultipleItem.IMG_TEXT, R.layout.item_new_list_and_list_view);
+            super(mPresenter);
+            //Step.1
+            setMultiTypeDelegate(new MultiTypeDelegate<MultipleItem>() {
+                @Override
+                protected int getItemType(MultipleItem entity) {
+                    //infer the type by entity
+                    return entity.getItemType();
+                }
+            });
+//            //Step.2
+            getMultiTypeDelegate()
+                    .registerItemType(MultipleItem.TEXT, R.layout.item_new_list_view_1)
+                    .registerItemType(MultipleItem.IMG_TEXT, R.layout.item_new_list_and_list_view);
+//            addItemType(MultipleItem.TEXT, R.layout.item_new_list_view_1);
+//            addItemType(MultipleItem.IMG_TEXT, R.layout.item_new_list_and_list_view);
         }
 
         @Override

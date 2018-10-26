@@ -1,6 +1,6 @@
 package com.hong_world.library.base;
 
-import android.app.Activity;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Date: 2017/10/31.17:02
@@ -32,12 +32,20 @@ public interface BaseView<P extends BasePresenter> {
 
     void onDataNotAvailable(String type, String msg);
 
+    /**
+     * //不能主动取消网络请求
+     */
     void onLoading();
+
+    /**
+     * //能点击返回按钮取消请求（默认取消当前页面所有的网络请求），适用于数据提交，重写RxBaseObserver中的onStart方法
+     *
+     * @param disposable
+     */
+    void onLoading(Disposable disposable);
 
     void onTimeOut();
 
     boolean isActive();
-
-    Activity getActivityContext();
 
 }

@@ -1,6 +1,5 @@
 package com.hong_world.common.base;
 
-import android.app.Activity;
 import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -39,6 +38,8 @@ import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Date: 2017/10/31.17:56
  * Author: hong_world
@@ -52,6 +53,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     protected BaseLayoutBinding baseLayoutBinding;
     protected LoadService mBaseLoadService;
     protected SmartRefreshLayout smartRefreshLayout;
+    private Disposable singleDisposable;
 
     protected boolean needTopBar() {
         return true;
@@ -194,14 +196,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                 onLoading();
                 onRefresh();
             }
-        })
-                .setCallBack(ErrorCallback.class, new Transport() {
-                    @Override
-                    public void order(Context context, View view) {
-                        TextView mTvEmpty = (TextView) view.findViewById(R.id.id_tv_error);
-                        mTvEmpty.setText("12345615121");
-                    }
-                });
+        });
     }
 
     protected V getBindView() {
@@ -266,6 +261,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         }
     }
 
+    boolean isLoading = false;
+
     /**
      * 请求错误信息展示
      *
@@ -301,6 +298,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadMore();
+        isLoading = false;
         if (StringUtil.isNotEmpty(msg))
             Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -329,11 +327,35 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     }
 
     @Override
+    public boolean onBackPressedSupport() {
+        if (isLoading) {
+            onSuccess();
+            isLoading = false;
+            mPresenter.removeAllDisposable();
+            return true;
+        }
+        return super.onBackPressedSupport();
+    }
+
+    @Override
     public void onLoading() {
         hideSoftInput();
+        isLoading = false;
         if (mBaseLoadService != null) {
-            mBaseLoadService.showCallback(LoadingCallback.class);
+            mBaseLoadService.setCallBack(LoadingCallback.class, new Transport() {
+                @Override
+                public void order(Context context, View view) {
+
+                }
+            }).showCallback(LoadingCallback.class);
         }
+    }
+
+    @Override
+    public void onLoading(Disposable disposable) {
+        singleDisposable = disposable;
+        onLoading();
+        isLoading = true;
     }
 
     @Override
@@ -358,8 +380,4 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         return false;
     }
 
-    @Override
-    public Activity getActivityContext() {
-        return getActivity();
-    }
 }
