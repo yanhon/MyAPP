@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
  * Description:
  * Version:
  */
-@Route(path = IHomeProvider.HOME_SERVICE)
+@Route(path = IHomeProvider.HOME_SERVICE, name = "HProvider")
 public class HProvider implements IHomeProvider {
     private Context context;
 

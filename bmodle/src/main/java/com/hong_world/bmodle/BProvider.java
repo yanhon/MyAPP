@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
  * Description:
  * Version:
  */
-@Route(path = IBProvider.B_SERVICE)
+@Route(path = IBProvider.B_SERVICE, name = "BProvider")
 public class BProvider implements IBProvider {
     private Context context;
 

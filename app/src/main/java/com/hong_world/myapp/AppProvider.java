@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
  * Description:
  * Version:
  */
-@Route(path = IAppProvider.APP_SERVICE_PATH)
+@Route(path = IAppProvider.APP_SERVICE_PATH, name = "AppProvider")
 public class AppProvider implements IAppProvider {
     private Context context;
 

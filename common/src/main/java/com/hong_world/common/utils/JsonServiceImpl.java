@@ -1,4 +1,4 @@
-package com.hong_world.routerlibrary;
+package com.hong_world.common.utils;
 
 import android.content.Context;
 
@@ -13,25 +13,25 @@ import java.lang.reflect.Type;
  * Description: 传递实体对象
  * Version:
  */
-@Route(path = "/service/json")
+@Route(path = "/service/json",name = "传递自定义对象")
 public class JsonServiceImpl implements SerializationService {
     @Override
-    public <T> T json2Object(String input, Class<T> clazz) {
-        return null;
+    public void init(Context context) {
+
+    }
+
+    @Override
+    public <T> T json2Object(String text, Class<T> clazz) {
+        return GsonUtils.fromGson(text, clazz);
     }
 
     @Override
     public String object2Json(Object instance) {
-        return null;
+        return GsonUtils.toGson(instance);
     }
 
     @Override
     public <T> T parseObject(String input, Type clazz) {
-        return null;
-    }
-
-    @Override
-    public void init(Context context) {
-
+        return GsonUtils.fromGson(input, clazz);
     }
 }
