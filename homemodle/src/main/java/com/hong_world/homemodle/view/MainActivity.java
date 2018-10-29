@@ -6,35 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.homemodle.R;
 import com.hong_world.library.base.BasePresenter;
-import com.hong_world.library.utils.StringUtil;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
-import me.yokeyword.fragmentation.ISupportFragment;
-
-@Route(path = IHomeProvider.HOME_ACT_MIAN, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_ACT_MIAN)
 public class MainActivity extends BaseActivity {
-    @Autowired
-    String urls;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(getLayoutId());
 //        addFragmentToActivity(getSupportFragmentManager()
 //                , NewListFragment.getInstance(), R.id.fl);
-        if (StringUtil.isEmpty(urls))
             loadRootFragment(R.id.fl, HomeFragment.getInstance());
-        else {
-            Bundle bundle = new Bundle();
-            bundle.putString("urls",urls);
-            loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).with(bundle).navigation());
-        }
-
     }
 
     @Override

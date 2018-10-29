@@ -12,6 +12,6 @@ import android.os.Bundle;
 
 public class ModleService {
     public static void openHomeActivity(Context context, Bundle bundle) {
-        ServiceManager.getInstance().getHomeProvider().openActivity(bundle);
+        ServiceManager.getHomeProvider().openActivity(bundle);
     }
 }

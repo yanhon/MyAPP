@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -32,6 +31,7 @@ import com.hong_world.homemodle.modle.bean.Level1Item;
 import com.hong_world.homemodle.modle.bean.MultipleItem;
 import com.hong_world.homemodle.presenter.NewListPresenter;
 import com.hong_world.library.base.BaseSupportFragment;
+import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 import com.orhanobut.logger.Logger;
 
@@ -46,7 +46,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * Description:
  * Version:
  */
-@Route(path = IHomeProvider.HOME_FRG_NEW_LIST, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_FRG_NEW_LIST)
 public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewListBinding> implements NewListContract.View<NewListPresenter> {
 
     private MultipleItemQuickAdapter2 mAdapter;
@@ -157,7 +157,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 
     @Override
     public void onItemClick(MultipleItem data) {
-        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_IMAGE).navigation());
+        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ServiceManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_IMAGE,null));
     }
 
     public class DataBindingUseAdapter extends BaseQuickAdapter<BeanItem, MovieViewHolder> {

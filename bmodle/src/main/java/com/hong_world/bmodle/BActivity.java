@@ -10,14 +10,14 @@ import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.bmodle.view.coordinatorLayout.StandardCoordinatorFragment;
 
-@Route(path = IBProvider.B_ACT_B, group = IBProvider.B_GROUP)
+@Route(path = IBProvider.B_ACT_B)
 public class BActivity extends BaseActivity implements View.OnClickListener {
 
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(getLayoutId());
-        ServiceManager.getInstance().getHomeProvider().sayHello("我shiB");
+        ServiceManager.getHomeProvider().sayHello("我shiB");
         String s = Injection.s;
         loadRootFragment(R.id.fl, StandardCoordinatorFragment.getInstance());
     }
@@ -32,7 +32,7 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
 //      startActivity(new Intent(this, HomeActivity.class));
         Bundle bundle = new Bundle();
         bundle.putString("ok", "123");
-        ServiceManager.getInstance().getHomeProvider().openActivity(bundle);
+        ServiceManager.getHomeProvider().openActivity(bundle);
     }
 
     @Override

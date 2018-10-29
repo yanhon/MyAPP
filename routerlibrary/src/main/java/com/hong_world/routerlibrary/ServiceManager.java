@@ -1,13 +1,12 @@
 package com.hong_world.routerlibrary;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.routerlibrary.provider.IAppProvider;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
+import com.hong_world.routerlibrary.provider.IKotlinModuleProvider;
 
 /**
  * Date: 2017/11/17.14:44
@@ -26,6 +25,7 @@ public class ServiceManager {
     IHomeProvider homeProvider;
     //    @Autowired
     IBProvider bProvider;
+    IKotlinModuleProvider kotlinModuleProvider;
 
     public ServiceManager() {
 //        ARouter.getInstance().inject(this);
@@ -46,36 +46,38 @@ public class ServiceManager {
 //        return appProvider;
 //    }
 
-    public IHomeProvider getHomeProvider() {
-        if (homeProvider == null) {
-            homeProvider = ARouter.getInstance().navigation(IHomeProvider.class);
-        }
-        if(homeProvider==null){
-            Log.i("test","为空！！！");
-            homeProvider= new IHomeProvider() {
-                @Override
-                public void openActivity(Bundle bundle) {
-
-                }
-
-                @Override
-                public void sayHello(String name) {
-
-                }
-
-                @Override
-                public void init(Context context) {
-
-                }
-            };
-        }
-        return homeProvider;
+    public static IHomeProvider getHomeProvider() {
+//        if (homeProvider == null) {
+//            homeProvider = ARouter.getInstance().navigation(IHomeProvider.class);
+//        }
+//        if(homeProvider==null){
+//            Log.i("test","为空！！！");
+//            homeProvider= new IHomeProvider() {
+//                @Override
+//                public void openActivity(Bundle bundle) {
+//
+//                }
+//
+//                @Override
+//                public void sayHello(String name) {
+//
+//                }
+//
+//                @Override
+//                public void init(Context context) {
+//
+//                }
+//            };
+//        }
+        return ARouter.getInstance().navigation(IHomeProvider.class);
     }
 
-//    public IBProvider getBProvider() {
-//        if (bProvider == null) {
-//            bProvider = ARouter.getInstance().navigation(IBProvider.class);
-//        }
-//        return bProvider;
-//    }
+    public static IBProvider getBProvider() {
+        return ARouter.getInstance().navigation(IBProvider.class);
+    }
+
+    public static IKotlinModuleProvider getKotlinProvider() {
+        Log.i("test", "IKotlinModuleProvider地址：" + ARouter.getInstance().navigation(IKotlinModuleProvider.class).hashCode());
+        return ARouter.getInstance().navigation(IKotlinModuleProvider.class);
+    }
 }

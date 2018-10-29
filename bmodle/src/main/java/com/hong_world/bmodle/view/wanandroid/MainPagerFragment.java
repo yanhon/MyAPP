@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hong_world.bmodle.R;
 import com.hong_world.bmodle.bean.FeedArticleData;
@@ -16,6 +15,7 @@ import com.hong_world.bmodle.presenter.MainPagerPresenter;
 import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseListFragment;
 import com.hong_world.common.utils.StatusBarUtil;
+import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
@@ -56,7 +56,7 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
         StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark), 50);
         getSmartRefreshLayout().setEnableOverScrollDrag(true);
         mBinding.setPresenter(mPresenter);
-        mAdapter = new SingleDataBindingUseAdapter<FeedArticleData,MainPagerPresenter>(R.layout.item_search_pager, mPresenter);
+        mAdapter = new SingleDataBindingUseAdapter<FeedArticleData, MainPagerPresenter>(R.layout.item_search_pager, mPresenter);
         mBinding.rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mBinding.rv.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -78,12 +78,14 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
 
     @Override
     public void getPageListSuccess(FeedArticleListData data, boolean isRefresh) {
-        setPageList(data.getDatas(),data.isOver(),isRefresh);
+        setPageList(data.getDatas(), data.isOver(), isRefresh);
     }
 
     @Override
     public void onItemClick(FeedArticleData data) {
-        ARouter.getInstance().build(IHomeProvider.HOME_ACT_WEB).withString("urls", data.getLink()).navigation();
+        Bundle bundle = getArguments();
+        bundle.putString("urls", data.getLink());
+        ServiceManager.getHomeProvider().openActivity(IHomeProvider.HOME_ACT_WEB, bundle);
     }
 
 }

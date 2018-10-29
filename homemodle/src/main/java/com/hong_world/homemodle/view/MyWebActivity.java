@@ -8,15 +8,15 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.homemodle.R;
 import com.hong_world.library.base.BasePresenter;
+import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
-@Route(path = IHomeProvider.HOME_ACT_WEB, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_ACT_WEB)
 public class MyWebActivity extends BaseActivity {
     @Autowired
     String urls;
@@ -26,7 +26,9 @@ public class MyWebActivity extends BaseActivity {
         setContentView(getLayoutId());
 //        addFragmentToActivity(getSupportFragmentManager()
 //                , NewListFragment.getInstance(), R.id.fl);
-        loadRootFragment(R.id.fl, (ISupportFragment) ARouter.getInstance().build(IHomeProvider.HOME_FRG_WEB).withString("urls", urls).navigation());
+        Bundle bundle = new Bundle();
+        bundle.putString("urls", urls);
+        loadRootFragment(R.id.fl, (ISupportFragment) ServiceManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_WEB,bundle));
 
     }
 

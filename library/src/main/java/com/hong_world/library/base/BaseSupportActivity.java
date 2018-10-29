@@ -130,10 +130,12 @@ public abstract class BaseSupportActivity extends BaseAppCompatActivity implemen
     // 选择性拓展其他方法
 
     public void loadRootFragment(int containerId, @NonNull ISupportFragment toFragment) {
+        if (toFragment == null) return;
         mDelegate.loadRootFragment(containerId, toFragment);
     }
 
     public void start(ISupportFragment toFragment) {
+        if (toFragment == null) return;
         mDelegate.start(toFragment);
     }
 
@@ -141,6 +143,7 @@ public abstract class BaseSupportActivity extends BaseAppCompatActivity implemen
      * @param launchMode Same as Activity's LaunchMode.
      */
     public void start(ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode) {
+        if (toFragment == null) return;
         mDelegate.start(toFragment, launchMode);
     }
 
@@ -152,6 +155,7 @@ public abstract class BaseSupportActivity extends BaseAppCompatActivity implemen
      * @see #start(ISupportFragment)
      */
     public void startWithPopTo(ISupportFragment toFragment, Class<?> targetFragmentClass, boolean includeTargetFragment) {
+        if (toFragment == null) return;
         mDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
     }
 

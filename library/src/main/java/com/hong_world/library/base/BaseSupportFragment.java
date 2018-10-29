@@ -325,6 +325,7 @@ public abstract class BaseSupportFragment extends BaseAppCompatFragment implemen
     }
 
     public void start(ISupportFragment toFragment) {
+        if (toFragment == null) return;
         mDelegate.start(toFragment);
     }
 
@@ -332,6 +333,7 @@ public abstract class BaseSupportFragment extends BaseAppCompatFragment implemen
      * @param launchMode Similar to Activity's LaunchMode.
      */
     public void start(final ISupportFragment toFragment, @ISupportFragment.LaunchMode int launchMode) {
+        if (toFragment == null) return;
         mDelegate.start(toFragment, launchMode);
     }
 
@@ -339,6 +341,7 @@ public abstract class BaseSupportFragment extends BaseAppCompatFragment implemen
      * Launch an fragment for which you would like a result when it poped.
      */
     public void startForResult(ISupportFragment toFragment, int requestCode) {
+        if (toFragment == null) return;
         mDelegate.startForResult(toFragment, requestCode);
     }
 

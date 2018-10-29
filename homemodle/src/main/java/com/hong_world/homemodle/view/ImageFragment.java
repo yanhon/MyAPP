@@ -25,7 +25,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * Description:
  * Version:
  */
-@Route(path = IHomeProvider.HOME_FRG_IMAGE, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_FRG_IMAGE)
 public class ImageFragment extends BaseUploadImageFragment<HomePresenter, FragmentHomeBinding> implements HomeContract.View<HomePresenter> {
     private ISupportFragment[] mFragments = new ISupportFragment[4];
     public static final int FIRST = 0;

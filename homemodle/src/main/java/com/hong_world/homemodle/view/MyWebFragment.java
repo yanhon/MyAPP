@@ -20,7 +20,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * Description:
  * Version:
  */
-@Route(path = IHomeProvider.HOME_FRG_WEB, group = IHomeProvider.HOME_GROUP)
+@Route(path = IHomeProvider.HOME_FRG_WEB)
 public class MyWebFragment extends BaseWebViewFragment<HomePresenter, FragmentHomeBinding> implements HomeContract.View<HomePresenter> {
     private ISupportFragment[] mFragments = new ISupportFragment[4];
     public static final int FIRST = 0;
