@@ -38,6 +38,8 @@ import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -67,7 +69,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (isBindEventBusHere()) {
-//            EventBus.getDefault().register(this);
+            EventBus.getDefault().register(this);
         }
         ARouter.getInstance().inject(this);
         setPresenter(createPresenter());
@@ -226,7 +228,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         com.orhanobut.logger.Logger.i("BaseFragment onDestroyView");
 //        }
         if (isBindEventBusHere()) {
-//            EventBus.getDefault().unregister(this);
+            EventBus.getDefault().unregister(this);
         }
     }
 

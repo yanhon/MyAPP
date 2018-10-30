@@ -3,7 +3,6 @@ package com.hong_world.bmodle;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.Postcard;
@@ -31,9 +30,8 @@ public class BProvider implements IBProvider {
     @Override
     public void init(Context context) {
         this.context = context;
-        Log.i("test", "BProvider初始化");
+        Logger.i("BProvider初始化");
 
-        Toast.makeText(context, "BProvider初始化", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -9,6 +9,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:src="@drawable/fragmentation_ic_stack"
         android:layout_marginBottom="4dp" />
 
     <TextView

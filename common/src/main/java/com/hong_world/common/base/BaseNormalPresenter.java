@@ -3,9 +3,7 @@ package com.hong_world.common.base;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
-import android.widget.Toast;
 
-import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 import com.orhanobut.logger.Logger;
@@ -29,11 +27,6 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
     public void setmView(V mView) {
         this.mView = mView;
 //        mView.setPresenter(this);
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void toa() {
-        Toast.makeText(BaseApplication.getInstance(), "toa", Toast.LENGTH_SHORT).show();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

@@ -75,6 +75,8 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        StatusBarUtil.setDarkMode(_mActivity);
+        StatusBarUtil.setFullScrren(_mActivity);
         StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.shimmer_color));
     }
 

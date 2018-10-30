@@ -47,6 +47,8 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        StatusBarUtil.setLightMode(_mActivity);
+        StatusBarUtil.setNoFullScrren(_mActivity);
         StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.colorPrimaryDark), 50);
     }
 

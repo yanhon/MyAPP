@@ -3,7 +3,6 @@ package com.hong_world.homemodle;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.Postcard;
@@ -86,8 +85,7 @@ public class HProvider implements IHomeProvider {
     @Override
     public void init(Context context) {
         this.context = context;
-        Log.i("test", "HProvider初始化");
-        Toast.makeText(context, "HProvider初始化", Toast.LENGTH_SHORT).show();
+        Logger.i( "HProvider初始化");
     }
 
     @Override

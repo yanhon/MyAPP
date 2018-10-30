@@ -13,6 +13,8 @@ import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -37,7 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
         ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         if (isBindEventBusHere()) {
-//            EventBus.getDefault().register(this);
+            EventBus.getDefault().register(this);
         }
     }
 
@@ -132,6 +134,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
+        }
+        if (isBindEventBusHere()) {
+            EventBus.getDefault().unregister(this);
         }
     }
 

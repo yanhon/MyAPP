@@ -74,4 +74,5 @@ dependencies {
     implementation deps.agentweb.download
     implementation deps.agentweb.filechooser
     api deps.zhihu_image_selecter
+    api deps.eventbus
 }

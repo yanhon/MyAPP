@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.bean.Task;
+import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.MainContract;
 import com.hong_world.homemodle.databinding.FragmentLoginsBinding;
@@ -51,6 +52,13 @@ public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBind
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        StatusBarUtil.clearPreviousSetting(_mActivity);
+        StatusBarUtil.setTranslucent(_mActivity, 0);
+    }
+
+    @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         super.initViews(view, savedInstanceState);
         mBinding.setView(this);
@@ -71,4 +79,5 @@ public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBind
     protected boolean needTopBar() {
         return true;
     }
+
 }
