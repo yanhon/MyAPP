@@ -7,15 +7,15 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hong_world.bmodle.R;
-import com.hong_world.bmodle.bean.FeedArticleData;
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.ProviderManager;
+import com.hong_world.common.bean.FeedArticleData;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.databinding.FragmentMainPagerBinding;
 import com.hong_world.bmodle.presenter.MainPagerPresenter;
 import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseListFragment;
 import com.hong_world.common.utils.StatusBarUtil;
-import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
@@ -87,7 +87,7 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
     public void onItemClick(FeedArticleData data) {
         Bundle bundle = getArguments();
         bundle.putString("urls", data.getLink());
-        ServiceManager.getHomeProvider().openActivity(IHomeProvider.HOME_ACT_WEB, bundle);
+        ProviderManager.getInstance().getHomeProvider().openActivity(IHomeProvider.HOME_ACT_WEB, bundle);
     }
 
 }

@@ -21,5 +21,7 @@ public interface IHomeProvider extends IBaseProvider {
     String HOME_FRG_WEB = "/home/frg/web";
     String HOME_FRG_NEW_LIST = "/home/frg/newList";
 
+    void sayHello(String name);
+
     void openActivity(Bundle bundle);
 }

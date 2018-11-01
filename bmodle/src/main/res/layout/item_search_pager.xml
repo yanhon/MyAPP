@@ -7,7 +7,7 @@
 
         <variable
             name="date"
-            type="com.hong_world.bmodle.bean.FeedArticleData" />
+            type="com.hong_world.common.bean.FeedArticleData" />
 
         <variable
             name="presenter"

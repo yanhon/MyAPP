@@ -1,7 +1,7 @@
 package com.hong_world.bmodle.contract;
 
-import com.hong_world.bmodle.bean.FeedArticleData;
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.bean.FeedArticleData;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.common.base.BaseNormalPresenter;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;

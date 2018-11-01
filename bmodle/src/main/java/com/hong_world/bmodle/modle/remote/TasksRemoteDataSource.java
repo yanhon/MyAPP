@@ -1,6 +1,6 @@
 package com.hong_world.bmodle.modle.remote;
 
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.bmodle.modle.TasksDataSource;
 import com.hong_world.bmodle.net.BService;
 import com.hong_world.common.net.MyHttp;
@@ -32,6 +32,7 @@ public class TasksRemoteDataSource implements TasksDataSource {
             INSTANCE = new TasksRemoteDataSource();
             bService = ServiceGenerator.createService(BService.class, "http://www.wanandroid.com/");
             bServiceProviders = new RxCache.Builder()
+                    .useExpiredDataIfLoaderNotAvailable(true)
                     .persistence(BaseApplication.getInstance().getExternalCacheDir(), new GsonSpeaker())
                     .using(BService.class);
         }
@@ -40,6 +41,6 @@ public class TasksRemoteDataSource implements TasksDataSource {
 
     @Override
     public Observable<FeedArticleListData> getFeedArticleList(int num) {
-        return bServiceProviders.getFeedArticleList( MyHttp.toBaseResponseSubscribe(bService.getFeedArticleList(num)),new DynamicKey(num),new EvictDynamicKey(false));
+        return bServiceProviders.getFeedArticleList(MyHttp.toBaseResponseSubscribe(bService.getFeedArticleList(num)), new DynamicKey(num), new EvictDynamicKey(false));
     }
 }

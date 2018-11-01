@@ -1,4 +1,4 @@
-package com.hong_world.bmodle.bean;
+package com.hong_world.common.bean;
 
 import android.databinding.BaseObservable;
 

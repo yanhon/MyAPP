@@ -1,6 +1,6 @@
 package com.hong_world.bmodle.net;
 
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.common.net.BaseResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -30,7 +30,7 @@ public interface BService {
     Observable<BaseResponse<FeedArticleListData>> getFeedArticleList(@Path("num") int num);
 
     @ProviderKey("getFeedArticleList")
-    @LifeCache(duration = 15, timeUnit = TimeUnit.SECONDS)
+    @LifeCache(duration = 60, timeUnit = TimeUnit.SECONDS)
     Observable<FeedArticleListData> getFeedArticleList(Observable observable, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 
 }

@@ -1,6 +1,8 @@
 package com.hong_world.kotlin_module.presenter
 
+import com.hong_world.common.ProviderManager
 import com.hong_world.common.net.RxBaseObserver
+import com.hong_world.common.utils.GsonUtils
 import com.hong_world.kotlin_module.bean.FeedArticleListData
 import com.hong_world.kotlin_module.contract.WanAndroidContract
 import com.hong_world.kotlin_module.modle.TasksDataSource
@@ -34,13 +36,23 @@ class WanAndroidPresenter(view: WanAndroidContract.View<*>) : WanAndroidContract
 //    }
 
     override fun getPageList(mCurrentPage: Int, isRefresh: Boolean) {
-        addDisposable(mTasksRepository?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<FeedArticleListData>(this) {
-            override fun onSuccess(data: FeedArticleListData) {
-                mView.getPageListSuccess(data, isRefresh)
+        addDisposable(ProviderManager.getInstance().bProvider?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<com.hong_world.common.bean.FeedArticleListData>(this) {
+            override fun onSuccess(data: com.hong_world.common.bean.FeedArticleListData) {
+                mView.getPageListSuccess(GsonUtils.fromGson(GsonUtils.toGson(data),FeedArticleListData::class.java), isRefresh)
             }
 
             override fun onFail(errorCode: String?, errorMsg: String?) {
             }
         }))
     }
+//    override fun getPageList(mCurrentPage: Int, isRefresh: Boolean) {
+//        addDisposable(mTasksRepository?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<FeedArticleListData>(this) {
+//            override fun onSuccess(data: FeedArticleListData) {
+//                mView.getPageListSuccess(data, isRefresh)
+//            }
+//
+//            override fun onFail(errorCode: String?, errorMsg: String?) {
+//            }
+//        }))
+//    }
 }

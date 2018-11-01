@@ -11,4 +11,7 @@ public interface IKotlinModuleProvider extends IBaseProvider {
     String KOTLIN_MODULE_GROUP = "kotlin_module";
     String KOTLIN_MODULE_ACT_MAIN = "/kotlin_module/act/main";
     String KOTLIN_MODULE_FRG_WAN_ANDROID = "/kotlin_module/frg/wan_android";
+
+    void sayHello(String name);
+
 }

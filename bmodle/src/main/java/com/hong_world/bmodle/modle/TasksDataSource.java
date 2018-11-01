@@ -1,6 +1,6 @@
 package com.hong_world.bmodle.modle;
 
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.bean.FeedArticleListData;
 
 import io.reactivex.Observable;
 

@@ -13,7 +13,7 @@ import com.hong_world.homemodle.contract.MainContract;
 import com.hong_world.homemodle.databinding.FragmentLoginsBinding;
 import com.hong_world.homemodle.presenter.MainPresenter;
 import com.hong_world.library.iloader.ILoaderManager;
-import com.hong_world.routerlibrary.ServiceManager;
+import com.hong_world.common.ProviderManager;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 import com.hong_world.routerlibrary.provider.IKotlinModuleProvider;
 
@@ -71,7 +71,7 @@ public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBind
     public void onSuccess(Task task) {
         Toast.makeText(getActivity(), task.getPhone() + task.getPwd() + ">", Toast.LENGTH_SHORT).show();
 //        ARouter.getInstance().build(IHomeProvider.HOME_ACT_MAIN).navigation();
-        ServiceManager.getKotlinProvider().openActivity(IKotlinModuleProvider.KOTLIN_MODULE_ACT_MAIN,null);
+        ProviderManager.getInstance().getKotlinProvider().openActivity(IKotlinModuleProvider.KOTLIN_MODULE_ACT_MAIN,null);
 //        startActivity(new Intent(getActivity(), HomeActivity.class));
     }
 

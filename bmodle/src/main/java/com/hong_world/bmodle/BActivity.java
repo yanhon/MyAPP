@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.hong_world.common.ProviderManager;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.library.base.BasePresenter;
-import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.bmodle.view.coordinatorLayout.StandardCoordinatorFragment;
 
@@ -17,7 +17,7 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(getLayoutId());
-        ServiceManager.getHomeProvider().sayHello("我shiB");
+        ProviderManager.getInstance().getHomeProvider().sayHello("我shiB");
         String s = Injection.s;
         loadRootFragment(R.id.fl, StandardCoordinatorFragment.getInstance());
     }
@@ -32,7 +32,7 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
 //      startActivity(new Intent(this, HomeActivity.class));
         Bundle bundle = new Bundle();
         bundle.putString("ok", "123");
-        ServiceManager.getHomeProvider().openActivity(bundle);
+        ProviderManager.getInstance().getHomeProvider().openActivity(bundle);
     }
 
     @Override

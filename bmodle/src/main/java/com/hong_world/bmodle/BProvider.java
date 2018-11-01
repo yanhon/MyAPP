@@ -9,8 +9,12 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hong_world.common.providers.IBProviderc;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.orhanobut.logger.Logger;
+
+import io.reactivex.Observable;
 
 /**
  * Date: 2017/11/20.9:38
@@ -19,7 +23,7 @@ import com.orhanobut.logger.Logger;
  * Version:
  */
 @Route(path = IBProvider.B_SERVICE, name = "BProvider")
-public class BProvider implements IBProvider {
+public class BProvider implements IBProviderc {
     private Context context;
 
     @Override
@@ -87,5 +91,10 @@ public class BProvider implements IBProvider {
                 Logger.i("被拦截了");
             }
         });
+    }
+
+    @Override
+    public Observable<FeedArticleListData> getFeedArticleList(int num) {
+        return Injection.provideTasksRepository().getFeedArticleList(num);
     }
 }

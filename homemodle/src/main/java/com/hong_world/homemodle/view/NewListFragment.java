@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
+import com.hong_world.common.ProviderManager;
 import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.utils.StatusBarUtil;
@@ -31,7 +32,6 @@ import com.hong_world.homemodle.modle.bean.Level1Item;
 import com.hong_world.homemodle.modle.bean.MultipleItem;
 import com.hong_world.homemodle.presenter.NewListPresenter;
 import com.hong_world.library.base.BaseSupportFragment;
-import com.hong_world.routerlibrary.ServiceManager;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 import com.orhanobut.logger.Logger;
 
@@ -159,7 +159,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 
     @Override
     public void onItemClick(MultipleItem data) {
-        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ServiceManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_IMAGE,null));
+        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_IMAGE,null));
     }
 
     public class DataBindingUseAdapter extends BaseQuickAdapter<BeanItem, MovieViewHolder> {

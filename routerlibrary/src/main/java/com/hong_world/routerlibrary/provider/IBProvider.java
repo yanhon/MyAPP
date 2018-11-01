@@ -13,4 +13,7 @@ public interface IBProvider extends IBaseProvider {
     String B_GROUP = "bp";
 
     String B_FRG_MAIN_PAGER = "/b/frg/mainPager";
+
+    void sayHello(String name);
+
 }

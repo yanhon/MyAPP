@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.common.base.BaseActivity;
 import com.hong_world.homemodle.R;
 import com.hong_world.library.base.BasePresenter;
-import com.hong_world.routerlibrary.ServiceManager;
+import com.hong_world.common.ProviderManager;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 
 import me.yokeyword.fragmentation.ISupportFragment;
@@ -28,7 +28,7 @@ public class MyWebActivity extends BaseActivity {
 //                , NewListFragment.getInstance(), R.id.fl);
         Bundle bundle = new Bundle();
         bundle.putString("urls", urls);
-        loadRootFragment(R.id.fl, (ISupportFragment) ServiceManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_WEB,bundle));
+        loadRootFragment(R.id.fl, (ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_WEB,bundle));
 
     }
 

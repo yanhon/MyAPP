@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.R;
 import com.hong_world.common.databinding.BaseLayoutBinding;
+import com.hong_world.common.utils.ToastUtils;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 import com.hong_world.library.utils.StringUtil;
@@ -263,7 +263,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         }
     }
 
-    boolean isLoading = false;
+    boolean isCancleLoading = false;
 
     /**
      * 请求错误信息展示
@@ -300,9 +300,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         }
         smartRefreshLayout.finishRefresh();
         smartRefreshLayout.finishLoadMore();
-        isLoading = false;
+        isCancleLoading = false;
         if (StringUtil.isNotEmpty(msg))
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort(msg);
     }
 
     @Override
@@ -330,9 +330,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     public boolean onBackPressedSupport() {
-        if (isLoading) {
+        if (isCancleLoading) {
             onSuccess();
-            isLoading = false;
+            isCancleLoading = false;
             mPresenter.removeAllDisposable();
             return true;
         }
@@ -342,7 +342,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     @Override
     public void onLoading() {
         hideSoftInput();
-        isLoading = false;
+        isCancleLoading = false;
         if (mBaseLoadService != null) {
             mBaseLoadService.setCallBack(LoadingCallback.class, new Transport() {
                 @Override
@@ -357,7 +357,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     public void onLoading(Disposable disposable) {
         singleDisposable = disposable;
         onLoading();
-        isLoading = true;
+        isCancleLoading = true;
     }
 
     @Override

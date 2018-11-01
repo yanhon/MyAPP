@@ -1,8 +1,8 @@
 package com.hong_world.bmodle.presenter;
 
 import com.hong_world.bmodle.Injection;
-import com.hong_world.bmodle.bean.FeedArticleData;
-import com.hong_world.bmodle.bean.FeedArticleListData;
+import com.hong_world.common.bean.FeedArticleData;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.bmodle.contract.MainPagerContract;
 import com.hong_world.bmodle.modle.TasksDataSource;
 import com.hong_world.common.net.RxBaseObserver;
