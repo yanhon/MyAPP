@@ -119,7 +119,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
         mAdapter.loadMoreEnd();
         mAdapter.setEnableLoadMore(false);
         mAdapter.setNewData(genData2());
-        smartRefreshLayout.finishRefresh();
+        smartRefreshFinishRefresh();
     }
 
     private List<Level0Item> genData3() {

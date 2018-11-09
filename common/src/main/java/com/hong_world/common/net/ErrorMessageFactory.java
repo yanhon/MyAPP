@@ -80,8 +80,8 @@ public class ErrorMessageFactory {
             message = ((HttpStatusException) exception).getErrorMsg();
         } else if (exception instanceof APIResultException) {
             mTDException = (APIResultException) exception;
+            bean.setCode(GlobalContants.DATAERROR);
             if (mTDException.getErrorCode() == CODE_NO_DATA) {
-                bean.setCode(GlobalContants.DATAEMPTY);
                 message = StringUtil.isEmpty(mTDException.getErrorMsg()) ? "暂无数据" : mTDException.getErrorMsg();
             } else if (mTDException.getErrorCode() == CODE_PARAMETER_ERROR) {
                 message = StringUtil.isEmpty(mTDException.getErrorMsg()) ? "请求参数错误" : mTDException.getErrorMsg();

@@ -56,6 +56,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     protected LoadService mBaseLoadService;
     protected SmartRefreshLayout smartRefreshLayout;
     private Disposable singleDisposable;
+    private View needSetStatusView;
 
     protected boolean needTopBar() {
         return true;
@@ -78,6 +79,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     protected View onCreateMyView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView;
         if (needTopBar()) {
             baseLayoutBinding = DataBindingUtil.inflate(inflater, R.layout.base_layout, container, false);
             if (getLayoutId() != 0)
@@ -85,24 +87,62 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             smartRefreshLayout = baseLayoutBinding.idMainFl;
             if (getLayoutId() != 0)
                 smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            setNeedSetStatusView(baseLayoutBinding.idMainFl);
+            initStatusView();
+            rootView = baseLayoutBinding.getRoot();
+        } else {
+            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+            smartRefreshLayout = setCustomSmartRefreshLayout();
+            if (smartRefreshLayout == null) {
+                smartRefreshLayout = new SmartRefreshLayout(inflater.getContext());
+                smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            }
+            setNeedSetStatusView(smartRefreshLayout);
+            initStatusView();
+            rootView = mBaseLoadService.getLoadLayout();
+        }
+        initSmartRefreshLayout();
+        setOnMultiPurposeListener();
+        return rootView;
+    }
+
+    public void initSmartRefreshLayout() {
+        if (smartRefreshLayout != null) {
             smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
             smartRefreshLayout.setPrimaryColorsId(R.color.colorPrimary);
             smartRefreshLayout.setEnableRefresh(enableRefresh());
-            initStatusView(baseLayoutBinding.idMainFl);
-            setOnMultiPurposeListener();
-            return baseLayoutBinding.getRoot();
-        } else {
-            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
-            smartRefreshLayout = new SmartRefreshLayout(inflater.getContext());
-//            smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
-//            smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
-//            smartRefreshLayout.setPrimaryColorsId(R.color.colorPrimary);
-            smartRefreshLayout.setEnableRefresh(enableRefresh());
-            smartRefreshLayout.setRefreshContent(mBinding.getRoot(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-            initStatusView(smartRefreshLayout);
-            setOnMultiPurposeListener();
-            return mBaseLoadService.getLoadLayout();
         }
+    }
+
+    protected SmartRefreshLayout setCustomSmartRefreshLayout() {
+        return null;
+    }
+
+    protected SmartRefreshLayout getSmartRefreshLayout() {
+        return smartRefreshLayout;
+    }
+
+    public void setSmartRefreshEnableRefresh(boolean c) {
+        if (getSmartRefreshLayout() != null)
+            getSmartRefreshLayout().setEnableRefresh(c);
+    }
+
+    public void smartRefreshFinishRefresh() {
+        if (getSmartRefreshLayout() != null)
+            getSmartRefreshLayout().finishRefresh();
+    }
+
+    public void smartRefreshFinishLoadMore() {
+        if (getSmartRefreshLayout() != null)
+            getSmartRefreshLayout().finishLoadMore();
+    }
+
+    public View getNeedSetStatusView() {
+        return needSetStatusView;
+    }
+
+    public void setNeedSetStatusView(View needSetStatusView) {
+        this.needSetStatusView = needSetStatusView;
     }
 
     public void onRefresh() {
@@ -186,19 +226,16 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     }
 
-    protected SmartRefreshLayout getSmartRefreshLayout() {
-        return smartRefreshLayout;
-    }
-
-    public void initStatusView(View view) {
-        mBaseLoadService = LoadSir.getDefault().register(view, new Callback.OnReloadListener() {
-            @Override
-            public void onReload(View v) {
+    public void initStatusView() {
+        if (getNeedSetStatusView() != null)
+            mBaseLoadService = LoadSir.getDefault().register(getNeedSetStatusView(), new Callback.OnReloadListener() {
+                @Override
+                public void onReload(View v) {
 //                mBaseLoadService.showSuccess();
-                onLoading();
-                onRefresh();
-            }
-        });
+                    onLoading();
+                    onRefresh();
+                }
+            });
     }
 
     protected V getBindView() {
@@ -257,10 +294,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         if (mBaseLoadService != null) {
             mBaseLoadService.showSuccess();
         }
-        if (smartRefreshLayout != null) {
-            smartRefreshLayout.finishRefresh();
-            smartRefreshLayout.finishLoadMore();
-        }
+        smartRefreshFinishRefresh();
+        smartRefreshFinishLoadMore();
     }
 
     boolean isCancleLoading = false;
@@ -298,8 +333,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             default:
                 onSuccess();
         }
-        smartRefreshLayout.finishRefresh();
-        smartRefreshLayout.finishLoadMore();
+        smartRefreshFinishRefresh();
+        smartRefreshFinishLoadMore();
         isCancleLoading = false;
         if (StringUtil.isNotEmpty(msg))
             ToastUtils.showShort(msg);

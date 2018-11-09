@@ -75,7 +75,7 @@ public abstract class BaseWebViewFragment<P extends BasePresenter, V extends Vie
         super.onRefresh();
         if (mAgentWeb != null)
             mAgentWeb.getUrlLoader().reload();
-        getSmartRefreshLayout().finishRefresh();
+        smartRefreshFinishRefresh();
     }
 
     @Override
@@ -96,22 +96,22 @@ public abstract class BaseWebViewFragment<P extends BasePresenter, V extends Vie
 
     /**
      * 引用的activity需要重写onKeyDown 以拦截返回事件
-     *  @Override
-     *     public boolean onKeyDown(int keyCode, KeyEvent event) {
-     *         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-     *         if (fragments != null)
-     *             for (Fragment fragment : fragments) {
-     *                 if (fragment instanceof FragmentKeyDown && fragment.isVisible()) {
-     *                     if (((FragmentKeyDown) fragment).onFragmentKeyDown(keyCode, event)) {
-     *                         return true;
-     *                     }
-     *                 }
-     *             }
-     *         return super.onKeyDown(keyCode, event);
-     *     }
+     *
      * @param keyCode
      * @param event
      * @return
+     * @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+     * List<Fragment> fragments = getSupportFragmentManager().getFragments();
+     * if (fragments != null)
+     * for (Fragment fragment : fragments) {
+     * if (fragment instanceof FragmentKeyDown && fragment.isVisible()) {
+     * if (((FragmentKeyDown) fragment).onFragmentKeyDown(keyCode, event)) {
+     * return true;
+     * }
+     * }
+     * }
+     * return super.onKeyDown(keyCode, event);
+     * }
      */
     @Override
     public boolean onFragmentKeyDown(int keyCode, KeyEvent event) {

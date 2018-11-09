@@ -1,14 +1,18 @@
 package com.hong_world.bmodle;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.hong_world.bmodle.view.coordinatorLayout.StandardCoordinatorFragment;
 import com.hong_world.common.ProviderManager;
 import com.hong_world.common.base.BaseActivity;
+import com.hong_world.common.bean.MyUserInfoLiveData;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.routerlibrary.provider.IBProvider;
-import com.hong_world.bmodle.view.coordinatorLayout.StandardCoordinatorFragment;
+import com.orhanobut.logger.Logger;
 
 @Route(path = IBProvider.B_ACT_B)
 public class BActivity extends BaseActivity implements View.OnClickListener {
@@ -20,6 +24,12 @@ public class BActivity extends BaseActivity implements View.OnClickListener {
         ProviderManager.getInstance().getHomeProvider().sayHello("我shiB");
         String s = Injection.s;
         loadRootFragment(R.id.fl, StandardCoordinatorFragment.getInstance());
+        MyUserInfoLiveData.getInstance(null).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                Logger.i("BActivity " + s);
+            }
+        });
     }
 
     @Override

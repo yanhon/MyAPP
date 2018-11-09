@@ -5,31 +5,56 @@
 
     <data>
 
+        <import type="com.hong_world.bmodle.view.adapter.InverseMethodDemo" />
+
         <variable
             name="presenter"
             type="com.hong_world.bmodle.presenter.MainPagerPresenter" />
+
+        <variable
+            name="orderTypeCode"
+            type="Integer" />
+
+        <variable
+            name="progress"
+            type="Integer" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/et"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="ddd"
+            android:text="@={InverseMethodDemo.orderTypeToString(orderTypeCode)}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hong_world.bmodle.view.widget.PhilSeekBar
+            android:id="@+id/pb"
+            app:layout_constraintTop_toBottomOf="@id/et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:philprogress="@={progress}" />
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/yellow"
+            android:visibility="visible"
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/pb">
 
             <Button
                 android:id="@+id/a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="a"
+                android:text="@={orderTypeCode+``}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="b"
+                android:text="@{progress+``}"
                 app:layout_constraintBaseline_toBaselineOf="@id/a"
                 app:layout_constraintLeft_toRightOf="@+id/a"
                 app:layout_constraintTop_toTopOf="@+id/a" />
@@ -65,8 +90,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:text="e"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -97,11 +122,11 @@
             <Button
                 android:id="@+id/h"
                 android:layout_width="0dp"
-                android:visibility="visible"
                 android:layout_height="wrap_content"
                 android:text="hhhhhhhhhhhhhhhhhhhhhh"
-                app:layout_constraintHorizontal_chainStyle="spread"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/button6"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toEndOf="@+id/g"
                 app:layout_constraintTop_toBottomOf="@id/f" />
 
@@ -146,16 +171,17 @@
             <android.support.constraint.Placeholder
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginRight="88dp"
                 android:layout_marginTop="36dp"
+                android:layout_marginRight="88dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <android.support.constraint.Barrier
                 android:id="@+id/id_barrier1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:barrierAllowsGoneWidgets="true"
                 android:background="@color/cardview_shadow_end_color"
+                app:barrierAllowsGoneWidgets="true"
                 app:barrierDirection="right"
                 app:constraint_referenced_ids="f,k" />
         </android.support.constraint.ConstraintLayout>

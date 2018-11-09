@@ -61,7 +61,7 @@ public class CommonApplication extends BaseApplication {
     private void initLogger() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
-                .methodCount(3)         // (Optional) How many method line to show. Default 2
+                .methodCount(1)         // (Optional) How many method line to show. Default 2
                 .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
                 .tag("MyApp_test")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();

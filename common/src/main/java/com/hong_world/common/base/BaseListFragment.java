@@ -33,7 +33,7 @@ public abstract class BaseListFragment<P extends BasePresenter, V extends ViewDa
         if (mAdapter != null) {
             mAdapter.setEnableLoadMore(true);
         }
-        getSmartRefreshLayout().setEnableRefresh(true);
+        setSmartRefreshEnableRefresh(true);
     }
 
     public void setPageList(List data, boolean isOver, boolean isRefresh) {
@@ -49,7 +49,7 @@ public abstract class BaseListFragment<P extends BasePresenter, V extends ViewDa
                 mAdapter.loadMoreEnd();
             }
             mAdapter.addData(data);
-            getSmartRefreshLayout().setEnableRefresh(true);
+            setSmartRefreshEnableRefresh(true);
         }
     }
 }

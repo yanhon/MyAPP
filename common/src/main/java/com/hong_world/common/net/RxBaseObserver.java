@@ -6,6 +6,8 @@ import com.hong_world.library.net.exception.DefaultErrorBundle;
 
 import io.reactivex.observers.DisposableObserver;
 
+import static com.hong_world.common.GlobalContants.DATAERROR;
+
 /**
  * Date: 2018/5/24. 10:28
  * Author: hong_world
@@ -15,27 +17,45 @@ import io.reactivex.observers.DisposableObserver;
 
 public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     protected BaseView view;
-    protected boolean showLoading;
+    protected boolean showLoadingView;
     protected boolean isCancle;
+    protected boolean showDataErrorView;//是否展示API数据类型错误的错误页
+    protected boolean showOtherErrorView;//是否展示其它类型的错误页
 
     public RxBaseObserver(BasePresenter mPresenter) {
-        this(mPresenter, false, false);
+        this(mPresenter, true, false, true);
     }
 
-    public RxBaseObserver(BasePresenter mPresenter, boolean showLoading) {
-        this(mPresenter, true, false);
+    public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView) {
+        this(mPresenter, showLoadingView, false, true);
     }
 
-    public RxBaseObserver(BasePresenter mPresenter, boolean showLoading, boolean isCancle) {
+    public RxBaseObserver(BasePresenter mPresenter, boolean isCancle, boolean showDataErrorView) {
+        this(mPresenter, true, isCancle, showDataErrorView);
+    }
+
+    /**
+     * @param mPresenter
+     * @param showLoadingView   请求数据加载页
+     * @param isCancle          能否取消请求
+     * @param showDataErrorView 数据类型错误页
+     */
+    public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView, boolean isCancle, boolean showDataErrorView) {
+        this(mPresenter, showLoadingView, isCancle, showDataErrorView, true);
+    }
+
+    public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView, boolean isCancle, boolean showDataErrorView, boolean showOtherErrorView) {
         this.view = mPresenter.getView();
         this.isCancle = isCancle;
-        this.showLoading = showLoading;
+        this.showLoadingView = showLoadingView;
+        this.showDataErrorView = showDataErrorView;
+        this.showOtherErrorView = showOtherErrorView;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (showLoading) {
+        if (showLoadingView) {
             if (isCancle)
                 view.onLoading(this);
             else
@@ -53,6 +73,17 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     public void onError(Throwable e) {
         ErrorMsgBean msg = ErrorMessageFactory.create(new DefaultErrorBundle((Exception) e).getException());
         onFail(msg.getCode(), msg.getMsg());
+        if (msg.getCode().equals(DATAERROR)) {
+            if (!showDataErrorView) {
+                view.onDataNotAvailable("", msg.getMsg());
+                return;
+            }
+        } else {
+            if (!showOtherErrorView) {
+                view.onDataNotAvailable("", msg.getMsg());
+                return;
+            }
+        }
         view.onDataNotAvailable(msg.getCode(), msg.getMsg());
     }
 
