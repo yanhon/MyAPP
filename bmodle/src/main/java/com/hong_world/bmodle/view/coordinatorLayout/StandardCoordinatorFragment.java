@@ -2,6 +2,7 @@ package com.hong_world.bmodle.view.coordinatorLayout;
 
 import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -65,6 +66,7 @@ public class StandardCoordinatorFragment extends BaseSupportFragment {
         viewDataBinding.tv01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                viewDataBinding.pv.setArcProgress(95);
                 MyUserInfoLiveData.getInstance(null).observe(StandardCoordinatorFragment.this, new Observer<String>() {
                     @Override
                     public void onChanged(@Nullable String s) {
@@ -73,5 +75,7 @@ public class StandardCoordinatorFragment extends BaseSupportFragment {
                 });
             }
         });
+        viewDataBinding.setColors(new int[]{Color.BLUE,Color.WHITE});
+        viewDataBinding.setArcProcess(50f);
     }
 }

@@ -2,6 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="arcProcess"
+            type="Float" />
+
+        <variable
+            name="colors"
+            type="int[]" />
+    </data>
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
-                android:paddingBottom="500dp"
                 android:paddingTop="500dp"
+                android:paddingBottom="500dp"
                 android:text="1111"
                 android:textSize="20sp" />
 
@@ -91,14 +102,17 @@
             app:layout_behavior="@string/behavior_footer" />
 
         <com.hong_world.common.widget.ProcessView
+            android:id="@+id/pv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:arc_progress="95"
-            app:arc_radius="50dp"
-            android:background="#fff111"
             android:layout_gravity="center_horizontal"
+            android:background="#fff111"
+            app:arc_endColor="@color/white"
+            app:arc_progress="@{arcProcess}"
+            app:arc_radius="50dp"
             app:layout_anchor="@id/main_appbar"
             app:layout_anchorGravity="center_vertical|center_horizontal"
-            app:layout_behavior="@string/behavior_footer2"/>
+            app:layout_behavior="@string/behavior_footer2"
+            app:setColors="@{colors}" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

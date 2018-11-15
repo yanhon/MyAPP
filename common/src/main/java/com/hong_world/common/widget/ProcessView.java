@@ -3,6 +3,8 @@ package com.hong_world.common.widget;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.databinding.BindingMethod;
+import android.databinding.BindingMethods;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -25,6 +27,18 @@ import com.hong_world.common.utils.DensityUtils;
  * Description: 渐变环形进度圈
  * Version:
  */
+@BindingMethods({
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_radius", method = "setRadius"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_progress", method = "setArcProgress"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_StrokeWidth", method = "setArcStrokeWidth"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_textSize", method = "setTextSize"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_textColor", method = "setTextColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_backColor", method = "setBackArcColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_startAngle", method = "setStartAngle"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_sweepAngle", method = "setSweepAngle"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_startColor", method = "setStartColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "app:arc_endColor", method = "setEndColor")
+})
 public class ProcessView extends View {
     private static final float DEFAULT_RADIUS = DensityUtils.dp2px(0);
     private static final float DEFAULT_ARC_STROKE_WIDTH = DensityUtils.dp2px(5);
@@ -73,7 +87,13 @@ public class ProcessView extends View {
     }
 
     private void initAnimator() {
-        animator = ObjectAnimator.ofFloat(this, "progress", 0, progress);
+        animator = new ObjectAnimator();
+        animator.setTarget(this);
+        animator.setPropertyName("progress");
+        if (progress > 0)
+            animator.setFloatValues(0, progress);
+//        animator = ObjectAnimator.ofFloat(this, "progress", 0, progress);
+
         animator.setDuration(1000);
         animator.setInterpolator(new FastOutSlowInInterpolator());
     }
@@ -103,18 +123,18 @@ public class ProcessView extends View {
         sweepAngle = attributes.getFloat(R.styleable.ProcessView_arc_startAngle, DEFAULT_SWEEP_ANGLE);
         backArcColor = attributes.getColor(R.styleable.ProcessView_arc_backColor, DEFAULT_BACK_ARC_COLOR);
         textColor = attributes.getColor(R.styleable.ProcessView_arc_textColor, DEFAULT_TEXT_COLOR);
-        startColor = attributes.getColor(R.styleable.ProcessView_arc_startColor, startColor);
-        endColor = attributes.getColor(R.styleable.ProcessView_arc_endColor, endColor);
+        colors[0] = attributes.getColor(R.styleable.ProcessView_arc_startColor, startColor);
+        colors[1] = attributes.getColor(R.styleable.ProcessView_arc_endColor, endColor);
         textSize = attributes.getDimension(R.styleable.ProcessView_arc_textSize, DEFAULT_TEXT_SIZE);
         attributes.recycle();
     }
-
 
     public void initPaint() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
     }
+
 
     public float getProgress() {
         return progress;
@@ -123,6 +143,55 @@ public class ProcessView extends View {
     public void setProgress(float progress) {
         this.progress = progress;
         invalidate();
+    }
+
+    public void setArcProgress(float progress) {
+        this.progress = progress;
+        if (animator != null)
+            animator.setFloatValues(0, progress);
+        animator.start();
+        invalidate();
+    }
+
+    public void setStartColor(int startColor) {
+        this.startColor = startColor;
+    }
+
+    public void setEndColor(int endColor) {
+        this.endColor = endColor;
+    }
+
+    public void setColors(int[] colors) {
+        if (colors != null && colors.length >= 2)
+            this.colors = colors;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public void setArcStrokeWidth(float arcStrokeWidth) {
+        this.arcStrokeWidth = arcStrokeWidth;
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setBackArcColor(int backArcColor) {
+        this.backArcColor = backArcColor;
+    }
+
+    public void setStartAngle(float startAngle) {
+        this.startAngle = startAngle;
+    }
+
+    public void setSweepAngle(float sweepAngle) {
+        this.sweepAngle = sweepAngle;
     }
 
     @Override

@@ -4,14 +4,14 @@
         <attr name="arc_radius" format="dimension" />
         <attr name="arc_StrokeWidth" format="dimension" />
         <attr name="arc_textSize" format="dimension" />
-        <attr name="arc_textColor" format="color" />
-        <attr name="arc_backColor" format="color" />
+        <attr name="arc_textColor" format="reference|color" />
+        <attr name="arc_backColor" format="reference|color" />
         <attr name="arc_startAngle" format="float" />
         <attr name="arc_sweepAngle" format="float" />
         <attr name="arc_progress" format="float" />
 
-        <attr name="arc_Colors" format="reference" />
-        <attr name="arc_startColor" format="color" />
-        <attr name="arc_endColor" format="color" />
+        <!--<attr name="arc_Colors" format="reference" />-->
+        <attr name="arc_startColor" format="reference|color" />
+        <attr name="arc_endColor" format="reference|color" />
     </declare-styleable>
 </resources>
