@@ -90,11 +90,13 @@
             android:text="33333"
             app:layout_behavior="@string/behavior_footer" />
 
-        <ImageView
+        <com.hong_world.common.widget.ProcessView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:arc_progress="95"
+            app:arc_radius="50dp"
+            android:background="#fff111"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"
             app:layout_anchor="@id/main_appbar"
             app:layout_anchorGravity="center_vertical|center_horizontal"
             app:layout_behavior="@string/behavior_footer2"/>
