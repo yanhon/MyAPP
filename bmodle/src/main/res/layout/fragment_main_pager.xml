@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.hong_world.bmodle.view.adapter.InverseMethodDemo" />
+        <import type="com.hong_world.common.adapters.InverseMethodDemo" />
 
         <variable
             name="presenter"
@@ -32,7 +32,7 @@
             android:text="@={InverseMethodDemo.orderTypeToString(orderTypeCode)}"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.hong_world.bmodle.view.widget.PhilSeekBar
+        <com.hong_world.common.widget.PhilSeekBar
             android:id="@+id/pb"
             app:layout_constraintTop_toBottomOf="@id/et"
             android:layout_width="match_parent"

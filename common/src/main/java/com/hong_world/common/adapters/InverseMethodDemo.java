@@ -1,4 +1,4 @@
-package com.hong_world.bmodle.view.adapter;
+package com.hong_world.common.adapters;
 
 import android.databinding.InverseMethod;
 
