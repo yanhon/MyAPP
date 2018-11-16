@@ -2,24 +2,20 @@ package com.hong_world.common.net;
 
 import com.hong_world.common.net.interceptor.TokenInterceptor;
 import com.hong_world.library.BuildConfig;
+import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.net.HttpsUtils;
+import com.hong_world.library.net.cookie.CookieManger;
 import com.hong_world.library.net.interceptor.HeadersInterceptor;
 import com.hong_world.library.net.interceptor.HttpErrorInterceptor;
 import com.hong_world.library.net.interceptor.HttpLogInterceptor;
 import com.orhanobut.logger.Logger;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -64,20 +60,21 @@ public class ServiceGenerator {
                 .addNetworkInterceptor(new HeadersInterceptor(null))
                 .addInterceptor(new HttpErrorInterceptor())
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-                .cookieJar(new CookieJar() {
-                    private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
-
-                    @Override
-                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                        cookieStore.put(HttpUrl.parse(url.host()), cookies);
-                    }
-
-                    @Override
-                    public List<Cookie> loadForRequest(HttpUrl url) {
-                        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(url.host()));
-                        return cookies != null ? cookies : new ArrayList<Cookie>();
-                    }
-                })
+//                .cookieJar(new CookieJar() {
+//                    private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+//
+//                    @Override
+//                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                        cookieStore.put(HttpUrl.parse(url.host()), cookies);
+//                    }
+//
+//                    @Override
+//                    public List<Cookie> loadForRequest(HttpUrl url) {
+//                        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(url.host()));
+//                        return cookies != null ? cookies : new ArrayList<Cookie>();
+//                    }
+//                })
+                .cookieJar(new CookieManger(BaseApplication.getInstance()))
                 .build();
     }
 
