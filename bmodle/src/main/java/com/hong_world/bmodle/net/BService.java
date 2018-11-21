@@ -10,8 +10,12 @@ import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictDynamicKey;
 import io.rx_cache2.LifeCache;
 import io.rx_cache2.ProviderKey;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * Date: 2018/8/13. 11:05
@@ -32,5 +36,9 @@ public interface BService {
     @ProviderKey("getFeedArticleList")
     @LifeCache(duration = 60, timeUnit = TimeUnit.SECONDS)
     Observable<FeedArticleListData> getFeedArticleList(Observable observable, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    @Streaming
+    @GET()
+    Observable<ResponseBody> down(@Header("RANGE") String range, @Url String url);
 
 }

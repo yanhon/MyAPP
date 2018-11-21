@@ -18,6 +18,19 @@ import com.orhanobut.logger.Logger;
  * Version:
  */
 public class FileUtils {
+
+    public static String getDiskCachePath(Context context) {
+        String cachePath;
+        if ((Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable())
+                && context.getExternalCacheDir() != null) {
+            cachePath = context.getExternalCacheDir().getPath();
+        } else {
+            cachePath = context.getCacheDir().getPath();
+        }
+        return cachePath;
+    }
+
     public static String getPath(Context context, Uri uri) {
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             String[] projection = {"_data"};

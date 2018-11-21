@@ -2,21 +2,27 @@ package com.hong_world.common.net;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.annotation.Nullable;
 
+import com.hong_world.common.net.down.DownProgress;
+import com.hong_world.common.net.down.DownloadManager;
 import com.hong_world.library.net.ApiRetryFunc;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.net.exception.APIResultException;
 import com.orhanobut.logger.Logger;
 
-import java.lang.reflect.Type;
+import org.reactivestreams.Publisher;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -128,11 +134,37 @@ public class MyHttp {
             }
         });
     }
+
     //---------------------------------bad method end-------
 
     public static <T> Observable<T> toBaseResponseSubscribe(Observable<BaseResponse<T>> ob) {
         return ob.compose(apiTransformer());
     }
+
+    public static Observable<DownProgress> todownResponseSubscribe(Observable<ResponseBody> ob, long start, @Nullable String filePath, @Nullable String fileName, String tagUrl) {
+        return ob.subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .toFlowable(BackpressureStrategy.LATEST)
+                .flatMap(new Function<ResponseBody, Publisher<DownProgress>>() {
+                    @Override
+                    public Publisher<DownProgress> apply(final ResponseBody responseBody) throws Exception {
+                        return Flowable.create(new FlowableOnSubscribe<DownProgress>() {
+                            @Override
+                            public void subscribe(FlowableEmitter<DownProgress> subscriber) throws Exception {
+                                String name = DownloadManager.getRealFileName(fileName, responseBody);
+                                String path = DownloadManager.getRealFilePath(filePath, name);
+                                DownloadManager.saveFile(subscriber, path, start, responseBody, tagUrl);
+                            }
+                        }, BackpressureStrategy.LATEST);
+                    }
+                })
+//                        .sample(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .toObservable()
+                .retryWhen(new ApiRetryFunc(3,
+                        1000));
+    }
+
 
     public static <T> ObservableTransformer<BaseResponse<T>, T> apiTransformer() {
         return new ObservableTransformer<BaseResponse<T>, T>() {
@@ -178,4 +210,6 @@ public class MyHttp {
             }
         };
     }
+
+
 }

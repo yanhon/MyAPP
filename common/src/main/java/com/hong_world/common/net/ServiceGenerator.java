@@ -43,6 +43,52 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
+   public static <S> S createService2(Class<S> serviceClass, String baseUrl) {
+        //retrofit
+        Retrofit.Builder sBuilder = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(getClient2());
+
+        Retrofit retrofit = sBuilder.build();
+        return retrofit.create(serviceClass);
+    }
+
+    private static OkHttpClient getClient2() {
+        setCertificates(null, null);
+        //okHttpClient
+        return new OkHttpClient().newBuilder()
+//                .cache(cache)
+                //错误重连
+                .retryOnConnectionFailure(true)
+                //连接超时
+                .connectTimeout(30, TimeUnit.SECONDS)
+                //读取超时
+                .readTimeout(30, TimeUnit.SECONDS)
+                .hostnameVerifier(new DefaultHostnameVerifier())//https的全局访问规则
+                .addNetworkInterceptor(new HttpLogInterceptor().setLevel(BuildConfig.DEBUG ? HttpLogInterceptor.Level.BODY : HttpLogInterceptor.Level.BASIC))
+//                .addInterceptor(new TokenInterceptor())
+//                .addNetworkInterceptor(new HeadersInterceptor(null))
+                .addInterceptor(new HttpErrorInterceptor())
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+//                .cookieJar(new CookieJar() {
+//                    private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+//
+//                    @Override
+//                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                        cookieStore.put(HttpUrl.parse(url.host()), cookies);
+//                    }
+//
+//                    @Override
+//                    public List<Cookie> loadForRequest(HttpUrl url) {
+//                        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(url.host()));
+//                        return cookies != null ? cookies : new ArrayList<Cookie>();
+//                    }
+//                })
+                .cookieJar(new CookieManger(BaseApplication.getInstance()))
+                .build();
+    }
     private static OkHttpClient getClient() {
         setCertificates(null, null);
         //okHttpClient

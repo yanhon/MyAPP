@@ -4,7 +4,6 @@ import com.hong_world.library.net.exception.HttpStatusException;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -32,8 +31,8 @@ public class HttpErrorInterceptor implements Interceptor {
         } else if (response.code() == 401) {
             interceptorException = new HttpStatusException(401, "401");
             throw interceptorException;
-        } else if (response.code() != 200) {
-            interceptorException = new HttpStatusException( response.code(), response.code() + "");
+        } else if (response.code() != 200 && response.code() != 206) {//文件断点下载服务器已经完成了部分用户的GET请求
+            interceptorException = new HttpStatusException(response.code(), response.code() + "");
             throw interceptorException;
         }
         return response;
