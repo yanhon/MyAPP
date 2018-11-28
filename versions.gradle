@@ -16,7 +16,7 @@ ext.build_versions = build_versions
 
 def versions = [:]
 // --------------------App dependencies----------------------------
-versions.support = "27.1.1"
+versions.support = "28.0.0"
 versions.kotlin = "1.2.71"
 versions.espresso = "3.0.2"
 versions.mockito = "2.0.2-beta"
@@ -95,6 +95,7 @@ support.cardview = "com.android.support:cardview-v7:$versions.support"
 support.design = "com.android.support:design:$versions.support"
 support.v4 = "com.android.support:support-v4paging:$versions.support"
 support.core_utils = "com.android.support:support-core-utils:$versions.support"
+support.support_dynamic_animation = "com.android.support:support-dynamic-animation:$versions.support"
 deps.support = support
 
 def kotlin = [:]

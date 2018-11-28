@@ -75,4 +75,5 @@ dependencies {
     implementation deps.agentweb.filechooser
     api deps.zhihu_image_selecter
     api deps.eventbus
+    implementation deps.support.support_dynamic_animation
 }

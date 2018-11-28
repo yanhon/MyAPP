@@ -1,8 +1,10 @@
 package com.hong_world.homemodle.presenter;
 
+import com.hong_world.common.utils.ToastUtils;
 import com.hong_world.homemodle.Injection;
 import com.hong_world.homemodle.contract.NewListContract;
 import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.homemodle.modle.bean.BeanItem;
 import com.hong_world.homemodle.modle.bean.MultipleItem;
 
 /**
@@ -18,7 +20,12 @@ public class NewListPresenter extends NewListContract.Presenter {
         setmView(view);
         mTasksRepository = Injection.provideTasksRepository();
     }
-    public void onItemClick(MultipleItem data){
+
+    public void onItemClick(MultipleItem data) {
         mView.onItemClick(data);
+    }
+
+    public void itemClick(BeanItem date) {
+        ToastUtils.showShort(date.getText());
     }
 }

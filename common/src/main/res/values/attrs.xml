@@ -14,4 +14,12 @@
         <attr name="arc_startColor" format="reference|color" />
         <attr name="arc_endColor" format="reference|color" />
     </declare-styleable>
+
+    <declare-styleable name="AutoPlayRecyclerView">
+        <attr name="timeInterval" format="integer" />
+        <attr name="direction" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

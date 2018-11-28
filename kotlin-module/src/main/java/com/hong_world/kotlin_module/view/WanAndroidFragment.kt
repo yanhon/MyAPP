@@ -1,6 +1,7 @@
 package com.hong_world.kotlin_module.view
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -16,6 +17,7 @@ import com.hong_world.kotlin_module.presenter.WanAndroidPresenter
 import com.hong_world.routerlibrary.provider.IKotlinModuleProvider
 import kotlinx.android.synthetic.main.fragment_wan_android.*
 import java.util.*
+
 /**
  * Date: 2018/9/21. 10:22
  * Author: hong_world
@@ -34,7 +36,7 @@ class WanAndroidFragment : BaseFragment<WanAndroidPresenter, FragmentWanAndroidB
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        StatusBarUtil.setColor(_mActivity, resources.getColor(R.color.colorPrimaryDark), 50)
+        StatusBarUtil.setColor(_mActivity, ContextCompat.getColor(mActivity, R.color.colorPrimaryDark), 50)
     }
 
     override fun initViews(view: View?, savedInstanceState: Bundle?) {
@@ -48,7 +50,7 @@ class WanAndroidFragment : BaseFragment<WanAndroidPresenter, FragmentWanAndroidB
             getSmartRefreshLayout().setEnableRefresh(false)
             mPresenter.getPageList(mCurrentPage, false)
         }, rv)
-        mPresenter.getPageList(mCurrentPage, true)
+        mPresenter?.getPageList(mCurrentPage, true)
     }
 
     override fun onRefresh() {

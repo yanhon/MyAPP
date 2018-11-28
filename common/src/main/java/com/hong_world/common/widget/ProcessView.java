@@ -28,16 +28,16 @@ import com.hong_world.common.utils.DensityUtils;
  * Version:
  */
 @BindingMethods({
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_radius", method = "setRadius"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_progress", method = "setArcProgress"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_StrokeWidth", method = "setArcStrokeWidth"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_textSize", method = "setTextSize"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_textColor", method = "setTextColor"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_backColor", method = "setBackArcColor"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_startAngle", method = "setStartAngle"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_sweepAngle", method = "setSweepAngle"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_startColor", method = "setStartColor"),
-        @BindingMethod(type = ProcessView.class, attribute = "app:arc_endColor", method = "setEndColor")
+        @BindingMethod(type = ProcessView.class, attribute = "arc_radius", method = "setRadius"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_progress", method = "setArcProgress"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_StrokeWidth", method = "setArcStrokeWidth"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_textSize", method = "setTextSize"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_textColor", method = "setTextColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_backColor", method = "setBackArcColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_startAngle", method = "setStartAngle"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_sweepAngle", method = "setSweepAngle"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_startColor", method = "setStartColor"),
+        @BindingMethod(type = ProcessView.class, attribute = "arc_endColor", method = "setEndColor")
 })
 public class ProcessView extends View {
     private static final float DEFAULT_RADIUS = DensityUtils.dp2px(0);
@@ -92,7 +92,9 @@ public class ProcessView extends View {
         animator.setPropertyName("progress");
         if (progress > 0)
             animator.setFloatValues(0, progress);
-//        animator = ObjectAnimator.ofFloat(this, "progress", 0, progress);
+        else
+            animator.setFloatValues(0, 0);
+        //        animator = ObjectAnimator.ofFloat(this, "progress", 0, progress);
 
         animator.setDuration(1000);
         animator.setInterpolator(new FastOutSlowInInterpolator());
@@ -197,13 +199,15 @@ public class ProcessView extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        animator.start();
+        if (animator != null)
+            animator.start();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        animator.end();
+        if (animator != null)
+            animator.end();
     }
 
     @Override

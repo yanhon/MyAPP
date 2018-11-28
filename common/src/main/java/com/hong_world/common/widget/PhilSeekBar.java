@@ -25,7 +25,7 @@ public class PhilSeekBar extends AppCompatSeekBar {
 
     }
 
-    @BindingAdapter(value = "app:philprogress", requireAll = false)
+    @BindingAdapter(value = "philprogress", requireAll = false)
     public static void setPhilProgress(PhilSeekBar seekBar, int progress) {
         Logger.i("philprogress ：setPhilProgress");
         if (getPhilProgress2(seekBar) != progress) {
@@ -33,13 +33,13 @@ public class PhilSeekBar extends AppCompatSeekBar {
         }
     }
 
-    @InverseBindingAdapter(attribute = "app:philprogress", event = "app:philprogressAttrChanged")
+    @InverseBindingAdapter(attribute = "philprogress", event = "philprogressAttrChanged")
     public static int getPhilProgress2(PhilSeekBar seekBar) {
         Logger.i("philprogress ：getPhilProgress2");
         return seekBar.getProgress();
     }
 
-    @BindingAdapter(value = {"app:philprogressAttrChanged"}, requireAll = false)
+    @BindingAdapter(value = {"philprogressAttrChanged"}, requireAll = false)
     public static void setPhilProgressAttrChanged(PhilSeekBar seekBar, final InverseBindingListener inverseBindingListener) {
         Logger.i("philprogress ：setPhilProgressAttrChanged");
         if (inverseBindingListener == null) {

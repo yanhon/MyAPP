@@ -22,6 +22,10 @@ import com.hong_world.common.ProviderManager;
 import com.hong_world.common.adapters.SingleDataBindingUseAdapter;
 import com.hong_world.common.base.BaseFragment;
 import com.hong_world.common.utils.StatusBarUtil;
+import com.hong_world.common.widget.banner.AutoPlayRecyclerView;
+import com.hong_world.common.widget.banner.OrientationHelper;
+import com.hong_world.common.widget.banner.ScaleLayoutManager;
+import com.hong_world.common.widget.banner.ViewPagerLayoutManager;
 import com.hong_world.homemodle.BR;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.NewListContract;
@@ -78,6 +82,13 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
         StatusBarUtil.setDarkMode(_mActivity);
         StatusBarUtil.setFullScrren(_mActivity);
         StatusBarUtil.setColor(_mActivity, getResources().getColor(R.color.shimmer_color));
+//        mBinding.banner.start();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+//        mBinding.banner.pause();
     }
 
     @Override
@@ -111,7 +122,33 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 //        mAdapter.loadMoreComplete();
 //        AppCompatDelegate.setDefaultNightMode(
 //                AppCompatDelegate.MODE_NIGHT_YES);
+        initBanner();
     }
+
+    public void initBanner() {
+        ScaleLayoutManager mLayoutManager = new ScaleLayoutManager.Builder(getContext(), 30)
+                .setMinScale(0.8f)
+                .setMoveSpeed(1.0f)
+                .setOrientation(OrientationHelper.HORIZONTAL)
+                .build();
+        mLayoutManager.setInfinite(true);
+        mBinding.banner.setLayoutManager(mLayoutManager);
+//        new CenterSnapHelper().attachToRecyclerView(mBinding.banner);
+        DataBindingUseAdapter mAdapter = new DataBindingUseAdapter(R.layout.item_new_list_view, genData());
+        mBinding.banner.setAdapter(mAdapter);
+        mLayoutManager.setOnPageChangeListener(new ViewPagerLayoutManager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                Logger.i("onPageSelected:" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Logger.i("onPageScrollStateChanged:" + state);
+            }
+        });
+    }
+
 
     @Override
     public void onRefresh() {
@@ -140,7 +177,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 
     private List<BeanItem> genData() {
         List<BeanItem> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             list.add(new BeanItem(i + ""));
         }
         return list;
@@ -159,7 +196,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 
     @Override
     public void onItemClick(MultipleItem data) {
-        ((BaseSupportFragment)getParentFragment()).start((ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_IMAGE,null));
+        ((BaseSupportFragment) getParentFragment()).start((ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_IMAGE, null));
     }
 
     public class DataBindingUseAdapter extends BaseQuickAdapter<BeanItem, MovieViewHolder> {
@@ -301,7 +338,7 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 //        }
 //    }
 
-    public class MultipleItemQuickAdapter2 extends SingleDataBindingUseAdapter<MultipleItem,NewListPresenter> {
+    public class MultipleItemQuickAdapter2 extends SingleDataBindingUseAdapter<MultipleItem, NewListPresenter> {
 
 
         public MultipleItemQuickAdapter2() {
@@ -335,21 +372,39 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
 //                    mAdapter.addData(item.getBeanItemList());
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NewListFragment.this.getContext());
                     linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                    binding.setVariable(BR.layoutManager, linearLayoutManager);
+                    ScaleLayoutManager mLayoutManager = new ScaleLayoutManager.Builder(getContext(), 10)
+                            .setMinScale(0.8f)
+                            .setMoveSpeed(1.0f)
+                            .setOrientation(OrientationHelper.HORIZONTAL)
+                            .build();
+                    mLayoutManager.setInfinite(item.getBeanItemList().size() > 0);
+                    binding.setVariable(BR.layoutManager, mLayoutManager);
                     binding.setVariable(BR.adapter, mAdapter);
                     binding.setVariable(BR.date, item);
                     binding.setVariable(BR.presenter, mPresenter);
                     SnapHelper snapHelper = new PagerSnapHelper();
-                    RecyclerView recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.rv);
-                    recyclerView.setOnFlingListener(null);
-                    snapHelper.attachToRecyclerView(recyclerView);
+                    AutoPlayRecyclerView recyclerView = (AutoPlayRecyclerView) binding.getRoot().findViewById(R.id.rv);
+//                    recyclerView.start();
+//                    getLifecycle().addObserver(recyclerView);
+//                    recyclerView.setOnFlingListener(null);
+//                    snapHelper.attachToRecyclerView(recyclerView);
                     Logger.i("scrollPosition= " + item.scrollPosition + " ,scrollOffset= " + item.scrollOffset + " ,item position = " + helper.getAdapterPosition());
                     if (item.scrollPosition > 0) {
                         linearLayoutManager.scrollToPositionWithOffset(item.scrollPosition - 1, item.scrollOffset);
 //                        linearLayoutManager.scrollToPosition(item.scrollPosition);
                     }
-                    recyclerView.addOnScrollListener(new MyOnScrollListener(item, linearLayoutManager));
+//                    recyclerView.addOnScrollListener(new MyOnScrollListener(item, linearLayoutManager));
+                    mLayoutManager.setOnPageChangeListener(new ViewPagerLayoutManager.OnPageChangeListener() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            Logger.i("onPageSelected2:" + position);
+                        }
 
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+                            Logger.i("onPageScrollStateChanged2:" + state);
+                        }
+                    });
                     break;
             }
         }

@@ -36,12 +36,23 @@
         <!--android:layout_height="wrap_content">-->
 
         <!--</com.scwang.smartrefresh.layout.header.ClassicsHeader>-->
+        <com.hong_world.common.widget.banner.BannerRecyclerView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:direction="right"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:timeInterval="1500" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:adapter="@{adapter}"
-            app:layoutManager="@{layoutManager}"/>
+            app:layoutManager="@{layoutManager}"
+            app:layout_constraintTop_toBottomOf="@id/banner" />
         <!--<com.scwang.smartrefresh.layout.footer.ClassicsFooter-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->

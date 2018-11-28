@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.common.base.BaseUploadImageFragment;
-import com.hong_world.common.utils.BottomNavigationViewHelper;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.HomeContract;
 import com.hong_world.homemodle.databinding.FragmentHomeBinding;
@@ -72,7 +71,6 @@ public class ImageFragment extends BaseUploadImageFragment<HomePresenter, Fragme
     }
 
     private void initBottomNavigationView() {
-        BottomNavigationViewHelper.disableShiftMode(mBinding.bottomNavigationView);
         mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
