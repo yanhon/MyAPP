@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.hong_world.common.R;
-import com.orhanobut.logger.Logger;
 
 /**
  * An implement of {@link RecyclerView} which support auto play.
