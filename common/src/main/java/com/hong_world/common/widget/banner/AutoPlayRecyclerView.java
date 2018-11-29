@@ -9,8 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.hong_world.common.R;
+import com.orhanobut.logger.Logger;
 
 /**
  * An implement of {@link RecyclerView} which support auto play.
@@ -82,4 +84,12 @@ public class AutoPlayRecyclerView extends RecyclerView implements LifecycleObser
             velocityX *= mScale;
         return super.fling(0, velocityY);
     }
+
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == VISIBLE) start();
+        else pause();
+    }
+
 }
