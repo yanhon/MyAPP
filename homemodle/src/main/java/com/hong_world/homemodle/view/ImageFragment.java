@@ -68,6 +68,10 @@ public class ImageFragment extends BaseUploadImageFragment<HomePresenter, Fragme
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initBottomNavigationView();
+        mBinding.bottomNavigationView.getMenu().getItem(0).setTitle("相册裁剪");
+        mBinding.bottomNavigationView.getMenu().getItem(1).setTitle("拍照裁剪");
+        mBinding.bottomNavigationView.getMenu().getItem(2).setTitle("相机拍照");
+        mBinding.bottomNavigationView.getMenu().getItem(3).setTitle("选取多图");
     }
 
     private void initBottomNavigationView() {

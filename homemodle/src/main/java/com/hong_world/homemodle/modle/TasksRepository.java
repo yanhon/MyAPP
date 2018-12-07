@@ -5,20 +5,11 @@ import android.support.annotation.NonNull;
 
 import com.hong_world.common.GlobalContants;
 import com.hong_world.common.bean.Task;
-import com.hong_world.common.net.MyHttp;
-import com.hong_world.common.net.MySubscribe;
-import com.hong_world.common.net.ServiceGenerator;
-import com.hong_world.homemodle.net.LoginReq;
 import com.hong_world.homemodle.net.RegisterResp;
-import com.hong_world.homemodle.net.WorkerService;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.orhanobut.logger.Logger;
 
-import java.util.Optional;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
@@ -42,7 +33,7 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public class TasksRepository implements TasksDataSource {
+public class TasksRepository extends BaseTasksDataSource{
     private static TasksRepository INSTANCE = null;
     private final TasksDataSource mTasksRemoteDataSource;
 

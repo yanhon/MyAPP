@@ -3,6 +3,7 @@ package com.hong_world.homemodle.local;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.hong_world.common.bean.Task;
+import com.hong_world.common.utils.ToastUtils;
 import com.hong_world.homemodle.modle.TasksDataSource;
 import com.hong_world.homemodle.modle.local.TasksLocalDataSource;
 
@@ -23,13 +24,24 @@ public class TasksLocalDataSourceTest {
 
     @Before
     public void setup() {
-        mLocalDataSource = TasksLocalDataSource.getInstance();
+        mLocalDataSource = (TasksLocalDataSource) TasksLocalDataSource.getInstance();
     }
 
     @Test
     public void saveTask() throws Exception {
         Task task = new Task("13", "123");
         mLocalDataSource.saveTask(task);
+        mLocalDataSource.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
+            @Override
+            public void onTaskLoaded(Task bean) {
+                ToastUtils.showShort(bean.getPhone());
+            }
+
+            @Override
+            public void onDataNotAvailable(String type, String msg) {
+
+            }
+        });
     }
 
     @Test
@@ -38,7 +50,7 @@ public class TasksLocalDataSourceTest {
         mLocalDataSource.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
             @Override
             public void onTaskLoaded(Task bean) {
-
+                ToastUtils.showShort(bean.getPhone());
             }
 
             @Override
@@ -50,6 +62,6 @@ public class TasksLocalDataSourceTest {
 
     @After
     public void cleanUp() {
-        mLocalDataSource.deleteAllTasks();
+//        mLocalDataSource.deleteAllTasks();
     }
 }

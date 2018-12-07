@@ -3,6 +3,7 @@ package com.hong_world.myapp.modle.local;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.hong_world.common.bean.Task;
+import com.hong_world.common.utils.ToastUtils;
 import com.hong_world.homemodle.modle.TasksDataSource;
 import com.hong_world.homemodle.modle.local.TasksLocalDataSource;
 
@@ -23,7 +24,7 @@ public class TasksLocalDataSourceTest {
 
     @Before
     public void setup() {
-        mLocalDataSource = TasksLocalDataSource.getInstance();
+        mLocalDataSource = (TasksLocalDataSource) TasksLocalDataSource.getInstance();
     }
 
     @Test
@@ -38,7 +39,7 @@ public class TasksLocalDataSourceTest {
         mLocalDataSource.getTask(task, new TasksDataSource.GetTaskCallback<Task>() {
             @Override
             public void onTaskLoaded(Task bean) {
-
+                ToastUtils.showShort(bean.getPhone());
             }
 
             @Override

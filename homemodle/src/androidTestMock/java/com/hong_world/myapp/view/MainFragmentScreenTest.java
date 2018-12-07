@@ -67,6 +67,7 @@ public class MainFragmentScreenTest {
 
     @Test
     public void emptyLogin() {
+        onView(withId(R.id.tab_main_pager)).perform(click());
         onView(withId(R.id.editText)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.mbutton)).perform(click());
@@ -74,6 +75,7 @@ public class MainFragmentScreenTest {
 
     @Test
     public void emptyLogin2() {
+        onView(withId(R.id.tab_main_pager)).perform(click());
 //        onView(withId(R.id.editText)).perform(typeText("135"), closeSoftKeyboard());
 //        onView(withId(R.id.editText2)).perform(typeText("12345678"), closeSoftKeyboard());
         onView(withId(R.id.mbutton)).perform(click());

@@ -3,7 +3,7 @@ package com.hong_world.kotlin_module.modle.remote
 import com.hong_world.common.net.MyHttp
 import com.hong_world.common.net.ServiceGenerator
 import com.hong_world.kotlin_module.bean.FeedArticleListData
-import com.hong_world.kotlin_module.modle.TasksDataSource
+import com.hong_world.kotlin_module.modle.BaseTasksDataSource
 import com.hong_world.kotlin_module.net.KotlinModuleService
 import com.hong_world.library.base.BaseApplication
 import io.reactivex.Observable
@@ -18,18 +18,17 @@ import io.victoralbertos.jolyglot.GsonSpeaker
  * Description:
  * Version:
  */
-class TasksRemoteDataSource private constructor() : TasksDataSource {
+class TasksRemoteDataSource : BaseTasksDataSource {
 
     var kotlinModuleService: KotlinModuleService = ServiceGenerator.createService(KotlinModuleService::class.java, "http://www.wanandroid.com/")
     var kotlinModuleServiceProviders: KotlinModuleService = RxCache.Builder().persistence(BaseApplication.getInstance().externalCacheDir, GsonSpeaker())
             .using(KotlinModuleService::class.java)
 
+    private constructor()
+
     companion object {
         @JvmStatic
-        fun getInstance(): TasksRemoteDataSource {
-            return Holder.INSTANCE
-        }
-
+        fun getInstance() = Holder.INSTANCE
     }
 
     private object Holder {

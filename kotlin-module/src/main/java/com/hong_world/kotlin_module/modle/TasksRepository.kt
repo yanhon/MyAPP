@@ -9,7 +9,7 @@ import io.reactivex.Observable
  * Description:
  * Version:
  */
-class TasksRepository : TasksDataSource {
+class TasksRepository : BaseTasksDataSource {
 
     private var mTasksRemoteDataSource: TasksDataSource? = null
 

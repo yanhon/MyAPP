@@ -104,7 +104,7 @@ public class CommonApplication extends BaseApplication {
         ILoaderManager.getLoader().init(this);
     }
 
-    public static DaoSession getDaoSession() {
+    public DaoSession getDaoSession() {
         return daoSession;
     }
 

@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.hong_world.common.bean.Task;
 import com.hong_world.common.utils.EspressoIdlingResource;
-import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.homemodle.modle.BaseTasksDataSource;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 
 import io.reactivex.Observable;
@@ -20,7 +20,7 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public class FakeTasksRemoteDataSource implements TasksDataSource {
+public class FakeTasksRemoteDataSource extends BaseTasksDataSource {
     private static FakeTasksRemoteDataSource INSTANCE;
 
     // Prevent direct instantiation.

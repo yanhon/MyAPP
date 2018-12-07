@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  * Description:
  * Version:
  */
-public class TasksRepository implements TasksDataSource {
+public class TasksRepository extends BaseTasksDataSource {
     private static TasksRepository INSTANCE = null;
     private final TasksDataSource mTasksRemoteDataSource;
 

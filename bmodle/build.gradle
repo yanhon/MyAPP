@@ -83,6 +83,10 @@ android {
             java.srcDir 'src/prod/java/'//解决在productFlavors中配置将引起资源文件重复问题
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->

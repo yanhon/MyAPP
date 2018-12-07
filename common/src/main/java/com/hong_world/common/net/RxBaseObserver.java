@@ -1,5 +1,6 @@
 package com.hong_world.common.net;
 
+import com.hong_world.common.utils.EspressoIdlingResource;
 import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 import com.hong_world.library.net.exception.DefaultErrorBundle;
@@ -55,6 +56,9 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     @Override
     protected void onStart() {
         super.onStart();
+        // The network request might be handled in a different thread so make sure Espresso knows
+        // that the app is busy until the response is handled.
+        EspressoIdlingResource.increment();// App is busy until further notice
         if (showLoadingView) {
             if (isCancle)
                 view.onLoading(this);
@@ -65,12 +69,21 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onNext(T t) {
+        // This callback may be called twice, once for the cache and once for loading
+        // the data from the server API, so we check before decrementing, otherwise
+        // it throws "Counter has been corrupted!" exception.
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         view.onSuccess();
         onSuccess(t);
     }
 
     @Override
     public void onError(Throwable e) {
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         ErrorMsgBean msg = ErrorMessageFactory.create(new DefaultErrorBundle((Exception) e).getException());
         onFail(msg.getCode(), msg.getMsg());
         if (msg.getCode().equals(DATAERROR)) {
@@ -89,7 +102,9 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onComplete() {
-
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
     }
 
     protected abstract void onSuccess(T data);

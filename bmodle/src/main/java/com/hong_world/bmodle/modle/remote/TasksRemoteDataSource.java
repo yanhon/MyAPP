@@ -1,8 +1,8 @@
 package com.hong_world.bmodle.modle.remote;
 
-import com.hong_world.common.bean.FeedArticleListData;
-import com.hong_world.bmodle.modle.TasksDataSource;
+import com.hong_world.bmodle.modle.BaseTasksDataSource;
 import com.hong_world.bmodle.net.BService;
+import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.common.net.MyHttp;
 import com.hong_world.common.net.ServiceGenerator;
 import com.hong_world.library.base.BaseApplication;
@@ -19,15 +19,15 @@ import io.victoralbertos.jolyglot.GsonSpeaker;
  * Description:
  * Version:
  */
-public class TasksRemoteDataSource implements TasksDataSource {
-    private static TasksRemoteDataSource INSTANCE;
+public class TasksRemoteDataSource extends BaseTasksDataSource {
+//    private static TasksRemoteDataSource INSTANCE;
     private static BService bService;
     private static BService bServiceProviders;
 
     private TasksRemoteDataSource() {
     }
 
-    public static TasksRemoteDataSource getInstance() {
+    public static BaseTasksDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TasksRemoteDataSource();
             bService = ServiceGenerator.createService(BService.class, "http://www.wanandroid.com/");

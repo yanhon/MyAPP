@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.hong_world.common.CommonApplication;
 import com.hong_world.common.bean.Task;
-import com.hong_world.homemodle.modle.TasksDataSource;
+import com.hong_world.homemodle.modle.BaseTasksDataSource;
 import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 
@@ -24,14 +24,14 @@ import io.reactivex.subjects.PublishSubject;
  * Version:
  */
 
-public class TasksLocalDataSource implements TasksDataSource {
+public class TasksLocalDataSource extends BaseTasksDataSource {
 
-    private static TasksLocalDataSource INSTANCE;
+//    private static TasksLocalDataSource INSTANCE;
 
     private TasksLocalDataSource() {
     }
 
-    public static TasksLocalDataSource getInstance() {
+    public static BaseTasksDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TasksLocalDataSource();
         }
@@ -57,7 +57,7 @@ public class TasksLocalDataSource implements TasksDataSource {
         //db操作一顿
         task.setPwd(task.getPwd() + "(本地)");
         callback.onTaskLoaded(task);
-        List<Task> list = CommonApplication.getDaoSession().getTaskDao().queryBuilder()
+        List<Task> list = ((CommonApplication)CommonApplication.getInstance()).getDaoSession().getTaskDao().queryBuilder()
                 .build()
                 .list();
         StringBuilder sb = new StringBuilder();
@@ -75,12 +75,12 @@ public class TasksLocalDataSource implements TasksDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
-        CommonApplication.getDaoSession().getTaskDao().insert(task);
+        ((CommonApplication)CommonApplication.getInstance()).getDaoSession().getTaskDao().insert(task);
     }
 
     @Override
     public void deleteAllTasks() {
-        CommonApplication.getDaoSession().getTaskDao().deleteAll();
+        ((CommonApplication)CommonApplication.getInstance()).getDaoSession().getTaskDao().deleteAll();
     }
 
 }

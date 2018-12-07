@@ -122,7 +122,7 @@ dependencies {
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':common')
     kapt deps.arouter.compiler
-    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.stdlib_jdk
 
 }
 

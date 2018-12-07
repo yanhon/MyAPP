@@ -18,6 +18,7 @@ import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.common.utils.StatusBarUtil;
 import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
+import com.orhanobut.logger.Logger;
 
 /**
  * Date: 2018/8/13. 11:26
@@ -68,6 +69,10 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
                 mPresenter.getPageList(mCurrentPage, false);
             }
         }, mBinding.rv);
+        if(mPresenter==null){
+            Logger.e("mPresenter 为空！");
+            return;
+        }
         mPresenter.getPageList(mCurrentPage, true);
         mBinding.setOrderTypeCode(1);
         mBinding.setProgress(1);

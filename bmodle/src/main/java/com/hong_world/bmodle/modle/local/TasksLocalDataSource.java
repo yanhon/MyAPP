@@ -1,8 +1,6 @@
 package com.hong_world.bmodle.modle.local;
 
-import com.hong_world.bmodle.modle.TasksDataSource;
-
-import io.reactivex.Observable;
+import com.hong_world.bmodle.modle.BaseTasksDataSource;
 
 /**
  * Date: 2018/8/13. 10:43
@@ -10,21 +8,21 @@ import io.reactivex.Observable;
  * Description:
  * Version:
  */
-public class TasksLocalDataSource implements TasksDataSource {
-    private static TasksLocalDataSource INSTANCE;
+public class TasksLocalDataSource extends BaseTasksDataSource {
+//    private static TasksLocalDataSource INSTANCE;
 
     private TasksLocalDataSource() {
     }
 
-    public static TasksLocalDataSource getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new TasksLocalDataSource();
-        }
-        return INSTANCE;
-    }
-
-    @Override
-    public Observable getFeedArticleList(int num) {
-        return null;
-    }
+//    public static TasksLocalDataSource getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new TasksLocalDataSource();
+//        }
+//        return INSTANCE;
+//    }
+//
+//    @Override
+//    public Observable getFeedArticleList(int num) {
+//        return null;
+//    }
 }

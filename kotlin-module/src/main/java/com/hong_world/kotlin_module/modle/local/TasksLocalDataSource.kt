@@ -1,7 +1,7 @@
 package com.hong_world.kotlin_module.modle.local
 
 import com.hong_world.kotlin_module.bean.FeedArticleListData
-import com.hong_world.kotlin_module.modle.TasksDataSource
+import com.hong_world.kotlin_module.modle.BaseTasksDataSource
 import io.reactivex.Observable
 
 /**
@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * Description:
  * Version:
  */
-class TasksLocalDataSource : TasksDataSource {
+class TasksLocalDataSource : BaseTasksDataSource {
 
 
     private constructor()

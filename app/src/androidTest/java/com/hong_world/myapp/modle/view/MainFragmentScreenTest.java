@@ -1,4 +1,4 @@
-package com.hong_world.myapp.view;
+package com.hong_world.myapp.modle.view;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
@@ -22,7 +22,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 /**
  * Date: 2017/11/7.9:41
  * Author: hong_world
- * Description:
+ * Description: Espresso https://blog.csdn.net/fei20121106/article/details/70308193#2214-pressback%E5%90%8E%E9%80%80%E9%94%AE-%E7%82%B9%E5%87%BB
  * Version:
  */
 @RunWith(AndroidJUnit4.class)

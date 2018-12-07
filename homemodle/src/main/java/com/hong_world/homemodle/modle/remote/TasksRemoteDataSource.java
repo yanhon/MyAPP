@@ -8,30 +8,23 @@ import android.util.Log;
 
 import com.hong_world.common.BuildConfig;
 import com.hong_world.common.bean.Task;
-import com.hong_world.common.net.BaseResponse;
 import com.hong_world.common.net.MyHttp;
 import com.hong_world.common.net.MySubscribe;
 import com.hong_world.common.net.ServiceGenerator;
 import com.hong_world.common.utils.EspressoIdlingResource;
+import com.hong_world.homemodle.modle.BaseTasksDataSource;
 import com.hong_world.homemodle.modle.TasksDataSource;
 import com.hong_world.homemodle.net.LoginReq;
 import com.hong_world.homemodle.net.RegisterResp;
 import com.hong_world.homemodle.net.WorkerService;
 import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
-import com.hong_world.library.net.interceptor.HttpUtil;
 import com.orhanobut.logger.Logger;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictDynamicKey;
-import io.rx_cache2.LifeCache;
-import io.rx_cache2.ProviderKey;
 import io.rx_cache2.internal.RxCache;
 import io.victoralbertos.jolyglot.GsonSpeaker;
 
@@ -44,16 +37,16 @@ import static com.hong_world.common.GlobalContants.NONETWORK;
  * Version:
  */
 
-public class TasksRemoteDataSource implements TasksDataSource {
+public class TasksRemoteDataSource extends BaseTasksDataSource {
 
-    private static TasksRemoteDataSource INSTANCE;
+//    private static TasksRemoteDataSource INSTANCE;
     private static WorkerService workerService;
     private static WorkerService workerServiceProviders;
 
     private TasksRemoteDataSource() {
     }
 
-    public static TasksRemoteDataSource getInstance() {
+    public static BaseTasksDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TasksRemoteDataSource();
             workerService = ServiceGenerator.createService(WorkerService.class, BuildConfig.API_HOST);

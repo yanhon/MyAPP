@@ -53,4 +53,6 @@ public interface TasksDataSource {
     void saveTask(@NonNull Task task);
 
     void deleteAllTasks();
+
+    void deleteAllTasks2();
 }

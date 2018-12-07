@@ -187,9 +187,9 @@ public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewL
         List<MultipleItem> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0)
-                list.add(new MultipleItem(i + "", MultipleItem.TEXT));
+                list.add(new MultipleItem(i + "点击打开图片功能", MultipleItem.TEXT));
             else
-                list.add(new MultipleItem(i + "", MultipleItem.IMG_TEXT, genData()));
+                list.add(new MultipleItem(i + "点击打开图片功能", MultipleItem.IMG_TEXT, genData()));
         }
         return list;
     }

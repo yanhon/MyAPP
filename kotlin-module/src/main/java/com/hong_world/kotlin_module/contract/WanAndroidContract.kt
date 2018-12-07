@@ -2,7 +2,6 @@ package com.hong_world.kotlin_module.contract
 
 import com.hong_world.common.base.BaseNormalPresenter
 import com.hong_world.kotlin_module.bean.FeedArticleListData
-import com.hong_world.library.base.BasePresenter
 import com.hong_world.library.base.BaseView
 
 /**
@@ -12,7 +11,7 @@ import com.hong_world.library.base.BaseView
  * Version:
  */
 interface WanAndroidContract {
-    interface View<P : BasePresenter<*>> : BaseView<P> {
+    interface View<P : Presenter> : BaseView<P> {
         abstract fun getPageListSuccess(data: FeedArticleListData, isRefresh: Boolean)
     }
 

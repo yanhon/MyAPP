@@ -89,7 +89,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             mFragments[THIRD] = findChildFragment(((ISupportFragment)ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_NEW_LIST, null)).getClass());
             mFragments[FOUR] = findChildFragment(((ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_MAIN,null)).getClass());
         }
-        ProviderManager.getInstance().getBProvider().openActivity(IBProvider.B_ACT_B, null);
+//        ProviderManager.getInstance().getBProvider().openActivity(IBProvider.B_ACT_B, null);
 
     }
 
