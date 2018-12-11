@@ -73,8 +73,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
             EventBus.getDefault().register(this);
         }
         ARouter.getInstance().inject(this);
-        setPresenter(createPresenter());
-        if (mPresenter != null) getLifecycle().addObserver((LifecycleObserver) mPresenter);
+
     }
 
     @Override
@@ -249,6 +248,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+        setPresenter(createPresenter());
+        if (mPresenter != null) getLifecycle().addObserver((LifecycleObserver) mPresenter);
         if (baseLayoutBinding != null) {
             baseLayoutBinding.setPresenter(mPresenter);
         }

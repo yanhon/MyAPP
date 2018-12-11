@@ -36,7 +36,7 @@ class WanAndroidPresenter(view: WanAndroidContract.View<*>) : WanAndroidContract
 //    }
 
     override fun getPageList(mCurrentPage: Int, isRefresh: Boolean) {
-        addDisposable(ProviderManager.getInstance().bProvider?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<com.hong_world.common.bean.FeedArticleListData>(this) {
+        addDisposable(ProviderManager.bProvider?.getFeedArticleList(mCurrentPage)?.subscribeWith(object : RxBaseObserver<com.hong_world.common.bean.FeedArticleListData>(this) {
             override fun onSuccess(data: com.hong_world.common.bean.FeedArticleListData) {
                 mView.getPageListSuccess(GsonUtils.fromGson(GsonUtils.toGson(data),FeedArticleListData::class.java), isRefresh)
             }

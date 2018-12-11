@@ -71,7 +71,6 @@ public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, Frag
         }, mBinding.rv);
         if(mPresenter==null){
             Logger.e("mPresenter 为空！");
-            return;
         }
         mPresenter.getPageList(mCurrentPage, true);
         mBinding.setOrderTypeCode(1);

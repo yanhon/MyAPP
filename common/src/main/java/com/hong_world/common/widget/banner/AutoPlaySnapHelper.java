@@ -78,14 +78,14 @@ class AutoPlaySnapHelper extends CenterSnapHelper {
     }
 
     void pause() {
-        if (runnableAdded) {
+        if (runnableAdded && autoPlayRunnable != null) {
             handler.removeCallbacks(autoPlayRunnable);
             runnableAdded = false;
         }
     }
 
     void start() {
-        if (!runnableAdded) {
+        if (!runnableAdded && autoPlayRunnable != null) {
             handler.removeCallbacks(autoPlayRunnable);
             handler.postDelayed(autoPlayRunnable, timeInterval);
             runnableAdded = true;

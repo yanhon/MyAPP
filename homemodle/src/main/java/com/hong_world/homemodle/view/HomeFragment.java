@@ -69,11 +69,11 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
-            mFragments[FIRST] = (ISupportFragment) ProviderManager.getInstance().getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null);
-//            mFragments[SECOND] = (ISupportFragment) ProviderManager.getInstance().getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null);
-            mFragments[SECOND] = (ISupportFragment) ProviderManager.getInstance().getBProvider().getFragment(IBProvider.B_FRG_MAIN_PAGER, null);
-            mFragments[THIRD] = (ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_NEW_LIST, null);
-            mFragments[FOUR] = (ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_MAIN,null);
+            mFragments[FIRST] = (ISupportFragment) ProviderManager.getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null);
+//            mFragments[SECOND] = (ISupportFragment) ProviderManager.getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null);
+            mFragments[SECOND] = (ISupportFragment) ProviderManager.getBProvider().getFragment(IBProvider.B_FRG_MAIN_PAGER, null);
+            mFragments[THIRD] = (ISupportFragment) ProviderManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_NEW_LIST, null);
+            mFragments[FOUR] = (ISupportFragment) ProviderManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_MAIN,null);
             if (mFragments[FIRST] != null)
                 loadMultipleRootFragment(R.id.frameLayout, FIRST,
                         mFragments
@@ -83,13 +83,13 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
-            mFragments[FIRST] = findChildFragment(((ISupportFragment) ProviderManager.getInstance().getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null)).getClass());
-//            mFragments[SECOND] = findChildFragment(((ISupportFragment) ProviderManager.getInstance().getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null)).getClass());
-            mFragments[SECOND] = findChildFragment(((ISupportFragment) ProviderManager.getInstance().getBProvider().getFragment(IBProvider.B_FRG_MAIN_PAGER, null)).getClass());
-            mFragments[THIRD] = findChildFragment(((ISupportFragment)ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_NEW_LIST, null)).getClass());
-            mFragments[FOUR] = findChildFragment(((ISupportFragment) ProviderManager.getInstance().getHomeProvider().getFragment(IHomeProvider.HOME_FRG_MAIN,null)).getClass());
+            mFragments[FIRST] = findChildFragment(((ISupportFragment) ProviderManager.getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null)).getClass());
+//            mFragments[SECOND] = findChildFragment(((ISupportFragment) ProviderManager.getKotlinProvider().getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null)).getClass());
+            mFragments[SECOND] = findChildFragment(((ISupportFragment) ProviderManager.getBProvider().getFragment(IBProvider.B_FRG_MAIN_PAGER, null)).getClass());
+            mFragments[THIRD] = findChildFragment(((ISupportFragment)ProviderManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_NEW_LIST, null)).getClass());
+            mFragments[FOUR] = findChildFragment(((ISupportFragment) ProviderManager.getHomeProvider().getFragment(IHomeProvider.HOME_FRG_MAIN,null)).getClass());
         }
-//        ProviderManager.getInstance().getBProvider().openActivity(IBProvider.B_ACT_B, null);
+//        ProviderManager.getBProvider().openActivity(IBProvider.B_ACT_B, null);
 
     }
 
@@ -104,7 +104,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, FragmentHomeBindin
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int i = item.getItemId();
-                ProviderManager.getInstance().getKotlinProvider();
+                ProviderManager.getKotlinProvider();
                 if (mFragments[FIRST] != null)
                     if (i == R.id.tab_navigation) {
                         showHideFragment(mFragments[FIRST], mFragments[selectNum]);

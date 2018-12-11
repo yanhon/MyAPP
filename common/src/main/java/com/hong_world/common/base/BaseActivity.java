@@ -1,5 +1,6 @@
 package com.hong_world.common.base;
 
+import android.arch.lifecycle.LifecycleObserver;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setPresenter(createPresenter());
+        if (mPresenter != null) getLifecycle().addObserver((LifecycleObserver) mPresenter);
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
     }
 

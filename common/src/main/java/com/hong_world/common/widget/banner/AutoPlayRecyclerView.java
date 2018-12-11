@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.hong_world.common.R;
+import com.orhanobut.logger.Logger;
 
 /**
  * An implement of {@link RecyclerView} which support auto play.
@@ -87,8 +88,16 @@ public class AutoPlayRecyclerView extends RecyclerView implements LifecycleObser
     @Override
     protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
+        Logger.i("AutoPlayRecyclerView : onVisibilityChanged " + visibility);
         if (visibility == VISIBLE) start();
         else pause();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        Logger.i("AutoPlayRecyclerView : onWindowFocusChanged " + hasWindowFocus);
+        if (!hasWindowFocus && this.getVisibility() == VISIBLE) pause();
+        else start();
+    }
 }

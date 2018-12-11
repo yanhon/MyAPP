@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.common.bean.FeedArticleListData;
 import com.hong_world.common.providers.IBProviderc;
 import com.hong_world.routerlibrary.provider.IAppProvider;
-import com.hong_world.routerlibrary.provider.IBProvider;
 import com.hong_world.routerlibrary.provider.IHomeProvider;
 import com.hong_world.routerlibrary.provider.IKotlinModuleProvider;
+import com.orhanobut.logger.Logger;
 
 import io.reactivex.Observable;
 
@@ -30,12 +29,12 @@ public class ProviderManager {
 //    @Autowired(name = IAppProvider.APP_MAIN_SERVICE)
 //    @Autowired(name = "/service/App")
     IAppProvider appProvider;
-    @Autowired(name = IHomeProvider.HOME_SERVICE)
-    IHomeProvider homeProvider;
-    @Autowired(name = IBProvider.B_SERVICE)
-    IBProviderc bProvider;
-    @Autowired(name = IKotlinModuleProvider.KOTLIN_MODULE_SERVICE)
-    IKotlinModuleProvider kotlinModuleProvider;
+    //    @Autowired(name = IHomeProvider.HOME_SERVICE)
+    public static IHomeProvider homeProvider;
+    //    @Autowired(name = IBProvider.B_SERVICE)
+    public static IBProviderc bProvider;
+    //    @Autowired(name = IKotlinModuleProvider.KOTLIN_MODULE_SERVICE)
+    public static IKotlinModuleProvider kotlinModuleProvider;
 
     public ProviderManager() {
         ARouter.getInstance().inject(this);
@@ -56,7 +55,7 @@ public class ProviderManager {
 //        return appProvider;
 //    }
 
-    public IHomeProvider getHomeProvider() {
+    public static IHomeProvider getHomeProvider() {
         if (homeProvider == null) {
             homeProvider = ARouter.getInstance().navigation(IHomeProvider.class);
         }
@@ -89,11 +88,15 @@ public class ProviderManager {
                 }
             };
         }
+        Logger.i("homeProvider address: " + homeProvider.toString());
         return homeProvider;
 //        return ARouter.getInstance().navigation(IHomeProvider.class);
     }
 
-    public IBProviderc getBProvider() {
+    public static IBProviderc getBProvider() {
+        if (bProvider == null) {
+            bProvider = ARouter.getInstance().navigation(IBProviderc.class);
+        }
         if (bProvider == null) {
             bProvider = new IBProviderc() {
                 @Override
@@ -125,7 +128,10 @@ public class ProviderManager {
         return bProvider;
     }
 
-    public IKotlinModuleProvider getKotlinProvider() {
+    public static IKotlinModuleProvider getKotlinProvider() {
+        if (kotlinModuleProvider == null) {
+            kotlinModuleProvider = ARouter.getInstance().navigation(IKotlinModuleProvider.class);
+        }
         if (kotlinModuleProvider == null) kotlinModuleProvider = new IKotlinModuleProvider() {
             @Override
             public void sayHello(String name) {

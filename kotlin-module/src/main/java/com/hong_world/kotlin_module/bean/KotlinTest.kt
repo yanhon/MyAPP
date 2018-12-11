@@ -17,7 +17,7 @@ class  KotlinTest public constructor(names :String){
 
     fun setName(name: String?) {
         val name = name
-        Datas()
+        Datas(sex = "hh",name = "sss")
     }
 
     fun getName(): String {

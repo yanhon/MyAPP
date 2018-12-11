@@ -23,10 +23,10 @@ class MainKotlinModuleActivity : BaseActivity<BasePresenter<*>>() {
 
     override fun initViews(savedInstanceState: Bundle?) {
         super.initViews(savedInstanceState)
-        loadRootFragment(R.id.fl, ProviderManager.getInstance().kotlinProvider.getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null) as ISupportFragment)
+        loadRootFragment(R.id.fl, ProviderManager.kotlinModuleProvider.getFragment(IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID, null) as ISupportFragment)
     }
 
     fun openBModule(v: View) {
-        ProviderManager.getInstance().bProvider.openActivity(IBProvider.B_ACT_B, null)
+        ProviderManager.bProvider.openActivity(IBProvider.B_ACT_B, null)
     }
 }
