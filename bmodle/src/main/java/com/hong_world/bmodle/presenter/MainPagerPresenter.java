@@ -33,7 +33,18 @@ public class MainPagerPresenter extends MainPagerContract.Presenter {
             protected void onFail(String errorCode, String errorMsg) {
 
             }
-        }));
+        }).isCancle(true));
+      addDisposable(mTasksRepository.getFeedArticleList(mCurrentPage).subscribeWith(new RxBaseObserver<FeedArticleListData>(this) {
+            @Override
+            protected void onSuccess(FeedArticleListData data) {
+                getView().getPageListSuccess(data, isRefresh);
+            }
+
+            @Override
+            protected void onFail(String errorCode, String errorMsg) {
+
+            }
+        }).isCancle(true));
     }
 
     public void onItemClick(FeedArticleData data) {

@@ -74,7 +74,7 @@ public class MainPresenter extends MainContract.Presenter {
     public void loginTaskString(String phone, String pwd) {
         phone = this.phone.get();
         pwd = this.pwd.get();
-        mView.onLoading();
+        mView.onLoading(null, true);
         Task newTask;
         if (phone != null && pwd != null && phone.length() != 0 && pwd.length() != 0) {
             newTask = new Task(phone, pwd);
@@ -131,7 +131,7 @@ public class MainPresenter extends MainContract.Presenter {
      * 使用CompositeDisposable 实现生命周期管理请求，简洁结合mvp
      */
     public void loginTask3(final String name, final String pwd) {
-        addDisposable(mTasksRepository.getTask(name, pwd).subscribeWith(new RxBaseObserver<RegisterResp>(this,true) {
+        addDisposable(mTasksRepository.getTask(name, pwd).subscribeWith(new RxBaseObserver<RegisterResp>(this) {
             @Override
             protected void onSuccess(RegisterResp data) {
 //                mView.onSuccess();

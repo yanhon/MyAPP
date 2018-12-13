@@ -18,13 +18,33 @@ import static com.hong_world.common.GlobalContants.DATAERROR;
 
 public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     protected BaseView view;
-    protected boolean showLoadingView;
+    protected boolean showLoadingView = true;
     protected boolean isCancle;
     protected boolean showDataErrorView;//是否展示API数据类型错误的错误页
     protected boolean showOtherErrorView;//是否展示其它类型的错误页
 
+    public RxBaseObserver showLoadingView(boolean showLoadingView) {
+        this.showLoadingView = showLoadingView;
+        return this;
+    }
+
+    public RxBaseObserver isCancle(boolean isCancle) {
+        this.isCancle = isCancle;
+        return this;
+    }
+
+    public RxBaseObserver showDataErrorView(boolean showDataErrorView) {
+        this.showDataErrorView = showDataErrorView;
+        return this;
+    }
+
+    public RxBaseObserver showOtherErrorView(boolean showOtherErrorView) {
+        this.showOtherErrorView = showOtherErrorView;
+        return this;
+    }
+
     public RxBaseObserver(BasePresenter mPresenter) {
-        this(mPresenter, true, false, true);
+        this.view = mPresenter.getView();
     }
 
     public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView) {
@@ -60,10 +80,7 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
         // that the app is busy until the response is handled.
         EspressoIdlingResource.increment();// App is busy until further notice
         if (showLoadingView) {
-            if (isCancle)
-                view.onLoading(this);
-            else
-                view.onLoading();
+            view.onLoading(this, isCancle);
         }
     }
 

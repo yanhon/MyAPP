@@ -40,6 +40,9 @@ import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -56,6 +59,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     protected LoadService mBaseLoadService;
     protected SmartRefreshLayout smartRefreshLayout;
     private Disposable singleDisposable;
+    private List<Disposable> disposables = new ArrayList<>();
     private View needSetStatusView;
 
     protected boolean needTopBar() {
@@ -231,7 +235,6 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
                 @Override
                 public void onReload(View v) {
 //                mBaseLoadService.showSuccess();
-                    onLoading();
                     onRefresh();
                 }
             });
@@ -262,6 +265,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
 //        if (mPresenter != null) {
 //            mPresenter.detachView();
 //            mPresenter.removeAllDisposable();
+        disposables.clear();
         mPresenter = null;
         com.orhanobut.logger.Logger.i("BaseFragment onDestroyView");
 //        }
@@ -336,7 +340,7 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         }
         smartRefreshFinishRefresh();
         smartRefreshFinishLoadMore();
-        isCancleLoading = false;
+//        isCancleLoading = false;
         if (StringUtil.isNotEmpty(msg))
             ToastUtils.showShort(msg);
     }
@@ -369,16 +373,16 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         if (isCancleLoading) {
             onSuccess();
             isCancleLoading = false;
-            mPresenter.removeAllDisposable();
+            for (Disposable disposable : disposables)
+                mPresenter.removeDisposable(disposable);
+            disposables.clear();
             return true;
         }
         return super.onBackPressedSupport();
     }
 
-    @Override
     public void onLoading() {
         hideSoftInput();
-        isCancleLoading = false;
         if (mBaseLoadService != null) {
             mBaseLoadService.setCallBack(LoadingCallback.class, new Transport() {
                 @Override
@@ -390,8 +394,9 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
     }
 
     @Override
-    public void onLoading(Disposable disposable) {
-        singleDisposable = disposable;
+    public void onLoading(Disposable disposable, boolean isCancle) {
+        if (disposable != null)
+            disposables.add(disposable);
         onLoading();
         isCancleLoading = true;
     }

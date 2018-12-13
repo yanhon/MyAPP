@@ -103,8 +103,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
 
     }
 
+//    @Override
+//    public void onLoading() {
+//
+//    }
+
     @Override
-    public void onLoading() {
+    public void onLoading(@Nullable Disposable disposable, boolean isCancle) {
 
     }
 
@@ -153,8 +158,4 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
         super.onStop();
     }
 
-    @Override
-    public void onLoading(Disposable disposable) {
-
-    }
 }
