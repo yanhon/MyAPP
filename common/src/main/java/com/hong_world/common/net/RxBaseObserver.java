@@ -44,7 +44,7 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     }
 
     public RxBaseObserver(BasePresenter mPresenter) {
-        this.view = mPresenter.getView();
+        this.view = mPresenter.getBaseView();
     }
 
     public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView) {
@@ -66,7 +66,7 @@ public abstract class RxBaseObserver<T> extends DisposableObserver<T> {
     }
 
     public RxBaseObserver(BasePresenter mPresenter, boolean showLoadingView, boolean isCancle, boolean showDataErrorView, boolean showOtherErrorView) {
-        this.view = mPresenter.getView();
+        this.view = mPresenter.getBaseView();
         this.isCancle = isCancle;
         this.showLoadingView = showLoadingView;
         this.showDataErrorView = showDataErrorView;

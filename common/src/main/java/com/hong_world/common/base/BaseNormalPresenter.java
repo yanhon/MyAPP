@@ -19,10 +19,17 @@ import io.reactivex.observers.DisposableObserver;
  * Version:
  */
 
-public abstract class BaseNormalPresenter<V extends BaseView> implements BasePresenter<V>, LifecycleObserver {
+public abstract class BaseNormalPresenter<V extends BaseView> implements BasePresenter, LifecycleObserver {
     protected V mView;
     //用来存放Disposable的容器
     private CompositeDisposable mCompositeDisposable;
+
+    public BaseNormalPresenter() {
+    }
+
+    public BaseNormalPresenter(V mView) {
+        this.mView = mView;
+    }
 
     public void setmView(V mView) {
         this.mView = mView;
@@ -38,10 +45,15 @@ public abstract class BaseNormalPresenter<V extends BaseView> implements BasePre
         }
     }
 
-    @Override
+
     public V getView() {
         if (mView == null)
             throw new RuntimeException("You have no binding this view");
+        return mView;
+    }
+
+    @Override
+    public BaseView getBaseView() {
         return mView;
     }
 

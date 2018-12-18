@@ -10,10 +10,10 @@ import io.reactivex.observers.DisposableObserver;
  * Version:
  */
 
-public interface BasePresenter<V extends BaseView> {
+public interface BasePresenter {
     void detachView();
 
-    V getView();
+    BaseView getBaseView();
 
     void initData();
 
