@@ -17,7 +17,7 @@ public interface NewListContract {
         void onItemClick(MultipleItem data);
     }
 
-    abstract class Presenter extends BaseNormalPresenter<NewListContract.View> {
+    abstract class Presenter extends BaseNormalPresenter<NewListContract.View<Presenter>> {
 
     }
 }

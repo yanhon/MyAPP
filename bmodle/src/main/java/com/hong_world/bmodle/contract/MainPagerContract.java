@@ -19,7 +19,7 @@ public interface MainPagerContract {
         void onItemClick(FeedArticleData data);
     }
 
-    abstract class Presenter extends BaseNormalPresenter<MainPagerContract.View> {
+    abstract class Presenter extends BaseNormalPresenter<MainPagerContract.View<Presenter>> {
 
         public abstract void getPageList(int mCurrentPage, boolean isRefresh);
     }

@@ -15,7 +15,7 @@ interface WanAndroidContract {
         abstract fun getPageListSuccess(data: FeedArticleListData, isRefresh: Boolean)
     }
 
-    abstract class Presenter : BaseNormalPresenter<View<*>>() {
+    abstract class Presenter : BaseNormalPresenter<View<Presenter>>() {
         abstract fun getPageList(mCurrentPage: Int, isRefresh: Boolean)
     }
 }

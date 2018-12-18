@@ -15,7 +15,7 @@ public interface HomeContract {
 
     }
 
-    abstract class Presenter extends BaseNormalPresenter<HomeContract.View> {
+    abstract class Presenter extends BaseNormalPresenter<HomeContract.View<Presenter>> {
 
     }
 }
