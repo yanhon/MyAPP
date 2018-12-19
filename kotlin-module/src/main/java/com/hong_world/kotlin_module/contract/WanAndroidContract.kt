@@ -11,11 +11,11 @@ import com.hong_world.library.base.BaseView
  * Version:
  */
 interface WanAndroidContract {
-    interface View<P : Presenter> : BaseView<P> {
+    interface View : BaseView {
         abstract fun getPageListSuccess(data: FeedArticleListData, isRefresh: Boolean)
     }
 
-    abstract class Presenter : BaseNormalPresenter<View<Presenter>>() {
+    abstract class Presenter : BaseNormalPresenter<View>() {
         abstract fun getPageList(mCurrentPage: Int, isRefresh: Boolean)
     }
 }

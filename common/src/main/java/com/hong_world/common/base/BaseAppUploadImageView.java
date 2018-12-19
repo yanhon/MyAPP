@@ -8,7 +8,7 @@ import com.hong_world.library.base.BaseView;
  * Description:
  * Version:
  */
-public interface BaseAppUploadImageView<P extends BaseAppUploadImagePresenter> extends BaseView<P> {
+public interface BaseAppUploadImageView extends BaseView {
     void onCamera();
 
     void onPhoto();

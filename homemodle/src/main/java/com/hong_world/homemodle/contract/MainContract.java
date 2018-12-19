@@ -2,14 +2,13 @@ package com.hong_world.homemodle.contract;
 
 import com.hong_world.common.base.BaseNormalPresenter;
 import com.hong_world.common.bean.Task;
-import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 
 /**
  * Created by hong_world on 2017/10/31.
  */
 public interface MainContract {
-    interface View<P extends BasePresenter> extends BaseView<P> {
+    interface View extends BaseView {
 
         void onSuccess(Task task);
 

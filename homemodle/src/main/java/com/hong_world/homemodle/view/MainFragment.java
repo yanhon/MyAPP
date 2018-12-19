@@ -24,7 +24,7 @@ import com.hong_world.routerlibrary.provider.IKotlinModuleProvider;
  * Version:
  */
 @Route(path = IHomeProvider.HOME_FRG_MAIN)
-public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBinding> implements MainContract.View<MainPresenter> {
+public class MainFragment extends BaseFragment<MainPresenter, FragmentLoginsBinding> implements MainContract.View {
 
     public static MainFragment getInstance() {
         return new MainFragment();

@@ -27,7 +27,7 @@ import com.orhanobut.logger.Logger;
  * Version:
  */
 @Route(path = IBProvider.B_FRG_MAIN_PAGER)
-public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, FragmentMainPagerBinding> implements MainPagerContract.View<MainPagerPresenter> {
+public class MainPagerFragment extends BaseListFragment<MainPagerPresenter, FragmentMainPagerBinding> implements MainPagerContract.View {
 
 
     @Override

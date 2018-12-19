@@ -51,7 +51,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * Version:
  */
 @Route(path = IHomeProvider.HOME_FRG_NEW_LIST)
-public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewListBinding> implements NewListContract.View<NewListPresenter> {
+public class NewListFragment extends BaseFragment<NewListPresenter, FragmentNewListBinding> implements NewListContract.View {
 
     private MultipleItemQuickAdapter2 mAdapter;
 

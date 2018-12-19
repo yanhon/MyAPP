@@ -45,7 +45,7 @@ import io.reactivex.schedulers.Schedulers;
  * Version:
  */
 public abstract class BaseUploadImageFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseFragment<P, V>
-        implements BaseView<P> {
+        implements BaseView {
     private static final int REQUEST_MULTIPLE_CODE_CHOOSE = 19;
     private static final int PHOTO_REQUEST_GALLERY = 20;
     private static final int PHOTO_REQUEST_GALLERY_CROP = 21;

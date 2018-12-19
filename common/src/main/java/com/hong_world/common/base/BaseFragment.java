@@ -52,7 +52,7 @@ import io.reactivex.disposables.Disposable;
  * Version:
  */
 
-public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseAppFragment implements BaseView<P> {
+public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseAppFragment implements BaseView {
     protected P mPresenter;
     protected V mBinding;
     protected BaseLayoutBinding baseLayoutBinding;
@@ -244,7 +244,8 @@ public abstract class BaseFragment<P extends BasePresenter, V extends ViewDataBi
         return mBinding;
     }
 
-    @Override
+    public abstract P createPresenter();
+
     public void setPresenter(P presenter) {
         this.mPresenter = presenter;
     }

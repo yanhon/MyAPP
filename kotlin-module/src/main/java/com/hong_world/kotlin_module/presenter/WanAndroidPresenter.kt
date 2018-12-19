@@ -16,7 +16,7 @@ import com.hong_world.kotlin_module.modle.remote.TasksRemoteDataSource
  * Description:
  * Version:
  */
-class WanAndroidPresenter(view: WanAndroidContract.View<*>) : WanAndroidContract.Presenter() {
+class WanAndroidPresenter(view: WanAndroidContract.View) : WanAndroidContract.Presenter() {
     private var mTasksRepository: TasksDataSource? = null
 
     init {

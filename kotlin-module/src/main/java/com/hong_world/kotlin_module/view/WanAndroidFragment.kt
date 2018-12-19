@@ -25,7 +25,7 @@ import java.util.*
  * Version:
  */
 @Route(path = IKotlinModuleProvider.KOTLIN_MODULE_FRG_WAN_ANDROID)
-class WanAndroidFragment : BaseFragment<WanAndroidPresenter, FragmentWanAndroidBinding>(), WanAndroidContract.View<WanAndroidPresenter> {
+class WanAndroidFragment : BaseFragment<WanAndroidPresenter, FragmentWanAndroidBinding>(), WanAndroidContract.View {
     lateinit var mAdapter: SingleDataBindingUseAdapter<FeedArticleData, *>
     var mCurrentPage: Int = 0
     override fun createPresenter(): WanAndroidPresenter = WanAndroidPresenter(this)

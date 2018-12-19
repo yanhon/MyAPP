@@ -11,10 +11,10 @@ import io.reactivex.disposables.Disposable;
  * Version:
  */
 
-public interface BaseView<P extends BasePresenter> {
-    void setPresenter(P presenter);
-
-    P createPresenter();
+public interface BaseView {
+//    void setPresenter(P presenter);
+//
+//    P createPresenter();
 
     void onBack();
 

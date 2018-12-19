@@ -9,7 +9,7 @@ import android.databinding.ViewDataBinding;
  * Version:
  */
 public abstract class BaseAppUploadImageFragment<P extends BaseAppUploadImagePresenter, V extends ViewDataBinding> extends BaseUploadImageFragment<P, V>
-        implements BaseAppUploadImageView<P> {
+        implements BaseAppUploadImageView {
     /**
      * 弹窗选择器（拍照or相册）
      */

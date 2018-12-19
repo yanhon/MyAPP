@@ -39,7 +39,7 @@ import com.orhanobut.logger.Logger;
  * Version:
  */
 public abstract class BaseWebViewFragment<P extends BasePresenter, V extends ViewDataBinding> extends BaseFragment<P, V>
-        implements BaseView<P>, FragmentKeyDown {
+        implements BaseView, FragmentKeyDown {
     protected AgentWeb mAgentWeb;
     protected DownloadingService mDownloadingService;
     protected MiddlewareWebClientBase mMiddleWareWebClient;

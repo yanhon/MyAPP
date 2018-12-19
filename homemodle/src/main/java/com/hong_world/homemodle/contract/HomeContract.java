@@ -1,7 +1,6 @@
 package com.hong_world.homemodle.contract;
 
 import com.hong_world.common.base.BaseNormalPresenter;
-import com.hong_world.library.base.BasePresenter;
 import com.hong_world.library.base.BaseView;
 
 /**
@@ -11,11 +10,11 @@ import com.hong_world.library.base.BaseView;
  * Version:
  */
 public interface HomeContract {
-    interface View<P extends BasePresenter> extends BaseView<P> {
+    interface View extends BaseView {
 
     }
 
-    abstract class Presenter extends BaseNormalPresenter<HomeContract.View<Presenter>> {
+    abstract class Presenter extends BaseNormalPresenter<HomeContract.View> {
 
     }
 }

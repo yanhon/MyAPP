@@ -21,7 +21,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * Version:
  */
 @Route(path = IHomeProvider.HOME_FRG_WEB)
-public class MyWebFragment extends BaseWebViewFragment<HomePresenter, FragmentHomeBinding> implements HomeContract.View<HomePresenter> {
+public class MyWebFragment extends BaseWebViewFragment<HomePresenter, FragmentHomeBinding> implements HomeContract.View {
     private ISupportFragment[] mFragments = new ISupportFragment[4];
     public static final int FIRST = 0;
     public static final int SECOND = 1;

@@ -25,7 +25,7 @@ import io.reactivex.disposables.Disposable;
  * Version:
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActivity implements BaseView<P> {
+public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActivity implements BaseView {
 
     protected P mPresenter;
     private ViewDataBinding mBinding;
@@ -60,7 +60,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends BaseAppActiv
 
     }
 
-    @Override
+    public abstract P createPresenter();
+
     public void setPresenter(P presenter) {
         this.mPresenter = presenter;
     }
