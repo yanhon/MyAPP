@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hong_world.common.base.BaseUploadImageFragment;
+import com.hong_world.common.utils.PermissionUtlis;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.contract.HomeContract;
 import com.hong_world.homemodle.databinding.FragmentHomeBinding;
@@ -79,18 +80,19 @@ public class ImageFragment extends BaseUploadImageFragment<HomePresenter, Fragme
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int i = item.getItemId();
-                if (!checkPermission("存储空间、相机", 0, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))
-                    return true;
-
-                if (i == R.id.tab_navigation) {
-                    galleryCrop();
-                } else if (i == R.id.tab_knowledge_hierarchy) {
-                    cameraCropPhoto();
-                } else if (i == R.id.tab_project) {
-                    cameraPhotoFile();
-                } else if (i == R.id.tab_main_pager) {
-                    selectMultipleImage();
-                }
+//                if (!checkPermission("存储空间、相机", 0, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE))
+//                    return true;
+                addDisposable(PermissionUtlis.checkPermission(ImageFragment.this, "存储空间、相机", () -> {
+                    if (i == R.id.tab_navigation) {
+                        galleryCrop();
+                    } else if (i == R.id.tab_knowledge_hierarchy) {
+                        cameraCropPhoto();
+                    } else if (i == R.id.tab_project) {
+                        cameraPhotoFile();
+                    } else if (i == R.id.tab_main_pager) {
+                        selectMultipleImage();
+                    }
+                }, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE));
                 return true;
             }
         });
