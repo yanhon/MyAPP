@@ -15,7 +15,8 @@ public abstract class BaseAppFragment extends BaseSupportFragment {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected void addDisposable(Disposable disposable) {
-        compositeDisposable.add(disposable);
+        if (disposable != null)
+            compositeDisposable.add(disposable);
     }
 
 //    protected RxPermissions getRxPermissions() {

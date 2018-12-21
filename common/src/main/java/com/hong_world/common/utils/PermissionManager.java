@@ -22,7 +22,7 @@ import io.reactivex.functions.Consumer;
  * Description:
  * Version:
  */
-public class PermissionUtlis {
+public class PermissionManager {
     public static Disposable checkPermission(Fragment context, String msg, OnPermissionListener listener, String... permissions) {
         return checkPermissionImp(new RxPermissions(context), context.getActivity(), msg, listener, permissions);
     }
