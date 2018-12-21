@@ -2,7 +2,7 @@ package com.hong_world.kotlin_module.presenter
 
 import com.hong_world.common.ProviderManager
 import com.hong_world.common.net.RxBaseObserver
-import com.hong_world.common.utils.GsonUtils
+import com.hong_world.library.utils.GsonUtils
 import com.hong_world.kotlin_module.bean.FeedArticleListData
 import com.hong_world.kotlin_module.contract.WanAndroidContract
 import com.hong_world.kotlin_module.modle.TasksDataSource

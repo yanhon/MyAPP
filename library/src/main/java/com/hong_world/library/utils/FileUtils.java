@@ -1,4 +1,4 @@
-package com.hong_world.common.utils;
+package com.hong_world.library.utils;
 
 import android.content.ContentUris;
 import android.content.Context;

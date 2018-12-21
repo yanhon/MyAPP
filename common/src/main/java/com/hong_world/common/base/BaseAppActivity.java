@@ -82,5 +82,6 @@ public abstract class BaseAppActivity extends BaseSupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 }

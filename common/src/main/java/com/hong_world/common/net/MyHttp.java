@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.hong_world.common.net.down.DownProgress;
-import com.hong_world.common.net.down.DownloadManager;
+import com.hong_world.library.net.down.DownProgress;
+import com.hong_world.library.net.down.DownloadManager;
 import com.hong_world.library.net.ApiRetryFunc;
 import com.hong_world.library.net.FragmentLifeCycleEvent;
 import com.hong_world.library.net.exception.APIResultException;

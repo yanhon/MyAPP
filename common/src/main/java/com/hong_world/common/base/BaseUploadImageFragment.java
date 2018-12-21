@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 
 import com.hong_world.common.R;
 import com.hong_world.common.utils.Compressor;
-import com.hong_world.common.utils.FileUtils;
+import com.hong_world.library.utils.FileUtils;
 import com.hong_world.common.utils.GifSizeFilter;
 import com.hong_world.common.utils.Glide4Engine;
 import com.hong_world.common.utils.SDCardUtils;

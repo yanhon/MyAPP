@@ -1,13 +1,13 @@
-package com.hong_world.common.net.down;
+package com.hong_world.library.net.down;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.hong_world.common.utils.FileUtils;
-import com.hong_world.common.utils.GsonUtils;
-import com.hong_world.common.utils.SPUtils;
 import com.hong_world.library.base.BaseApplication;
 import com.hong_world.library.net.exception.APIResultException;
+import com.hong_world.library.utils.FileUtils;
+import com.hong_world.library.utils.GsonUtils;
+import com.hong_world.library.utils.SPUtils;
 import com.hong_world.library.utils.StringUtil;
 import com.orhanobut.logger.Logger;
 
