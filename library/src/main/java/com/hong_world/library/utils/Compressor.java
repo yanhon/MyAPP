@@ -1,4 +1,4 @@
-package com.hong_world.common.utils;
+package com.hong_world.library.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,8 +6,12 @@ import android.graphics.Bitmap;
 import java.io.File;
 import java.io.IOException;
 
+
 /**
- * Created by hong_world on 2017/8/8.
+ * Date: 2017/8/8. 17:54
+ * Author: hong_world
+ * Description: 图片压缩
+ * Version:
  */
 
 public class Compressor {

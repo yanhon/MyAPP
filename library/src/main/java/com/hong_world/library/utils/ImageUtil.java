@@ -1,4 +1,4 @@
-package com.hong_world.common.utils;
+package com.hong_world.library.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +10,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by hong_world on 2017/8/8.
+ * Date: 2017/8/8. 17:54
+ * Author: hong_world
+ * Description: 图片压缩
+ * Version:
  */
 
 public class ImageUtil {

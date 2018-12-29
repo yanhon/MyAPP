@@ -9,11 +9,11 @@ import android.support.test.runner.AndroidJUnit4;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hong_world.homemodle.R;
 import com.hong_world.homemodle.view.MainActivity;
-import com.hong_world.library.view.status.callback.CustomCallback;
-import com.hong_world.library.view.status.callback.EmptyCallback;
-import com.hong_world.library.view.status.callback.ErrorCallback;
-import com.hong_world.library.view.status.callback.LoadingCallback;
-import com.hong_world.library.view.status.callback.TimeoutCallback;
+import com.hong_world.common.view.status.callback.CustomCallback;
+import com.hong_world.common.view.status.callback.EmptyCallback;
+import com.hong_world.common.view.status.callback.ErrorCallback;
+import com.hong_world.common.view.status.callback.LoadingCallback;
+import com.hong_world.common.view.status.callback.TimeoutCallback;
 import com.kingja.loadsir.core.LoadSir;
 
 import org.junit.After;

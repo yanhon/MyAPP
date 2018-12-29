@@ -19,7 +19,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.hong_world.common.R;
-import com.hong_world.common.utils.DensityUtils;
+import com.hong_world.library.utils.DensityUtils;
 
 /**
  * Date: 2018/11/14. 17:51

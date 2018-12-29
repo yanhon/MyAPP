@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
-import com.hong_world.library.view.status.StatusLayoutManager;
 
 /**
  * Date: 2017/10/31.17:55
@@ -33,7 +32,6 @@ public abstract class BaseAppCompatFragment extends Fragment {
     protected float mScreenDensity = 0.0f;
 
     protected Activity mActivity;
-    protected StatusLayoutManager mStatusLayoutManager;
 
     @Override
     public void onAttach(Context context) {

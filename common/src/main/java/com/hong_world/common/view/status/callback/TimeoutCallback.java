@@ -1,7 +1,8 @@
-package com.hong_world.library.view.status.callback;
+package com.hong_world.common.view.status.callback;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hong_world.library.R;
 import com.kingja.loadsir.callback.Callback;
@@ -14,21 +15,17 @@ import com.kingja.loadsir.callback.Callback;
  * Version:
  */
 
-public class LoadingCallback extends Callback {
+public class TimeoutCallback extends Callback {
 
     @Override
     protected int onCreateView() {
-        return R.layout.layout_loading;
-    }
-
-    //是否在显示Callback视图的时候显示原始图(SuccessView)，返回true显示，false隐藏
-    @Override
-    public boolean getSuccessVisible() {
-        return true;
+        return R.layout.layout_timeout;
     }
 
     @Override
     protected boolean onReloadEvent(Context context, View view) {
-        return true;
+        Toast.makeText(context.getApplicationContext(),"Connecting to the network again!",Toast.LENGTH_SHORT).show();
+        return false;
     }
+
 }

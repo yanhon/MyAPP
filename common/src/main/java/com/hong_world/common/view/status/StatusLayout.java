@@ -1,4 +1,4 @@
-package com.hong_world.library.view.status;
+package com.hong_world.common.view.status;
 
 import android.annotation.TargetApi;
 import android.content.Context;

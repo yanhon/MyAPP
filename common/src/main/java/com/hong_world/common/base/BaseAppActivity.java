@@ -1,7 +1,5 @@
 package com.hong_world.common.base;
 
-import com.hong_world.library.base.BaseSupportActivity;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

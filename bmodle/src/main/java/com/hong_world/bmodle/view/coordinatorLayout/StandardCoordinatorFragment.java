@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.hong_world.bmodle.R;
 import com.hong_world.bmodle.databinding.FragmentStandardCoordinatorBinding;
 import com.hong_world.common.bean.MyUserInfoLiveData;
-import com.hong_world.library.base.BaseSupportFragment;
+import com.hong_world.common.base.BaseSupportFragment;
 import com.orhanobut.logger.Logger;
 
 /**
